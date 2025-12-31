@@ -6,27 +6,32 @@
 </head>
 <body>
 
-<nav class="navbar">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="login.html">Login</a>
-</nav>
-
 <h2>Login</h2>
 
 <div class="login-box">
-  <h3>Customer Login</h3>
-  <input type="text" placeholder="Email">
-  <input type="password" placeholder="Password">
-  <button>Login</button>
+  <input type="text" id="loginUser" placeholder="Username">
+  <input type="password" id="loginPass" placeholder="Password">
+  <button onclick="login()">Login</button>
 </div>
 
-<div class="login-box">
-  <h3>Retailer Login</h3>
-  <input type="text" placeholder="Retailer ID">
-  <input type="password" placeholder="Password">
-  <button>Login</button>
-</div>
+<p id="msg"></p>
+
+<script>
+function login() {
+  let user = document.getElementById("loginUser").value;
+  let pass = document.getElementById("loginPass").value;
+
+  let savedUser = localStorage.getItem("user");
+  let savedPass = localStorage.getItem("pass");
+
+  if (user === savedUser && pass === savedPass) {
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("msg").innerText = "Invalid login";
+  }
+}
+</script>
 
 </body>
 </html>
