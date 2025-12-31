@@ -67,9 +67,20 @@ if (localStorage.getItem("loggedIn") !== "true") {
 }
 </script>
 
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem("loggedIn");
+  window.location.href = "otp-login.html";
+}
+</script>
+
+
 
 
 </body>
+
 
 
 
