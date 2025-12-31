@@ -8,6 +8,8 @@
     <a href="products.html">Products</a>
     <a href="contact.html">Contact</a>
   </div>
+  <button onclick="logout()">Logout</button>
+
 </nav>
 
   <div class="slider">
@@ -52,8 +54,16 @@ setInterval(() => {
 }, 3000);
 </script>
 
+  <script>
+function logout() {
+  localStorage.removeItem("loggedIn");
+  window.location.href = "login.html";
+}
+</script>
+
 
 </body>
+
 
 
 
