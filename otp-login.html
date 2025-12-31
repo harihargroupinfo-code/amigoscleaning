@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OTP Login | Amigos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+
+<h2>OTP Login</h2>
+
+<div class="login-box">
+  <input type="email" id="email" placeholder="Enter Email">
+  <button onclick="sendOTP()">Send OTP</button>
+
+  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
+</div>
+
+<p id="msg"></p>
+
+<script>
+(function(){
+  emailjs.init("YOUR_PUBLIC_KEY");
+})();
+
+let generatedOTP = "";
+
+function sendOTP() {
+  const email = document.getElementById("email").value;
+  if (!email) return alert("Enter email");
+
+  generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    otp: generatedOTP,
+    to_email: email
+  }).then(() => {
+    document.getElementById("msg").innerText = "OTP sent to email";
+    document.getElementById("otp").style.display = "block";
+    document.getElementById("verifyBtn").style.display = "block";
+  });
+}
+
+function verifyOTP() {
+  const entered = document.getElementById("otp").value;
+  if (entered === generatedOTP) {
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("msg").innerText = "Invalid OTP";
+  }
+}
+</script>
+
+</body>
+</html>
