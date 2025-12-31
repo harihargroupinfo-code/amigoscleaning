@@ -53,5 +53,25 @@ function verifyOTP() {
 }
 </script>
 
+  <script>
+(function(){
+  emailjs.init("YnWogP4Pkvlk2l46EL");
+})();
+
+let generatedOTP = "";
+
+function sendOTP() {
+  const email = document.getElementById("email").value;
+
+  generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+  emailjs.send("service_c1bp7of", "templet_5s500wl", {
+    otp: generatedOTP,
+    to_email: email
+  });
+}
+</script>
+
 </body>
 </html>
+
