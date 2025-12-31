@@ -1,0 +1,33 @@
+<h2>Place Order</h2>
+
+<form>
+  <input type="text" placeholder="Product Name">
+  <input type="number" placeholder="Quantity">
+  <button>Submit Order</button>
+</form>
+
+
+<h2>Place Order & Pay</h2>
+
+<input type="text" id="product" placeholder="Product Name">
+<input type="number" id="amount" placeholder="Amount (INR)">
+<button onclick="payNow()">Pay Now</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+function payNow() {
+  var options = {
+    "key": "razorpay.me/@harihargroupofindustries",
+    "amount": document.getElementById("amount").value * 100,
+    "currency": "INR",
+    "name": "AMIGOS",
+    "description": "Housekeeping Products",
+    "handler": function (response){
+        alert("Payment Successful. Payment ID: " + response.razorpay_payment_id);
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+}
+</script>
