@@ -29,3 +29,32 @@
 .login-box button:hover {
   background: #2563eb;
 }
+
+/* LOGIN & SIGNUP STYLES */
+.login-box {
+  width: 300px;
+  margin: 80px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #111827;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background: #2563eb;
+}
