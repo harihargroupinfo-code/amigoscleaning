@@ -1,6 +1,9 @@
 <script>
-if (localStorage.getItem("role") !== "distributor") {
-  location.href = "login.html";
+if (
+  localStorage.getItem("loggedIn") !== "true" ||
+  localStorage.getItem("role") !== "distributor"
+) {
+  location.href = "otp-login.html";
 }
 </script>
 
@@ -10,6 +13,6 @@ if (localStorage.getItem("role") !== "distributor") {
 <script>
 function logout() {
   localStorage.clear();
-  location.href = "login.html";
+  location.href = "otp-login.html";
 }
 </script>
