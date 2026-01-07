@@ -37,6 +37,23 @@ function sendOTP() {
   const email = document.getElementById("email").value;
   if (!email) return alert("Enter email");
 
+  if (selectedRole === "distributor") {
+  let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
+
+  let user = pending.find(u => u.email === email);
+
+  if (!user) {
+    alert("Distributor not registered");
+    return;
+  }
+
+  if (!user.approved) {
+    alert("Distributor account pending admin approval");
+    return;
+  }
+}
+
+
   generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
   emailjs.send("service_c1bp7of", "template_5s500wl", {
@@ -64,6 +81,7 @@ function verifyOTP() {
 
 </body>
 </html>
+
 
 
 
