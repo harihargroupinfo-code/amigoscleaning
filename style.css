@@ -55,6 +55,14 @@
   cursor: pointer;
 }
 
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+
 .login-box button:hover {
   background: #2563eb;
 }
+
