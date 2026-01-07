@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<h2>Login</h2>
-
 <div class="login-box">
-  <input type="text" id="loginUser" placeholder="Username">
-  <input type="password" id="loginPass" placeholder="Password">
-  <button onclick="login()">Login</button>
-</div>
-<p style="text-align:center; margin-top:10px;">
-  New user?
-  <a href="signup.html">Register here</a>
-</p>
+  <h3>Login</h3>
 
-<p id="msg"></p>
+  <select id="role">
+    <option value="">Select Role</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+    <option value="admin">Admin</option>
+  </select>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <p style="text-align:center;">
+    New user? <a href="signup.html">Register here</a>
+  </p>
+</div>
 
 <script>
 function login() {
-  let user = document.getElementById("loginUser").value;
-  let pass = document.getElementById("loginPass").value;
+  const role = document.getElementById("role").value;
 
-  let savedUser = localStorage.getItem("user");
-  let savedPass = localStorage.getItem("pass");
-
-  if (user === savedUser && pass === savedPass) {
-    localStorage.setItem("loggedIn", "true");
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("msg").innerText = "Invalid login";
+  if (!role) {
+    alert("Select role");
+    return;
   }
+
+  localStorage.setItem("role", role);
+  localStorage.setItem("loggedIn", "true");
+
+  if (role === "retailer") location.href = "retailer.html";
+  if (role === "distributor") location.href = "distributor.html";
+  if (role === "admin") location.href = "admin.html";
 }
 </script>
-
-</body>
-</html>
-
