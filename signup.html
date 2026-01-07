@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sign Up | Amigos</title>
+  <title>Register | Amigos</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,40 +12,41 @@
 </nav>
 
 <div class="login-box">
-  <h3>Register</h3>
+  <h3>Register Account</h3>
 
-  <!-- ROLE SELECTION -->
-  <select id="signupRole">
-    <option value="">Register As</option>
+  <!-- REGISTER AS -->
+  <label>Register As</label>
+  <select id="role">
+    <option value="">Select Role</option>
     <option value="retailer">Retailer</option>
     <option value="distributor">Distributor</option>
   </select>
 
-  <input type="text" placeholder="Name">
+  <input type="text" placeholder="Full Name">
   <input type="email" placeholder="Email">
   <input type="password" placeholder="Password">
 
   <button onclick="register()">Register</button>
 
-  <p style="text-align:center; margin-top:10px;">
-    Already registered?
+  <p style="text-align:center; margin-top:12px;">
+    Already have an account?
     <a href="otp-login.html">Login with OTP</a>
   </p>
 </div>
 
 <script>
 function register() {
-  const role = document.getElementById("signupRole").value;
+  const role = document.getElementById("role").value;
 
   if (!role) {
     alert("Please select Retailer or Distributor");
     return;
   }
 
-  // Save role temporarily (frontend demo)
+  // Save role for OTP login
   localStorage.setItem("registeredRole", role);
 
-  // Redirect to OTP login
+  // Go to OTP login
   window.location.href = "otp-login.html";
 }
 </script>
