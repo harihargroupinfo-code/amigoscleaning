@@ -7,81 +7,96 @@
 </head>
 <body>
 
-<h2>OTP Login</h2>
-
 <div class="login-box">
+  <h3>OTP Login</h3>
+
+  <!-- ROLE DROPDOWN -->
+  <select id="role">
+    <option value="">Select Role</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+    <option value="admin">Admin</option>
+  </select>
+
   <input type="email" id="email" placeholder="Enter Email">
+
   <button onclick="sendOTP()">Send OTP</button>
 
   <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
-  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
+  <button id="verifyBtn" onclick="verifyOTP()" style="display:none;">
+    Verify OTP
+  </button>
+
+  <p id="msg" style="text-align:center;"></p>
 </div>
-
-<p id="msg"></p>
-
-  // If coming from signup, auto-select role
-const savedRole = localStorage.getItem("registeredRole");
-if (savedRole) {
-  document.getElementById("role").value = savedRole;
-}
-
 
 <script>
 (function(){
-  emailjs.init("nWogP4Pkvlk2l46EL");
+  emailjs.init("YOUR_PUBLIC_KEY");
 })();
 
+// Detect admin login via URL
+const params = new URLSearchParams(window.location.search);
+const isAdminMode = params.get("admin") === "true";
+
+// Hide Admin unless admin=true
+window.onload = function () {
+  if (!isAdminMode) {
+    document.querySelector('option[value="admin"]').style.display = "none";
+  }
+};
+
 let generatedOTP = "";
+let selectedRole = "";
 
 function sendOTP() {
+  selectedRole = document.getElementById("role").value;
   const email = document.getElementById("email").value;
-  if (!email) return alert("Enter email");
 
+  if (!selectedRole || !email) {
+    alert("Select role and enter email");
+    return;
+  }
+
+  // Block unapproved distributors
   if (selectedRole === "distributor") {
-  let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
+    let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
+    let user = pending.find(u => u.email === email);
 
-  let user = pending.find(u => u.email === email);
-
-  if (!user) {
-    alert("Distributor not registered");
-    return;
+    if (!user || !user.approved) {
+      alert("Distributor pending admin approval");
+      return;
+    }
   }
-
-  if (!user.approved) {
-    alert("Distributor account pending admin approval");
-    return;
-  }
-}
-
 
   generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-  emailjs.send("service_c1bp7of", "template_5s500wl", {
-    otp: generatedOTP,
-    to_email: email
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    to_email: email,
+    otp: generatedOTP
   }).then(() => {
-    document.getElementById("msg").innerText = "OTP sent to email";
+    document.getElementById("msg").innerText = "OTP sent";
     document.getElementById("otp").style.display = "block";
     document.getElementById("verifyBtn").style.display = "block";
+  }).catch(err => {
+    alert("OTP failed");
+    console.error(err);
   });
 }
 
 function verifyOTP() {
-  const entered = document.getElementById("otp").value;
-  if (entered === generatedOTP) {
+  if (document.getElementById("otp").value === generatedOTP) {
     localStorage.setItem("loggedIn", "true");
-    window.location.href = "index.html";
+    localStorage.setItem("role", selectedRole);
+
+    if (selectedRole === "retailer") location.href = "retailer.html";
+    if (selectedRole === "distributor") location.href = "distributor.html";
+    if (selectedRole === "admin") location.href = "admin.html";
   } else {
     document.getElementById("msg").innerText = "Invalid OTP";
   }
-  localStorage.removeItem("registeredRole");
-
 }
 </script>
 
 </body>
 </html>
-
-
-
-
