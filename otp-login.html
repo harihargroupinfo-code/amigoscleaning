@@ -39,7 +39,7 @@ function sendOTP() {
 
   generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+  emailjs.send("service_c1bp7of", "template_5s500wl", {
     otp: generatedOTP,
     to_email: email
   }).then(() => {
@@ -57,10 +57,13 @@ function verifyOTP() {
   } else {
     document.getElementById("msg").innerText = "Invalid OTP";
   }
+  localStorage.removeItem("registeredRole");
+
 }
 </script>
 
 </body>
 </html>
+
 
 
