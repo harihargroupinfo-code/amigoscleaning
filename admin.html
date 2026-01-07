@@ -1,22 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel | Amigos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
 <script>
-if (
-  localStorage.getItem("loggedIn") !== "true" ||
-  localStorage.getItem("role") !== "admin"
-) {
-  location.href = "otp-login.html";
+if (localStorage.getItem("role") !== "admin") {
+  location.href = "otp-login.html?admin=true";
 }
 </script>
 
-<h2>Admin Panel</h2>
+<h2>Admin Dashboard</h2>
+
+<h3>Pending Distributor Approvals</h3>
+
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="pendingList"></tbody>
+</table>
+
+<br>
 <button onclick="logout()">Logout</button>
 
 <script>
-function logout() {
-  localStorage.clear();
-  location.href = "otp-login.html";
+function loadPending() {
+  let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
+  let tbody = document.getElementById("pendingList");
+  tbody.innerHTML = "";
+
+  pending.forEach((user, index) => {
+    if (!user.approved) {
+      tbody.innerHTML += `
+        <tr>
+          <td>${user.email}</td>
+          <td>Pending</td>
+          <td>
+            <button onclick="approve(${index})">Approve</button>
+          </td>
+        </tr>
+      `;
+    }
+  });
 }
 
-  <option value="admin" hidden>Admin</option>
+function approve(index) {
+  let pending = JSON.parse(localStorage.getItem("pendingDistributors"));
+  pending[index].approved = true;
+  localStorage.setItem("pendingDistributors", JSON.stringify(pending));
+  alert("Distributor approved");
+  loadPending();
+}
 
+function logout() {
+  localStorage.clear();
+  location.href = "otp-login.html?admin=true";
+}
+
+loadPending();
 </script>
 
+</body>
+</html>
