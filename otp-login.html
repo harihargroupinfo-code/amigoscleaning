@@ -31,6 +31,31 @@
 </div>
 
 <script>
+  <script>
+/* ADMIN VISIBILITY CONTROL */
+window.onload = function () {
+  const params = new URLSearchParams(window.location.search);
+  const adminOption = document.querySelector('option[value="admin"]');
+
+  if (params.get("admin") !== "true") {
+    adminOption.style.display = "none";
+  } else {
+    adminOption.style.display = "block";
+  }
+};
+
+let generatedOTP = "";
+let selectedRole = "";
+
+function sendOTP() {
+  ...
+}
+
+function verifyOTP() {
+  ...
+}
+</script>
+
 /* Hide Admin unless admin=true */
 const params = new URLSearchParams(window.location.search);
 if (params.get("admin") !== "true") {
@@ -82,4 +107,5 @@ function verifyOTP() {
 
 </body>
 </html>
+
 
