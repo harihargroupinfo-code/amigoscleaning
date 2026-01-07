@@ -1,37 +1,15 @@
+<h2>Login</h2>
+
 <div class="login-box">
-  <h3>Login</h3>
-
-  <select id="role">
-    <option value="">Select Role</option>
-    <option value="retailer">Retailer</option>
-    <option value="distributor">Distributor</option>
-    <option value="admin">Admin</option>
-  </select>
-
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-
-  <button onclick="login()">Login</button>
-
-  <p style="text-align:center;">
-    New user? <a href="signup.html">Register here</a>
-  </p>
+  <h3>Customer Login</h3>
+  <input type="text" placeholder="Email">
+  <input type="password" placeholder="Password">
+  <button>Login</button>
 </div>
 
-<script>
-function login() {
-  const role = document.getElementById("role").value;
-
-  if (!role) {
-    alert("Select role");
-    return;
-  }
-
-  localStorage.setItem("role", role);
-  localStorage.setItem("loggedIn", "true");
-
-  if (role === "retailer") location.href = "retailer.html";
-  if (role === "distributor") location.href = "distributor.html";
-  if (role === "admin") location.href = "admin.html";
-}
-</script>
+<div class="login-box">
+  <h3>Retailer Login</h3>
+  <input type="text" placeholder="Retailer ID">
+  <input type="password" placeholder="Password">
+  <button>Login</button>
+</div>

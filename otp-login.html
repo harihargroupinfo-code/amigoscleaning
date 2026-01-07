@@ -7,26 +7,17 @@
 </head>
 <body>
 
+<h2>OTP Login</h2>
+
 <div class="login-box">
-  <h3>OTP Login</h3>
-
-  <select id="role">
-    <option value="">Select Role</option>
-    <option value="retailer">Retailer</option>
-    <option value="distributor">Distributor</option>
-    <option value="admin">Admin</option>
-  </select>
-
   <input type="email" id="email" placeholder="Enter Email">
   <button onclick="sendOTP()">Send OTP</button>
 
   <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
-  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">
-    Verify OTP
-  </button>
-
-  <p id="msg" style="text-align:center;"></p>
+  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
 </div>
+
+<p id="msg"></p>
 
 <script>
 (function(){
@@ -34,41 +25,28 @@
 })();
 
 let generatedOTP = "";
-let selectedRole = "";
 
 function sendOTP() {
   const email = document.getElementById("email").value;
-  selectedRole = document.getElementById("role").value;
-
-  if (!email || !selectedRole) {
-    alert("Select role and enter email");
-    return;
-  }
+  if (!email) return alert("Enter email");
 
   generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-  emailjs.send("service_c1bp7of", "template_5s500wl", {
-    to_email: email,
-    otp: generatedOTP
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    otp: generatedOTP,
+    to_email: email
   }).then(() => {
     document.getElementById("msg").innerText = "OTP sent to email";
     document.getElementById("otp").style.display = "block";
     document.getElementById("verifyBtn").style.display = "block";
-  }).catch(() => {
-    alert("OTP sending failed");
   });
 }
 
 function verifyOTP() {
   const entered = document.getElementById("otp").value;
-
   if (entered === generatedOTP) {
     localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("role", selectedRole);
-
-    if (selectedRole === "retailer") location.href = "retailer.html";
-    if (selectedRole === "distributor") location.href = "distributor.html";
-    if (selectedRole === "admin") location.href = "admin.html";
+    window.location.href = "index.html";
   } else {
     document.getElementById("msg").innerText = "Invalid OTP";
   }
@@ -77,4 +55,3 @@ function verifyOTP() {
 
 </body>
 </html>
-

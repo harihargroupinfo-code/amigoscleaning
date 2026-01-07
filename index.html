@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amigos | Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
 <body>
 
 <nav class="navbar">
@@ -6,105 +13,20 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="products.html">Products</a>
+    <a href="pricing.html">Pricing</a>
     <a href="contact.html">Contact</a>
-    <a href="signup.html">Sign Up</a>
-    <a href="login.html">Login</a>
   </div>
-  <button onclick="logout()">Logout</button>
-
 </nav>
-
-  <div class="slider">
-  <img src="images/hero.jpg" class="slide active">
-  <img src="images/Logo 2025.jpg" class="slide">
-  <img src="images/Dishwash 500ml.jpg" class="slide">
-  <img src="images/Dishwash Advertise.jpg" class="slide">
-  <img src="images/Dishwash Pack Of 2.jpg" class="slide">
-  <img src="images/Dishwash.jpg" class="slide">
-  <img src="images/Floor Cleamer.jpg" class="slide">
-  <img src="images/Floor Cleaner Lemon.jpg" class="slide">
-  <img src="images/Floor Cleaner Pack Of 2.jpg" class="slide">
-  <img src="images/Glass Cleaner 500ml.jpg" class="slide">
-  <img src="images/Glass Cleaner.jpg" class="slide">
-  <img src="images/Handwash 200ml.jpg" class="slide">
-  <img src="images/Handwash Pack Of 2.jpg" class="slide">
-  <img src="images/Handwash.jpg" class="slide">
-  <img src="images/Combo Pack of 4 DP.jpg" class="slide">
-  <img src="images/Toilet Cleaner 500ml.jpg" class="slide">
-  <img src="images/Toilet Cleaner Advertise 2.jpg" class="slide">
-  <img src="images/Toilet Cleaner Advertise.jpg" class="slide">
-  <img src="images/Toilet Cleaner Pack Of 2.jpg" class="slide">
-  <img src="images/Toilet Cleaner.jpg" class="slide">
-</div>
 
 <section class="hero">
   <h1>Welcome to Amigos</h1>
-  <p>Your trusted cleaning partner</p>
-
-  <!-- ADD IMAGE HERE -->
-  <img src="images/hero.jpg" alt="Amigos Banner" class="hero-img">
+  <p>Your trusted business partner</p>
+  <img src="images/hero.jpg">
 </section>
 
-  <script>
-let slides = document.querySelectorAll(".slide");
-let index = 0;
-
-setInterval(() => {
-  slides[index].classList.remove("active");
-  index = (index + 1) % slides.length;
-  slides[index].classList.add("active");
-}, 3000);
-</script>
-
-  <script>
-function logout() {
-  localStorage.removeItem("loggedIn");
-  window.location.href = "login.html";
-}
-</script>
-
-  <script>
-if (localStorage.getItem("loggedIn") !== "true") {
-  window.location.href = "login.html";
-}
-</script>
-
-  <button onclick="logout()">Logout</button>
-
-<script>
-function logout() {
-  localStorage.removeItem("loggedIn");
-  window.location.href = "otp-login.html";
-}
-</script>
-
-<script>
-if (localStorage.getItem("loggedIn") !== "true") {
-  window.location.href = "otp-login.html";
-}
-</script>
-<script>
-const loggedIn = localStorage.getItem("loggedIn");
-
-if (loggedIn === "true") {
-  document.querySelector('a[href="signup.html"]').style.display = "none";
-  document.querySelector('a[href="login.html"]').style.display = "none";
-} else {
-  // optional: hide logout if not logged in
-}
-</script>
-
-
+<footer class="footer">
+  © 2025 Amigos. All rights reserved.
+</footer>
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
+</html>

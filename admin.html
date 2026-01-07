@@ -1,0 +1,16 @@
+<script>
+if (localStorage.getItem("role") !== "admin") {
+  location.href = "login.html";
+}
+</script>
+
+<h2>Admin Panel</h2>
+<p>Manage products, users, orders</p>
+<button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.clear();
+  location.href = "login.html";
+}
+</script>

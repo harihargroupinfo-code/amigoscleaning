@@ -1,0 +1,15 @@
+<script>
+if (localStorage.getItem("role") !== "distributor") {
+  location.href = "login.html";
+}
+</script>
+
+<h2>Distributor Dashboard</h2>
+<button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.clear();
+  location.href = "login.html";
+}
+</script>
