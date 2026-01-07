@@ -37,19 +37,34 @@
 <script>
 function register() {
   const role = document.getElementById("role").value;
+  const email = document.querySelector('input[type="email"]').value;
 
-  if (!role) {
-    alert("Please select Retailer or Distributor");
+  if (!role || !email) {
+    alert("Fill all fields");
     return;
   }
 
-  // Save role for OTP login
-  localStorage.setItem("registeredRole", role);
+  if (role === "distributor") {
+    // Get existing pending list
+    let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
 
-  // Go to OTP login
+    // Add new distributor
+    pending.push({ email: email, approved: false });
+
+    localStorage.setItem("pendingDistributors", JSON.stringify(pending));
+
+    alert("Registration successful. Waiting for admin approval.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Retailer → direct login
+  localStorage.setItem("registeredRole", role);
   window.location.href = "otp-login.html";
 }
 </script>
 
+
 </body>
 </html>
+
