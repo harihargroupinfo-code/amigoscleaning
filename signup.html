@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Signup | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<h2>Signup</h2>
-
 <div class="login-box">
-  <input type="text" id="signupUser" placeholder="Username">
-  <input type="password" id="signupPass" placeholder="Password">
-  <button onclick="signup()">Create Account</button>
+  <h3>Sign Up</h3>
+
+  <select>
+    <option>Retailer</option>
+    <option>Distributor</option>
+  </select>
+
+  <input type="text" placeholder="Name">
+  <input type="email" placeholder="Email">
+  <input type="password" placeholder="Password">
+
+  <button onclick="location.href='login.html'">
+    Register
+  </button>
 </div>
-
-<p id="msg"></p>
-
-<script>
-function signup() {
-  let user = document.getElementById("signupUser").value;
-  let pass = document.getElementById("signupPass").value;
-
-  if (user && pass) {
-    localStorage.setItem("user", user);
-    localStorage.setItem("pass", pass);
-    alert("Signup successful!");
-    window.location.href = "login.html";
-  } else {
-    document.getElementById("msg").innerText = "Fill all fields";
-  }
-}
-</script>
-
-</body>
-</html>
