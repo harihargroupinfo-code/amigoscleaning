@@ -19,6 +19,13 @@
 
 <p id="msg"></p>
 
+  // If coming from signup, auto-select role
+const savedRole = localStorage.getItem("registeredRole");
+if (savedRole) {
+  document.getElementById("role").value = savedRole;
+}
+
+
 <script>
 (function(){
   emailjs.init("nWogP4Pkvlk2l46EL");
@@ -55,4 +62,5 @@ function verifyOTP() {
 
 </body>
 </html>
+
 
