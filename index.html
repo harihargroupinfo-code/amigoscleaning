@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard | Amigos Cleaning</title>
+<title>Amigos Cleaning | Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Icons -->
@@ -15,233 +15,217 @@
 body {
   margin: 0;
   font-family: "Poppins", Arial, sans-serif;
-  background: #f2f4f8;
+  background: #f4f6f9;
+  color: #333;
 }
 
-/* Header */
+/* HEADER */
 .header {
   background: linear-gradient(135deg,#0d6efd,#00b4d8);
   color: #fff;
-  padding: 16px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Filters */
-.filters {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-}
-
-.filters select {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-/* Card */
-.card {
-  background: #fff;
-  margin: 10px;
-  padding: 14px;
-  border-radius: 14px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-
-.card .row {
+  padding: 14px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.role {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: #eee;
+.logo {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.role.distributor { background:#fff3cd; color:#856404; }
-.role.retailer { background:#d1e7dd; color:#0f5132; }
-
-.status {
-  font-size: 12px;
-  margin-top: 4px;
+.nav a {
+  color: #fff;
+  margin-left: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.actions button {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.approve { background:#198754; color:#fff; }
-.block { background:#ffc107; }
-.delete { background:#dc3545; color:#fff; }
-
-/* Empty */
-.empty {
+/* HERO */
+.hero {
+  padding: 45px 20px;
   text-align: center;
-  padding: 30px;
+  background: #fff;
+}
+
+.hero h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons a {
+  padding: 12px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-login {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.btn-signup {
+  background: #00b894;
+  color: #fff;
+}
+
+/* FEATURES */
+.features {
+  padding: 30px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 16px;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.feature-card i {
+  font-size: 32px;
+  color: #0d6efd;
+  margin-bottom: 10px;
+}
+
+.feature-card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg,#00b894,#0d6efd);
+  color: #fff;
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.cta h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.cta a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #fff;
+  color: #0d6efd;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
   color: #777;
 }
-
-/* Logout */
-.logout {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background:#dc3545;
-  color:#fff;
-  border:none;
-  border-radius:50%;
-  width:48px;
-  height:48px;
-  font-size:18px;
-}
 </style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <i class="fa-solid fa-user-shield"></i> Admin Dashboard
+  <div class="logo">
+    <i class="fa-solid fa-broom"></i> Amigos Cleaning
+  </div>
+
+  <div class="nav">
+    <a href="otp-login.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </div>
 </div>
 
-<div class="filters">
-  <select id="roleFilter" onchange="loadUsers()">
-    <option value="">All Roles</option>
-    <option value="retailer">Retailer</option>
-    <option value="distributor">Distributor</option>
-  </select>
+<!-- HERO -->
+<div class="hero">
+  <h1>Professional Cleaning Solutions</h1>
+  <p>
+    Trusted housekeeping & cleaning products for retailers,
+    distributors, and businesses across India.
+  </p>
 
-  <select id="statusFilter" onchange="loadUsers()">
-    <option value="">All Status</option>
-    <option value="approved">Approved</option>
-    <option value="pending">Pending</option>
-    <option value="blocked">Blocked</option>
-  </select>
+  <div class="hero-buttons">
+    <a href="otp-login.html" class="btn-login">
+      <i class="fa-solid fa-right-to-bracket"></i> Login
+    </a>
+    <a href="signup.html" class="btn-signup">
+      <i class="fa-solid fa-user-plus"></i> Signup
+    </a>
+  </div>
 </div>
 
-<div id="list"></div>
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-card">
+    <i class="fa-solid fa-spray-can-sparkles"></i>
+    <h3>Premium Products</h3>
+    <p>High-quality cleaners for homes & industries</p>
+  </div>
 
-<button class="logout" onclick="logout()">
-  <i class="fa-solid fa-right-from-bracket"></i>
-</button>
+  <div class="feature-card">
+    <i class="fa-solid fa-truck-fast"></i>
+    <h3>Fast Distribution</h3>
+    <p>Reliable supply chain across regions</p>
+  </div>
 
+  <div class="feature-card">
+    <i class="fa-solid fa-user-shield"></i>
+    <h3>Secure OTP Login</h3>
+    <p>Modern OTP-based authentication</p>
+  </div>
+
+  <div class="feature-card">
+    <i class="fa-solid fa-handshake"></i>
+    <h3>Business Partnership</h3>
+    <p>Grow with Amigos Cleaning</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Become an Amigos Partner</h2>
+  <p>Join as a retailer or distributor today</p>
+  <a href="signup.html">Get Started</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 Amigos Cleaning • All Rights Reserved
+</div>
+
+<!-- IMPORTANT: NO AUTO REDIRECT SCRIPT HERE -->
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
-  authDomain: "amigoscleaning-47ba4.firebaseapp.com",
-  projectId: "amigoscleaning-47ba4",
-  storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
-  messagingSenderId: "742485216892",
-  appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-function loadUsers() {
-  const roleF = document.getElementById("roleFilter").value;
-  const statusF = document.getElementById("statusFilter").value;
-  const list = document.getElementById("list");
-  list.innerHTML = "";
-
-  db.collection("users").get().then(snapshot => {
-    if (snapshot.empty) {
-      list.innerHTML = `<div class="empty">No users found</div>`;
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      const u = doc.data();
-
-      if (roleF && u.role !== roleF) return;
-      if (statusF === "approved" && !u.approved) return;
-      if (statusF === "pending" && u.approved) return;
-      if (statusF === "blocked" && !u.blocked) return;
-
-      list.innerHTML += `
-        <div class="card">
-          <div class="row">
-            <strong>${u.email || "No Email"}</strong>
-            <span class="role ${u.role}">${u.role}</span>
-          </div>
-
-          <div class="status">
-            📱 ${u.mobile}<br>
-            ${u.blocked ? "🚫 Blocked" :
-              u.approved ? "✅ Approved" : "⏳ Pending"}
-          </div>
-
-          <div class="actions">
-            ${(!u.approved && u.role==="distributor") ?
-              `<button class="approve"
-                onclick="approve('${doc.id}')">Approve</button>` : ""}
-
-            <button class="block"
-              onclick="toggleBlock('${doc.id}', ${u.blocked})">
-              ${u.blocked ? "Unblock" : "Block"}
-            </button>
-
-            <button class="delete"
-              onclick="deleteUser('${doc.id}','${u.email}')">
-              Delete
-            </button>
-          </div>
-        </div>
-      `;
-    });
-  });
-}
-
-function approve(id) {
-  db.collection("users").doc(id)
-    .update({ approved:true })
-    .then(() => {
-      alert("Distributor approved");
-      loadUsers();
-    });
-}
-
-function toggleBlock(id, blocked) {
-  db.collection("users").doc(id)
-    .update({ blocked: !blocked })
-    .then(loadUsers);
-}
-
-function deleteUser(id, email) {
-  if (!confirm(`Delete user?\n${email}`)) return;
-  db.collection("users").doc(id)
-    .delete()
-    .then(() => {
-      alert("User deleted");
-      loadUsers();
-    });
-}
-
-function logout() {
-  localStorage.clear();
-  location.href = "otp-login.html";
-}
-
-loadUsers();
+  // Home page must ALWAYS stay public
+  // DO NOT add any role-based redirect here
 </script>
 
 </body>
