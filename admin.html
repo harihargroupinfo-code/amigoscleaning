@@ -1,243 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard | Amigos Cleaning</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Admin Dashboard | Amigos Cleaning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
+<!-- Icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f2f4f8;
+}
 
-    .controls input,
-    .controls select,
-    .controls button {
-      padding: 8px;
-    }
+/* Header */
+.header {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-    }
+/* Filters */
+.filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
 
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
+.filters select {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
 
-    th {
-      background: #007bff;
-      color: white;
-    }
+/* Card */
+.card {
+  background: #fff;
+  margin: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
 
-    button {
-      cursor: pointer;
-      border: none;
-      padding: 6px 10px;
-      margin: 2px;
-      color: white;
-    }
+.card .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .approve-btn { background: green; }
-    .block-btn { background: red; }
-    .delete-btn { background: #555; }
+.role {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #eee;
+}
 
-    .status-approved { color: green; font-weight: bold; }
-    .status-pending { color: orange; font-weight: bold; }
-    .status-blocked { color: red; font-weight: bold; }
-  </style>
+.role.distributor { background:#fff3cd; color:#856404; }
+.role.retailer { background:#d1e7dd; color:#0f5132; }
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+.status {
+  font-size: 12px;
+  margin-top: 4px;
+}
 
-  <!-- Excel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.approve { background:#198754; color:#fff; }
+.block { background:#ffc107; }
+.delete { background:#dc3545; color:#fff; }
+
+/* Empty */
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+/* Logout */
+.logout {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:48px;
+  height:48px;
+  font-size:18px;
+}
+</style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-<h2>Admin Dashboard – Amigos Cleaning</h2>
+<div class="header">
+  <i class="fa-solid fa-user-shield"></i> Admin Dashboard
+</div>
 
-<div class="controls">
-  <input type="text" id="searchInput" placeholder="Search email or mobile">
-
-  <select id="roleFilter">
+<div class="filters">
+  <select id="roleFilter" onchange="loadUsers()">
     <option value="">All Roles</option>
     <option value="retailer">Retailer</option>
     <option value="distributor">Distributor</option>
   </select>
 
-  <select id="statusFilter">
+  <select id="statusFilter" onchange="loadUsers()">
     <option value="">All Status</option>
     <option value="approved">Approved</option>
     <option value="pending">Pending</option>
     <option value="blocked">Blocked</option>
   </select>
-
-  <button onclick="loadUsers()">Apply</button>
-  <button onclick="exportExcel()">Export to Excel</button>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Mobile</th>
-      <th>Role</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody id="userTable">
-    <tr><td colspan="5">Loading...</td></tr>
-  </tbody>
-</table>
+<div id="list"></div>
+
+<button class="logout" onclick="logout()">
+  <i class="fa-solid fa-right-from-bracket"></i>
+</button>
 
 <script>
-  /* 🔥 FIREBASE CONFIG */
-  const firebaseConfig = {
-    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
-    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
-    projectId: "amigoscleaning-47ba4",
-    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
-    messagingSenderId: "742485216892",
-    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+  authDomain: "amigoscleaning-47ba4.firebaseapp.com",
+  projectId: "amigoscleaning-47ba4",
+  storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
+  messagingSenderId: "742485216892",
+  appId: "1:742485216892:web:9c60dee666b039cf3983f9"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const tableBody = document.getElementById("userTable");
+function loadUsers() {
+  const roleF = document.getElementById("roleFilter").value;
+  const statusF = document.getElementById("statusFilter").value;
+  const list = document.getElementById("list");
+  list.innerHTML = "";
 
-  function loadUsers() {
-    const search = document.getElementById("searchInput").value.toLowerCase();
-    const role = document.getElementById("roleFilter").value;
-    const status = document.getElementById("statusFilter").value;
+  db.collection("users").get().then(snapshot => {
+    if (snapshot.empty) {
+      list.innerHTML = `<div class="empty">No users found</div>`;
+      return;
+    }
 
-    let query = db.collection("users");
+    snapshot.forEach(doc => {
+      const u = doc.data();
 
-    if (role) query = query.where("role", "==", role);
-    if (status === "approved") query = query.where("approved", "==", true);
-    if (status === "pending") query = query.where("approved", "==", false);
-    if (status === "blocked") query = query.where("blocked", "==", true);
+      if (roleF && u.role !== roleF) return;
+      if (statusF === "approved" && !u.approved) return;
+      if (statusF === "pending" && u.approved) return;
+      if (statusF === "blocked" && !u.blocked) return;
 
-    query.get().then(snapshot => {
-      tableBody.innerHTML = "";
+      list.innerHTML += `
+        <div class="card">
+          <div class="row">
+            <strong>${u.email || "No Email"}</strong>
+            <span class="role ${u.role}">${u.role}</span>
+          </div>
 
-      if (snapshot.empty) {
-        tableBody.innerHTML = `<tr><td colspan="5">No users found</td></tr>`;
-        return;
-      }
+          <div class="status">
+            📱 ${u.mobile}<br>
+            ${u.blocked ? "🚫 Blocked" :
+              u.approved ? "✅ Approved" : "⏳ Pending"}
+          </div>
 
-      snapshot.forEach(doc => {
-        const u = doc.data();
+          <div class="actions">
+            ${(!u.approved && u.role==="distributor") ?
+              `<button class="approve"
+                onclick="approve('${doc.id}')">Approve</button>` : ""}
 
-        if (
-          u.email.toLowerCase().includes(search) ||
-          u.mobile.includes(search)
-        ) {
-          let statusText = "Pending";
-          let statusClass = "status-pending";
+            <button class="block"
+              onclick="toggleBlock('${doc.id}', ${u.blocked})">
+              ${u.blocked ? "Unblock" : "Block"}
+            </button>
 
-          if (u.blocked) {
-            statusText = "Blocked";
-            statusClass = "status-blocked";
-          } else if (u.approved) {
-            statusText = "Approved";
-            statusClass = "status-approved";
-          }
-
-          tableBody.innerHTML += `
-            <tr>
-              <td>${u.email}</td>
-              <td>${u.mobile}</td>
-              <td>${u.role}</td>
-              <td class="${statusClass}">${statusText}</td>
-              <td>
-                ${u.role === "distributor" && !u.approved && !u.blocked
-                  ? `<button class="approve-btn" onclick="approveUser('${doc.id}')">Approve</button>`
-                  : ""}
-
-                ${!u.blocked
-                  ? `<button class="block-btn" onclick="blockUser('${doc.id}')">Block</button>`
-                  : ""}
-
-                <button class="delete-btn"
-                  onclick="deleteUser('${doc.id}', '${u.role}', '${u.email}')">
-                  Delete
-                </button>
-              </td>
-            </tr>`;
-        }
-      });
+            <button class="delete"
+              onclick="deleteUser('${doc.id}','${u.email}')">
+              Delete
+            </button>
+          </div>
+        </div>
+      `;
     });
-  }
+  });
+}
 
-  function approveUser(id) {
-    if (!confirm("Approve this distributor?")) return;
-
-    db.collection("users").doc(id).update({ approved: true })
-      .then(() => {
-        alert("Distributor approved");
-        loadUsers();
-      });
-  }
-
-  function blockUser(id) {
-    if (!confirm("Block this user?")) return;
-
-    db.collection("users").doc(id).update({ blocked: true })
-      .then(() => {
-        alert("User blocked");
-        loadUsers();
-      });
-  }
-
-  function deleteUser(id, role, email) {
-    if (!confirm(`Delete this ${role}?\n\n${email}`)) return;
-    if (!confirm("⚠️ PERMANENT DELETE. Continue?")) return;
-
-    db.collection("users").doc(id).delete()
-      .then(() => {
-        alert("User deleted");
-        loadUsers();
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Delete failed");
-      });
-  }
-
-  function exportExcel() {
-    db.collection("users").get().then(snapshot => {
-      const data = [];
-      snapshot.forEach(doc => data.push(doc.data()));
-
-      const ws = XLSX.utils.json_to_sheet(data);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Users");
-      XLSX.writeFile(wb, "amigoscleaning-users.xlsx");
+function approve(id) {
+  db.collection("users").doc(id)
+    .update({ approved:true })
+    .then(() => {
+      alert("Distributor approved");
+      loadUsers();
     });
-  }
+}
 
-  loadUsers();
+function toggleBlock(id, blocked) {
+  db.collection("users").doc(id)
+    .update({ blocked: !blocked })
+    .then(loadUsers);
+}
+
+function deleteUser(id, email) {
+  if (!confirm(`Delete user?\n${email}`)) return;
+  db.collection("users").doc(id)
+    .delete()
+    .then(() => {
+      alert("User deleted");
+      loadUsers();
+    });
+}
+
+function logout() {
+  localStorage.clear();
+  location.href = "otp-login.html";
+}
+
+loadUsers();
 </script>
 
 </body>
