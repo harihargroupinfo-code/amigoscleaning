@@ -108,6 +108,11 @@
     const mobile = document.getElementById("mobile").value.trim();
     const role = document.getElementById("role").value;
 
+    let mobile = document.getElementById("mobile").value.trim();
+
+// Remove +91, spaces, leading 0
+mobile = mobile.replace(/\D/g, "").slice(-10);
+
     if (!role) {
       alert("Select role");
       return;
@@ -170,3 +175,4 @@
 </html>
 
   
+
