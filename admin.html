@@ -134,10 +134,46 @@
         alert(err.message);
       });
     }
+
+    function blockUser(docId) {
+  if (!confirm("Block this user?")) return;
+
+  db.collection("users").doc(docId).update({
+    blocked: true
+  }).then(() => {
+    alert("User blocked");
+    loadUsers();
+  });
+}
+
+    if (user.blocked) {
+  alert("Your account is suspended");
+  return;
+}
+
+    <button onclick="exportExcel()">Export to Excel</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+function exportExcel() {
+  db.collection("users").get().then(snapshot => {
+    let data = [];
+    snapshot.forEach(doc => data.push(doc.data()));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Users");
+    XLSX.writeFile(wb, "amigos-users.xlsx");
+  });
+}
+</script>
+
   </script>
 
 </body>
 </html>
+
 
 
 
