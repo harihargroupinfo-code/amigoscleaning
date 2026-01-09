@@ -183,20 +183,24 @@
 
           tableBody.innerHTML += `
             <tr>
-              <td>${u.email}</td>
-              <td>${u.mobile}</td>
-              <td>${u.role}</td>
-              <td class="${statusClass}">${statusText}</td>
               <td>
-                ${u.role === "distributor" && !u.approved && !u.blocked
-                  ? `<button class="approve-btn"
-                      onclick="approveUser('${doc.id}')">Approve</button>`
-                  : ""}
-                ${!u.blocked
-                  ? `<button class="block-btn"
-                      onclick="blockUser('${doc.id}')">Block</button>`
-                  : ""}
-              </td>
+  ${u.role === "distributor" && !u.approved && !u.blocked
+    ? `<button class="approve-btn"
+        onclick="approveUser('${doc.id}')">Approve</button>`
+    : ""}
+
+  ${!u.blocked
+    ? `<button class="block-btn"
+        onclick="blockUser('${doc.id}')">Block</button>`
+    : ""}
+
+  <button
+    style="background:#555;color:white;"
+    onclick="deleteUser('${doc.id}', '${u.role}', '${u.email}')">
+    Delete
+  </button>
+</td>
+
             </tr>`;
         }
       });
@@ -243,3 +247,4 @@
 </body>
 </html>
    
+
