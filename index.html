@@ -44,7 +44,7 @@ body {
 
 /* HERO */
 .hero {
-  padding: 45px 20px;
+  padding: 40px 20px 20px;
   text-align: center;
   background: #fff;
 }
@@ -57,9 +57,34 @@ body {
 .hero p {
   font-size: 15px;
   color: #555;
+  margin-bottom: 20px;
+}
+
+/* MAIN BUTTONS */
+.main-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 25px;
 }
 
+.main-buttons a {
+  padding: 12px 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: #fff;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+}
+
+.main-buttons a i {
+  margin-right: 6px;
+}
+
+/* LOGIN SIGNUP */
 .hero-buttons {
   display: flex;
   gap: 12px;
@@ -117,30 +142,6 @@ body {
   color: #666;
 }
 
-/* CTA */
-.cta {
-  background: linear-gradient(135deg,#00b894,#0d6efd);
-  color: #fff;
-  text-align: center;
-  padding: 35px 20px;
-}
-
-.cta h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.cta a {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 25px;
-  background: #fff;
-  color: #0d6efd;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
 /* FOOTER */
 .footer {
   text-align: center;
@@ -155,11 +156,14 @@ body {
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo">
+  <div class="logo"> 
     <i class="fa-solid fa-broom"></i> Amigos
   </div>
 
   <div class="nav">
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
     <a href="otp-login.html">Login</a>
     <a href="signup.html">Signup</a>
   </div>
@@ -173,6 +177,20 @@ body {
     distributors, and businesses across India.
   </p>
 
+  <!-- MAIN NAV BUTTONS -->
+  <div class="main-buttons">
+    <a href="products.html">
+      <i class="fa-solid fa-box"></i> Products
+    </a>
+    <a href="about.html">
+      <i class="fa-solid fa-circle-info"></i> About
+    </a>
+    <a href="contact.html">
+      <i class="fa-solid fa-phone"></i> Contact
+    </a>
+  </div>
+
+  <!-- LOGIN SIGNUP -->
   <div class="hero-buttons">
     <a href="otp-login.html" class="btn-login">
       <i class="fa-solid fa-right-to-bracket"></i> Login
@@ -206,30 +224,20 @@ body {
   <div class="feature-card">
     <i class="fa-solid fa-handshake"></i>
     <h3>Business Partnership</h3>
-    <p>Grow with Amigos Cleaning</p>
+    <p>Grow with Amigos </p>
   </div>
-</div>
-
-<!-- CTA -->
-<div class="cta">
-  <h2>Become an Amigos Partner</h2>
-  <p>Join as a retailer or distributor today</p>
-  <a href="signup.html">Get Started</a>
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  © Amigos •  Harihar Group of Industries • All Rights Reserved
+  © Amigos •  Harihar Group of Industries  •  All Rights Reserved
 </div>
 
-<!-- IMPORTANT: NO AUTO REDIRECT SCRIPT HERE -->
 <script>
-  // Home page must ALWAYS stay public
-  // DO NOT add any role-based redirect here
+  // IMPORTANT:
+  // Home page must remain public
+  // No auto-redirect logic here
 </script>
 
 </body>
 </html>
-
-
-
