@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Amigos | Home</title>
+<title>Amigos </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Icons -->
@@ -15,7 +15,7 @@
 body {
   margin: 0;
   font-family: "Poppins", Arial, sans-serif;
-  background: #f4f6f9;
+  background: #f2f4f8;
   color: #333;
 }
 
@@ -23,122 +23,112 @@ body {
 .header {
   background: linear-gradient(135deg,#0d6efd,#00b4d8);
   color: #fff;
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 20px;
+  padding: 14px;
+  text-align: center;
+  font-size: 18px;
   font-weight: 600;
-}
-
-.nav a {
-  color: #fff;
-  margin-left: 12px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
 }
 
 /* HERO */
 .hero {
-  padding: 40px 20px 20px;
+  padding: 30px 16px 20px;
   text-align: center;
   background: #fff;
 }
 
 .hero h1 {
-  font-size: 26px;
-  margin-bottom: 10px;
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
 .hero p {
-  font-size: 15px;
+  font-size: 14px;
   color: #555;
+  margin-bottom: 18px;
+}
+
+/* PRIMARY BUTTONS */
+.primary-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-/* MAIN BUTTONS */
-.main-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 25px;
-}
-
-.main-buttons a {
-  padding: 12px 18px;
-  border-radius: 30px;
+.primary-buttons a {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 8px;
+  text-align: center;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  background: #fff;
   color: #0d6efd;
+  font-size: 13px;
   border: 1px solid #0d6efd;
 }
 
-.main-buttons a i {
-  margin-right: 6px;
+.primary-buttons i {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 6px;
 }
 
-/* LOGIN SIGNUP */
-.hero-buttons {
+/* LOGIN / SIGNUP */
+.auth-buttons {
   display: flex;
   gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
-.hero-buttons a {
-  padding: 12px 22px;
+.auth-buttons a {
+  flex: 1;
+  padding: 14px;
   border-radius: 30px;
+  text-align: center;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
 }
 
-.btn-login {
+.login {
   background: #0d6efd;
   color: #fff;
 }
 
-.btn-signup {
+.signup {
   background: #00b894;
   color: #fff;
 }
 
 /* FEATURES */
 .features {
-  padding: 30px 16px;
+  padding: 25px 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
-.feature-card {
+.feature {
   background: #fff;
-  padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  text-align: center;
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.feature-card i {
-  font-size: 32px;
+.feature i {
+  font-size: 28px;
   color: #0d6efd;
-  margin-bottom: 10px;
 }
 
-.feature-card h3 {
-  font-size: 16px;
-  margin-bottom: 6px;
+.feature h3 {
+  margin: 0;
+  font-size: 15px;
 }
 
-.feature-card p {
-  font-size: 14px;
+.feature p {
+  margin: 4px 0 0;
+  font-size: 13px;
   color: #666;
 }
 
@@ -146,7 +136,7 @@ body {
 .footer {
   text-align: center;
   padding: 14px;
-  font-size: 13px;
+  font-size: 12px;
   color: #777;
 }
 </style>
@@ -156,46 +146,36 @@ body {
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo"> 
-    <i class="fa-solid fa-broom"></i> Amigos
-  </div>
-
-  <div class="nav">
-    <a href="products.html">Products</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="otp-login.html">Login</a>
-    <a href="signup.html">Signup</a>
-  </div>
+  <i class="fa-solid fa-broom"></i> Amigos
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Professional Cleaning Solutions</h1>
-  <p>
-    Trusted housekeeping & cleaning products for retailers,
-    distributors, and businesses across India.
-  </p>
+  <h1>Cleaning Solutions</h1>
+  <p>Quality products for retailers & distributors</p>
 
   <!-- MAIN NAV BUTTONS -->
-  <div class="main-buttons">
+  <div class="primary-buttons">
     <a href="products.html">
-      <i class="fa-solid fa-box"></i> Products
+      <i class="fa-solid fa-box"></i>
+      Products
     </a>
     <a href="about.html">
-      <i class="fa-solid fa-circle-info"></i> About
+      <i class="fa-solid fa-circle-info"></i>
+      About
     </a>
     <a href="contact.html">
-      <i class="fa-solid fa-phone"></i> Contact
+      <i class="fa-solid fa-phone"></i>
+      Contact
     </a>
   </div>
 
-  <!-- LOGIN SIGNUP -->
-  <div class="hero-buttons">
-    <a href="otp-login.html" class="btn-login">
+  <!-- AUTH -->
+  <div class="auth-buttons">
+    <a href="otp-login.html" class="login">
       <i class="fa-solid fa-right-to-bracket"></i> Login
     </a>
-    <a href="signup.html" class="btn-signup">
+    <a href="signup.html" class="signup">
       <i class="fa-solid fa-user-plus"></i> Signup
     </a>
   </div>
@@ -203,40 +183,47 @@ body {
 
 <!-- FEATURES -->
 <div class="features">
-  <div class="feature-card">
+  <div class="feature">
     <i class="fa-solid fa-spray-can-sparkles"></i>
-    <h3>Premium Products</h3>
-    <p>High-quality cleaners for homes & industries</p>
+    <div>
+      <h3>Premium Products</h3>
+      <p>Safe & effective cleaning solutions</p>
+    </div>
   </div>
 
-  <div class="feature-card">
+  <div class="feature">
     <i class="fa-solid fa-truck-fast"></i>
-    <h3>Fast Distribution</h3>
-    <p>Reliable supply chain across regions</p>
+    <div>
+      <h3>Fast Distribution</h3>
+      <p>Reliable supply across regions</p>
+    </div>
   </div>
 
-  <div class="feature-card">
+  <div class="feature">
     <i class="fa-solid fa-user-shield"></i>
-    <h3>Secure OTP Login</h3>
-    <p>Modern OTP-based authentication</p>
+    <div>
+      <h3>Secure OTP Login</h3>
+      <p>Simple & safe authentication</p>
+    </div>
   </div>
 
-  <div class="feature-card">
+  <div class="feature">
     <i class="fa-solid fa-handshake"></i>
-    <h3>Business Partnership</h3>
-    <p>Grow with Amigos </p>
+    <div>
+      <h3>Business Growth</h3>
+      <p>Partner & grow with us</p>
+    </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  © Amigos •  Harihar Group of Industries  •  All Rights Reserved
+  ©  Amigos A Product by Harihar Group of Industries
 </div>
 
 <script>
-  // IMPORTANT:
-  // Home page must remain public
-  // No auto-redirect logic here
+  // Home page must stay public
+  // No redirect logic here
 </script>
 
 </body>
