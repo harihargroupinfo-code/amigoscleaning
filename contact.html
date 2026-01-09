@@ -5,7 +5,7 @@
 <title>Contact Us | Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Icons -->
+<!-- Font Awesome Icons -->
 <link rel="stylesheet"
  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -50,7 +50,7 @@ body {
   color: #666;
 }
 
-/* Contact cards */
+/* Cards */
 .cards {
   display: grid;
   gap: 16px;
@@ -61,14 +61,15 @@ body {
   border-radius: 16px;
   padding: 18px;
   display: flex;
-  align-items: center;
   gap: 14px;
+  align-items: flex-start;
   box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 }
 
 .card i {
-  font-size: 28px;
+  font-size: 26px;
   color: #0d6efd;
+  margin-top: 4px;
 }
 
 .card h3 {
@@ -77,7 +78,7 @@ body {
 }
 
 .card p {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   font-size: 14px;
   color: #555;
 }
@@ -90,16 +91,15 @@ body {
 /* WhatsApp Button */
 .whatsapp-btn {
   display: block;
-  margin: 20px auto;
+  margin: 22px auto;
   background: #25d366;
   color: #fff;
-  text-align: center;
   padding: 14px;
+  text-align: center;
   border-radius: 30px;
-  text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
   max-width: 320px;
+  text-decoration: none;
 }
 
 .whatsapp-btn i {
@@ -107,13 +107,28 @@ body {
   font-size: 20px;
 }
 
-<!-- MAP -->
-<div class="map">
-  <iframe
-    src="https://www.google.com/maps?q=5JM2%2BXQ%20Baramati%2C%20Maharashtra&output=embed"
-    loading="lazy">
-  </iframe>
-</div>
+/* Map Section */
+.map-section {
+  margin-top: 30px;
+}
+
+.map-section h3 {
+  font-size: 16px;
+  margin: 20px 0 10px;
+}
+
+.map {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 16px;
+}
 
 /* Social Media */
 .social {
@@ -127,9 +142,28 @@ body {
 }
 
 .social a {
-  margin: 0 10px;
+  margin: 0 12px;
   font-size: 26px;
   color: #0d6efd;
+  text-decoration: none;
+}
+
+/* Floating WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  z-index: 999;
   text-decoration: none;
 }
 
@@ -155,135 +189,102 @@ body {
   <!-- TITLE -->
   <div class="title">
     <h1>Get in Touch</h1>
-    <p>We’re here to help you grow with Amigos</p>
+    <p>We’re here to support you with Amigos</p>
   </div>
 
-  <!-- CONTACT INFO -->
+  <!-- CONTACT DETAILS -->
   <div class="cards">
 
-    <!-- EMAIL -->
     <div class="card">
       <i class="fa-solid fa-envelope"></i>
       <div>
         <h3>Email</h3>
-        <p>
-          <a href="mailto:harihargroup.info@gmail.com">
-            harihargroup.info@gmail.com
-          </a>
-        </p>
+        <p><a href="mailto:harihargroup.info@gmail.com">harihargroup.info@gmail.com</a></p>
       </div>
     </div>
 
-    <!-- PHONE -->
     <div class="card">
       <i class="fa-solid fa-phone"></i>
       <div>
-        <h3>Call Us</h3>
+        <h3>Phone</h3>
+        <p><a href="tel:+919146466898">+91 91 4646 6898</a></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-location-dot"></i>
+      <div>
+        <h3>Office Address</h3>
         <p>
-          <a href="tel:+919146466898">
-            +91 91 4646 6898
-          </a>
+          Plot No A-49,<br>
+          In front of Baramati RTO,<br>
+          Baramati, Tal-Baramati,<br>
+          Dist-Pune – 413133
         </p>
-       <!-- OFFICE ADDRESS -->
-<div class="card">
-  <i class="fa-solid fa-location-dot"></i>
-  <div>
-    <h3>Office Address</h3>
-    <p>
-      Plot no A-49,<br>
-      In front of Baramati RTO,<br>
-      Baramati, Tal-Baramati,<br>
-      Dist-Pune – 413133
-    </p>
-  </div>
-</div>
+      </div>
+    </div>
 
-<!-- FACTORY ADDRESS -->
-<div class="card">
-  <i class="fa-solid fa-industry"></i>
-  <div>
-    <h3>Factory Location</h3>
-    <p>
-      Amigos, Gojubavi,<br>
-      In front of Bauli,<br>
-      Tal-Baramati,<br>
-      Dist-Pune – 413133
-    </p>
-  </div>
-</div>
-
+    <div class="card">
+      <i class="fa-solid fa-industry"></i>
+      <div>
+        <h3>Factory Address</h3>
+        <p>
+          Amigos, Gojubavi,<br>
+          In front of Bauli,<br>
+          Tal-Baramati,<br>
+          Dist-Pune – 413133
+        </p>
       </div>
     </div>
 
   </div>
 
-  <!-- WHATSAPP -->
+  <!-- WHATSAPP BUTTON -->
   <a class="whatsapp-btn"
      href="https://wa.me/919146466898?text=Hello%20Amigos%20Cleaning"
      target="_blank">
     <i class="fa-brands fa-whatsapp"></i> Chat with us on WhatsApp
   </a>
 
-  <!-- Google Map Location -->
-<div class="map">
- <h3 style="margin:20px 0 10px;">📍 Office Location</h3>
+  <!-- MAPS -->
+  <div class="map-section">
+    <h3>📍 Office Location</h3>
+    <div class="map">
+      <iframe src="https://www.google.com/maps?q=5JM2%2BXQ%20Baramati%2C%20Maharashtra&output=embed"
+        loading="lazy"></iframe>
+    </div>
 
-  <iframe
-    src="https://www.google.com/maps?q=5JM2%2BXQ%20Baramati%2C%20Maharashtra&output=embed"
-    width="100%"
-    height="250"
-    style="border:0; border-radius:16px;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
- <!-- FACTORY MAP -->
- <h3 style="margin:20px 0 10px;">🏭 Factory Location</h3>
+    <h3>🏭 Factory Location</h3>
+    <div class="map">
+      <iframe src="https://www.google.com/maps?q=6JQ4%2B8R%2C%20Gojubavi%2C%20Maharashtra%20413133&output=embed"
+        loading="lazy"></iframe>
+    </div>
+  </div>
 
-<div class="map">
-  <iframe
-    src="https://www.google.com/maps?q=6JQ4%2B8R%2C%20Gojubavi%2C%20Maharashtra%20413133&output=embed"
-    loading="lazy">
-  </iframe>
-</div>
-
-</div>
   <!-- SOCIAL MEDIA -->
-<div class="social">
-  <h3>Follow Us</h3>
-
-  <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj"
-     target="_blank"
-     title="Instagram">
-    <i class="fa-brands fa-instagram"></i>
-  </a>
-
-  <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL"
-     target="_blank"
-     title="Facebook">
-    <i class="fa-brands fa-facebook"></i>
-  </a>
-</div>
+  <div class="social">
+    <h3>Follow Us</h3>
+    <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj" target="_blank">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank">
+      <i class="fa-brands fa-facebook"></i>
+    </a>
+  </div>
 
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-  ©  Amigos A Product by Harihar Group of Industires | All Rights Reserved
-</div>
-
- <!-- Floating WhatsApp -->
+<!-- Floating WhatsApp -->
 <a href="https://wa.me/919146466898?text=Hello%20Amigos%20Cleaning"
    class="whatsapp-float"
-   target="_blank"
-   title="Chat with us">
+   target="_blank">
   <i class="fa-brands fa-whatsapp"></i>
 </a>
 
+<!-- FOOTER -->
+<div class="footer">
+  © Amigos A Product by Harihar Group of Industries | All Rights Reserved
+</div>
+
 </body>
 </html>
-
-
-
-
-
