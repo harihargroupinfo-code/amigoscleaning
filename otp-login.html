@@ -1,31 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>OTP Login | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <meta charset="UTF-8">
+  <title>OTP Login | Amigos Cleaning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #fff;
+      padding: 25px;
+      width: 320px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
-    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
-    projectId: "amigoscleaning-47ba4",
-    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
-    messagingSenderId: "742485216892",
-    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
 
-<div class="login-box">
-  <h3>OTP Login</h3>
+<div class="box">
+  <h2>OTP Login</h2>
 
-  <!-- ROLE SELECTION -->
   <select id="role">
     <option value="">Select Role</option>
     <option value="retailer">Retailer</option>
@@ -33,134 +67,106 @@
     <option value="admin">Admin</option>
   </select>
 
-  <input type="email" id="email" placeholder="Enter Email">
-  <input type="tel" id="mobile" placeholder="Enter Mobile Number">
-
+  <input type="text" id="mobile" placeholder="Enter Mobile Number">
 
   <button onclick="sendOTP()">Send OTP</button>
 
-  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
-  <button id="verifyBtn" onclick="verifyOTP()" style="display:none;">
-    Verify OTP
-  </button>
-
-  <p id="msg"></p>
+  <div id="otpBox" class="hidden">
+    <input type="text" id="otp" placeholder="Enter OTP">
+    <button onclick="verifyOTP()">Verify OTP</button>
+  </div>
 </div>
 
 <script>
+  /* 🔥 PASTE YOUR FIREBASE CONFIG HERE */
+  const firebaseConfig = {
+    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
+    projectId: "amigoscleaning-47ba4",
+    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
+    messagingSenderId: "742485216892",
+    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
 
-  let mobileOTP = "123456"; // demo OTP
+  };
 
-function sendOTP() {
-  const role = document.getElementById("role").value;
-  const email = document.getElementById("email").value;
-  const mobile = document.getElementById("mobile").value;
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-  if (!role || !email || !mobile) {
-    alert("Fill all fields");
-    return;
-  }
+  // Show admin only if ?admin=true
+  window.onload = function () {
+    const params = new URLSearchParams(window.location.search);
+    const adminOption = document.querySelector('option[value="admin"]');
 
-  alert("Demo Mobile OTP is 123456");
+    if (params.get("admin") !== "true") {
+      adminOption.style.display = "none";
+    }
+  };
 
-  document.getElementById("otp").style.display = "block";
-  document.getElementById("verifyBtn").style.display = "block";
-}
+  let generatedOTP = "";
 
-function verifyOTP() {
-  if (document.getElementById("otp").value === mobileOTP) {
-    localStorage.setItem("role", selectedRole);
-    alert("Mobile verified");
+  function sendOTP() {
+    const mobile = document.getElementById("mobile").value.trim();
+    const role = document.getElementById("role").value;
 
-    if (selectedRole === "retailer") location.href = "retailer.html";
-    if (selectedRole === "distributor") location.href = "distributor.html";
-    if (selectedRole === "admin") location.href = "admin.html";
-  } else {
-    alert("Invalid OTP");
-  }
-}
-
-  <script>
-/* ADMIN VISIBILITY CONTROL */
-window.onload = function () {
-  const params = new URLSearchParams(window.location.search);
-  const adminOption = document.querySelector('option[value="admin"]');
-
-  if (params.get("admin") !== "true") {
-    adminOption.style.display = "none";
-  } else {
-    adminOption.style.display = "block";
-  }
-};
-
-let generatedOTP = "";
-let selectedRole = "";
-
-function sendOTP() {
-  ...
-}
-
-function verifyOTP() {
-  ...
-}
-</script>
-
-/* Hide Admin unless admin=true */
-const params = new URLSearchParams(window.location.search);
-if (params.get("admin") !== "true") {
-  document.querySelector('option[value="admin"]').style.display = "none";
-}
-
-let generatedOTP = "";
-let selectedRole = "";
-
-function sendOTP() {
-  selectedRole = document.getElementById("role").value;
-  const email = document.getElementById("email").value;
-
-  if (!selectedRole || !email) {
-    alert("Select role and enter email");
-    return;
-  }
-
-  // Distributor approval check
-  if (selectedRole === "distributor") {
-    let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
-    let user = pending.find(u => u.email === email);
-
-    if (!user || !user.approved) {
-      alert("Distributor pending admin approval");
+    if (!role) {
+      alert("Select role");
       return;
     }
+
+    if (!/^[6-9]\d{9}$/.test(mobile)) {
+      alert("Enter valid mobile number");
+      return;
+    }
+
+    db.collection("users")
+      .where("mobile", "==", mobile)
+      .where("role", "==", role)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          alert("User not found");
+          return;
+        }
+
+        const user = snapshot.docs[0].data();
+
+        if (user.blocked) {
+          alert("Account suspended. Contact admin.");
+          return;
+        }
+
+        if (role === "distributor" && !user.approved) {
+          alert("Distributor not approved yet.");
+          return;
+        }
+
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log("OTP (testing):", generatedOTP);
+
+        alert("OTP sent (check console for now)");
+        document.getElementById("otpBox").classList.remove("hidden");
+      });
   }
 
-  generatedOTP = "123456"; // demo OTP
-  alert("Demo OTP is 123456");
+  function verifyOTP() {
+    const enteredOTP = document.getElementById("otp").value;
 
-  document.getElementById("otp").style.display = "block";
-  document.getElementById("verifyBtn").style.display = "block";
-}
+    if (enteredOTP !== generatedOTP) {
+      alert("Invalid OTP");
+      return;
+    }
 
-function verifyOTP() {
-  if (document.getElementById("otp").value === generatedOTP) {
-    localStorage.setItem("role", selectedRole);
+    const role = document.getElementById("role").value;
 
-    if (selectedRole === "retailer") location.href = "retailer.html";
-    if (selectedRole === "distributor") location.href = "distributor.html";
-    if (selectedRole === "admin") location.href = "admin.html";
-  } else {
-    alert("Invalid OTP");
+    if (role === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "index.html";
+    }
   }
-}
-
-  console.log("Firebase initialized", firebase.apps.length);
-
 </script>
 
 </body>
 </html>
 
-
-
-
-
+  
