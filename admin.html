@@ -14,6 +14,21 @@
     h2 {
       text-align: center;
     }
+
+    <input type="text" id="searchInput" placeholder="Search email or mobile">
+<select id="roleFilter">
+  <option value="">All Roles</option>
+  <option value="retailer">Retailer</option>
+  <option value="distributor">Distributor</option>
+</select>
+<select id="statusFilter">
+  <option value="">All Status</option>
+  <option value="approved">Approved</option>
+  <option value="pending">Pending</option>
+  <option value="blocked">Blocked</option>
+</select>
+<button onclick="loadUsers()">Apply</button>
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -123,6 +138,7 @@
 
 </body>
 </html>
+
 
 
 
