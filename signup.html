@@ -62,6 +62,12 @@ if (!isValidEmail(email)) {
   alert("Please enter a valid email address");
   return;
 }
+const mobile = document.getElementById("mobile").value;
+
+if (!isValidMobile(mobile)) {
+  alert("Please enter a valid 10-digit mobile number");
+  return;
+}
 
   }
 
@@ -88,6 +94,7 @@ if (!isValidEmail(email)) {
 
 </body>
 </html>
+
 
 
 
