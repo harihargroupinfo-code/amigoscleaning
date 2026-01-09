@@ -1,3 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTP Login | Amigos Cleaning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #007bff, #00b894);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 360px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .logo i {
+      font-size: 42px;
+      color: #007bff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #888;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .link-text {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .link-text a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
 <div class="card">
   <div class="logo">
     <i class="fa-solid fa-broom"></i>
@@ -40,3 +146,60 @@
     <a href="signup.html">Create one</a>
   </div>
 </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
+    projectId: "amigoscleaning-47ba4",
+    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
+    messagingSenderId: "742485216892",
+    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  let generatedOTP = "";
+  let selectedRole = "";
+
+  function normalizeMobile(m) {
+    return m.replace(/\D/g, "").slice(-10);
+  }
+
+  function sendOTP() {
+    selectedRole = document.getElementById("role").value;
+    let mobile = normalizeMobile(document.getElementById("mobile").value);
+
+    if (!selectedRole) return alert("Select role");
+    if (!/^[6-9]\d{9}$/.test(mobile)) return alert("Enter valid mobile");
+
+    db.collection("users")
+      .where("mobile", "==", mobile)
+      .where("role", "==", selectedRole)
+      .get()
+      .then(snap => {
+        if (snap.empty) return alert("User not found");
+
+        const user = snap.docs[0].data();
+        if (user.blocked) return alert("Account blocked");
+        if (selectedRole === "distributor" && !user.approved)
+          return alert("Distributor not approved");
+
+        generatedOTP = "123456";
+        alert("Demo OTP: 123456");
+        document.getElementById("otpBox").style.display = "block";
+      });
+  }
+
+  function verifyOTP() {
+    if (document.getElementById("otp").value !== generatedOTP)
+      return alert("Invalid OTP");
+
+    if (selectedRole === "admin") location.href = "admin.html";
+    else location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
