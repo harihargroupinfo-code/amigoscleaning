@@ -18,6 +18,7 @@
     storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
     messagingSenderId: "742485216892",
     appId: "1:742485216892:web:9c60dee666b039cf3983f9"
+   
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -25,6 +26,8 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
     console.log("Firebase initialized", firebase.apps.length);
+     console.log("Firebase apps:", firebase.apps.length);
+
 
 </script>
 
@@ -161,6 +164,7 @@ function register() {
 
 </body>
 </html>
+
 
 
 
