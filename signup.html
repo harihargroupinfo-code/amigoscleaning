@@ -1,223 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <meta charset="UTF-8">
   <title>Signup | Amigos Cleaning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Firebase SDKs -->
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #007bff, #00b894);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 360px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .logo i {
+      font-size: 42px;
+      color: #00b894;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #888;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #00b894;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .link-text {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .link-text a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
 
-  <!-- Firebase Init -->
-  <script>
-    const firebaseConfig = {
+<body>
+
+<div class="card">
+  <div class="logo">
+    <i class="fa-solid fa-user-plus"></i>
+  </div>
+
+  <h2>Create Account</h2>
+
+  <div class="input-group">
+    <i class="fa-solid fa-envelope"></i>
+    <input type="email" id="email" placeholder="Email">
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-phone"></i>
+    <input type="text" id="mobile" placeholder="Mobile Number">
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-user-tag"></i>
+    <select id="role">
+      <option value="">Select Role</option>
+      <option value="retailer">Retailer</option>
+      <option value="distributor">Distributor</option>
+    </select>
+  </div>
+
+  <button onclick="register()">Register</button>
+
+  <div class="link-text">
+    Already have an account?
+    <a href="otp-login.html">Login with OTP</a>
+  </div>
+</div>
+
+<script>
+  const firebaseConfig = {
     apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
     authDomain: "amigoscleaning-47ba4.firebaseapp.com",
     projectId: "amigoscleaning-47ba4",
     storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
     messagingSenderId: "742485216892",
     appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-   
-    };
+  };
 
-    firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    console.log("Firebase initialized:", firebase.apps.length);
-  </script>
-
- <style>
-  * {
-    box-sizing: border-box;
+  function normalizeMobile(m) {
+    return m.replace(/\D/g, "").slice(-10);
   }
 
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #007bff, #00b894);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
+  function register() {
+    const email = document.getElementById("email").value.trim();
+    let mobile = normalizeMobile(document.getElementById("mobile").value);
+    const role = document.getElementById("role").value;
+
+    if (!email || !mobile || !role)
+      return alert("Fill all fields");
+
+    db.collection("users").add({
+      email,
+      mobile,
+      role,
+      approved: role === "retailer",
+      blocked: false
+    }).then(() => {
+      alert("Registration successful");
+      location.href = "otp-login.html";
+    });
   }
-
-  .card {
-    background: #fff;
-    width: 100%;
-    max-width: 360px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  }
-
-  .logo {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-
-  .logo i {
-    font-size: 42px;
-    color: #007bff;
-  }
-
-  h2 {
-    text-align: center;
-    margin: 10px 0 20px;
-    color: #333;
-  }
-
-  .input-group {
-    position: relative;
-    margin-bottom: 15px;
-  }
-
-  .input-group i {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    color: #888;
-  }
-
-  .input-group input,
-  .input-group select {
-    width: 100%;
-    padding: 12px 12px 12px 40px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #007bff;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  button:hover {
-    background: #0056b3;
-  }
-
-  .link-text {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-  }
-
-  .link-text a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .link-text a:hover {
-    text-decoration: underline;
-  }
-
-  @media (min-width: 768px) {
-    .card {
-      max-width: 400px;
-    }
-  }
-</style>
-
-</head>
-
-<body>
-
-  <div class="signup-box">
-    <h2>Create Account</h2>
-
-    <select id="role">
-      <option value="">Select Role</option>
-      <option value="retailer">Retailer</option>
-      <option value="distributor">Distributor</option>
-    </select>
-
-    <input type="email" id="email" placeholder="Email ID">
-
-    <input type="tel" id="mobile" placeholder="Mobile Number (10 digits)">
-
-    <button type="button" onclick="register()">Register</button>
-    <p style="text-align:center; margin-top:10px;">
-  Already have an account?
-  <a href="otp-login.html" style="color:#007bff; text-decoration:none;">
-    Login with OTP
-  </a>
-</p>
-
-  </div>
-
-  <!-- Register Function -->
-  <script>
-    function register() {
-      console.log("Register clicked");
-
-      const role = document.getElementById("role").value;
-      const email = document.getElementById("email").value.trim();
-      const mobile = document.getElementById("mobile").value.trim();
-
-      if (!role || !email || !mobile) {
-        alert("Please fill all fields");
-        return;
-      }
-
-      if (!/^\S+@\S+\.\S+$/.test(email)) {
-        alert("Enter a valid email");
-        return;
-      }
-
-      if (!/^[6-9]\d{9}$/.test(mobile)) {
-        alert("Enter valid 10-digit Indian mobile number");
-        return;
-      }
-
-      db.collection("users").add({
-        role: role,
-        email: email,
-        mobile: "+91" + mobile,
-        approved: role === "distributor" ? false : true,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      .then(() => {
-        alert(
-          role === "distributor"
-            ? "Registered successfully. Waiting for admin approval."
-            : "Registered successfully."
-        );
-        window.location.href = "otp-login.html";
-      })
-      .catch(error => {
-        console.error("Firestore Error:", error);
-        alert(error.message);
-      });
-    }
-  </script>
-
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
