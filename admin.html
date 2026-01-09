@@ -63,6 +63,11 @@ function approve(index) {
   localStorage.setItem("pendingDistributors", JSON.stringify(pending));
   alert("Distributor approved");
   loadPending();
+  alert(
+  "Distributor Approved!\n" +
+  "SMS notification will be sent to: " + distributorMobile
+);
+
 }
 
 function logout() {
@@ -75,4 +80,5 @@ loadPending();
 
 </body>
 </html>
+
 
