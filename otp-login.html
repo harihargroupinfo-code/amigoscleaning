@@ -19,6 +19,8 @@
   </select>
 
   <input type="email" id="email" placeholder="Enter Email">
+  <input type="tel" id="mobile" placeholder="Enter Mobile Number">
+
 
   <button onclick="sendOTP()">Send OTP</button>
 
@@ -31,6 +33,38 @@
 </div>
 
 <script>
+
+  let mobileOTP = "123456"; // demo OTP
+
+function sendOTP() {
+  const role = document.getElementById("role").value;
+  const email = document.getElementById("email").value;
+  const mobile = document.getElementById("mobile").value;
+
+  if (!role || !email || !mobile) {
+    alert("Fill all fields");
+    return;
+  }
+
+  alert("Demo Mobile OTP is 123456");
+
+  document.getElementById("otp").style.display = "block";
+  document.getElementById("verifyBtn").style.display = "block";
+}
+
+function verifyOTP() {
+  if (document.getElementById("otp").value === mobileOTP) {
+    localStorage.setItem("role", selectedRole);
+    alert("Mobile verified");
+
+    if (selectedRole === "retailer") location.href = "retailer.html";
+    if (selectedRole === "distributor") location.href = "distributor.html";
+    if (selectedRole === "admin") location.href = "admin.html";
+  } else {
+    alert("Invalid OTP");
+  }
+}
+
   <script>
 /* ADMIN VISIBILITY CONTROL */
 window.onload = function () {
@@ -107,5 +141,6 @@ function verifyOTP() {
 
 </body>
 </html>
+
 
 
