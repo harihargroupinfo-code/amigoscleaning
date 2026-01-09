@@ -35,6 +35,13 @@
 </div>
 
 <script>
+  
+  <script>
+function isValidEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(email);
+}
+
 function register() {
   const role = document.getElementById("role").value;
   const email = document.querySelector('input[type="email"]').value;
@@ -67,4 +74,5 @@ function register() {
 
 </body>
 </html>
+
 
