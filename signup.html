@@ -79,6 +79,8 @@ function isValidEmail(email) {
 
 
 function register() {
+  console.log("DB object:", db);
+
   const role = document.getElementById("role").value;
   const email = document.querySelector('input[type="email"]').value;
   const mobile = document.getElementById("mobile").value;
@@ -164,6 +166,7 @@ function register() {
 
 </body>
 </html>
+
 
 
 
