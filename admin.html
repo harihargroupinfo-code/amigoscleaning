@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+
+    td button {
+  margin: 2px;
+}
+
     body {
       font-family: Arial, sans-serif;
       background: #f4f6f8;
@@ -229,6 +234,33 @@
     });
   }
 
+  function deleteUser(id, role, email) {
+  const confirm1 = confirm(
+    `Are you sure you want to DELETE this ${role}?\n\n${email}`
+  );
+
+  if (!confirm1) return;
+
+  const confirm2 = confirm(
+    "⚠️ This action is PERMANENT.\n\nClick OK to DELETE permanently."
+  );
+
+  if (!confirm2) return;
+
+  db.collection("users")
+    .doc(id)
+    .delete()
+    .then(() => {
+      alert("User deleted successfully");
+      loadUsers();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error deleting user");
+    });
+}
+
+
   function exportExcel() {
     db.collection("users").get().then(snapshot => {
       let data = [];
@@ -247,4 +279,5 @@
 </body>
 </html>
    
+
 
