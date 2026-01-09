@@ -3,6 +3,21 @@
 <head>
   <title>Admin Panel | Amigos</title>
   <link rel="stylesheet" href="css/style.css">
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
+    projectId: "amigoscleaning-47ba4",
+    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
+    messagingSenderId: "742485216892",
+    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
 </head>
 <body>
 
@@ -76,9 +91,13 @@ function logout() {
 }
 
 loadPending();
+
+  console.log("Firebase initialized", firebase.apps.length);
+
 </script>
 
 </body>
 </html>
+
 
 
