@@ -66,3 +66,11 @@ select {
   background: #2563eb;
 }
 
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/91XXXXXXXXXX"
+   class="whatsapp-float"
+   target="_blank"
+   title="Chat with us on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
