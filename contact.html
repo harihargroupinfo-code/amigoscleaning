@@ -1,23 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Contact | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<title>Contact Us | Amigos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f2f4f8;
+  color: #333;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+  color: #fff;
+  padding: 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Container */
+.container {
+  padding: 20px 16px;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title h1 {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.title p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Contact cards */
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.card i {
+  font-size: 28px;
+  color: #0d6efd;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #555;
+  word-break: break-all;
+}
+
+.card a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  color: #777;
+}
+</style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <h2 class="logo">Amigos</h2>
-  <a href="index.html">Home</a>
-</nav>
+<!-- HEADER -->
+<div class="header">
+  <i class="fa-solid fa-phone"></i> Contact Us
+</div>
 
-<section class="section">
-  <h1>Contact Us</h1>
-  <p>Email: contact@amigos.com</p>
-  <p>Phone: +91 90000 00000</p>
-</section>
+<div class="container">
 
-<footer class="footer">© Amigos</footer>
+  <!-- TITLE -->
+  <div class="title">
+    <h1>Get in Touch</h1>
+    <p>We’re here to help you grow with Amigos</p>
+  </div>
+
+  <!-- CONTACT INFO -->
+  <div class="cards">
+
+    <!-- EMAIL -->
+    <div class="card">
+      <i class="fa-solid fa-envelope"></i>
+      <div>
+        <h3>Email</h3>
+        <p>
+          <a href="mailto:harihargroup.info@gmail.com">
+            harihargroup.info@gmail.com
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- PHONE -->
+    <div class="card">
+      <i class="fa-solid fa-phone"></i>
+      <div>
+        <h3>Call Us</h3>
+        <p>
+          <a href="tel:+919146466898">
+            +91 91 4646 6898
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © Amigos A Product by Harihar Group of Industries | All Rights Reserved
+</div>
 
 </body>
 </html>
