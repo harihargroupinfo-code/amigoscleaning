@@ -46,9 +46,16 @@ function register() {
   const role = document.getElementById("role").value;
   const email = document.querySelector('input[type="email"]').value;
 
-  if (!role || !email) {
-    alert("Fill all fields");
-    return;
+ if (!role || !email) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (!isValidEmail(email)) {
+  alert("Please enter a valid email address");
+  return;
+}
+
   }
 
   if (role === "distributor") {
@@ -74,5 +81,6 @@ function register() {
 
 </body>
 </html>
+
 
 
