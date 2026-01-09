@@ -1,32 +1,248 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Amigos | Home</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Admin Dashboard | Amigos Cleaning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f2f4f8;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
+
+.filters select {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  margin: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.card .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.role {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #eee;
+}
+
+.role.distributor { background:#fff3cd; color:#856404; }
+.role.retailer { background:#d1e7dd; color:#0f5132; }
+
+.status {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.approve { background:#198754; color:#fff; }
+.block { background:#ffc107; }
+.delete { background:#dc3545; color:#fff; }
+
+/* Empty */
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+/* Logout */
+.logout {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:48px;
+  height:48px;
+  font-size:18px;
+}
+</style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <h2 class="logo">Amigos</h2>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="products.html">Products</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</nav>
+<div class="header">
+  <i class="fa-solid fa-user-shield"></i> Admin Dashboard
+</div>
 
-<section class="hero">
-  <h1>Welcome to Amigos</h1>
-  <p>Your trusted business partner</p>
-  <img src="images/hero.jpg">
-</section>
+<div class="filters">
+  <select id="roleFilter" onchange="loadUsers()">
+    <option value="">All Roles</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+  </select>
 
-<footer class="footer">
-  © 2025 Amigos. All rights reserved.
-</footer>
+  <select id="statusFilter" onchange="loadUsers()">
+    <option value="">All Status</option>
+    <option value="approved">Approved</option>
+    <option value="pending">Pending</option>
+    <option value="blocked">Blocked</option>
+  </select>
+</div>
+
+<div id="list"></div>
+
+<button class="logout" onclick="logout()">
+  <i class="fa-solid fa-right-from-bracket"></i>
+</button>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+  authDomain: "amigoscleaning-47ba4.firebaseapp.com",
+  projectId: "amigoscleaning-47ba4",
+  storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
+  messagingSenderId: "742485216892",
+  appId: "1:742485216892:web:9c60dee666b039cf3983f9"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function loadUsers() {
+  const roleF = document.getElementById("roleFilter").value;
+  const statusF = document.getElementById("statusFilter").value;
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  db.collection("users").get().then(snapshot => {
+    if (snapshot.empty) {
+      list.innerHTML = `<div class="empty">No users found</div>`;
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const u = doc.data();
+
+      if (roleF && u.role !== roleF) return;
+      if (statusF === "approved" && !u.approved) return;
+      if (statusF === "pending" && u.approved) return;
+      if (statusF === "blocked" && !u.blocked) return;
+
+      list.innerHTML += `
+        <div class="card">
+          <div class="row">
+            <strong>${u.email || "No Email"}</strong>
+            <span class="role ${u.role}">${u.role}</span>
+          </div>
+
+          <div class="status">
+            📱 ${u.mobile}<br>
+            ${u.blocked ? "🚫 Blocked" :
+              u.approved ? "✅ Approved" : "⏳ Pending"}
+          </div>
+
+          <div class="actions">
+            ${(!u.approved && u.role==="distributor") ?
+              `<button class="approve"
+                onclick="approve('${doc.id}')">Approve</button>` : ""}
+
+            <button class="block"
+              onclick="toggleBlock('${doc.id}', ${u.blocked})">
+              ${u.blocked ? "Unblock" : "Block"}
+            </button>
+
+            <button class="delete"
+              onclick="deleteUser('${doc.id}','${u.email}')">
+              Delete
+            </button>
+          </div>
+        </div>
+      `;
+    });
+  });
+}
+
+function approve(id) {
+  db.collection("users").doc(id)
+    .update({ approved:true })
+    .then(() => {
+      alert("Distributor approved");
+      loadUsers();
+    });
+}
+
+function toggleBlock(id, blocked) {
+  db.collection("users").doc(id)
+    .update({ blocked: !blocked })
+    .then(loadUsers);
+}
+
+function deleteUser(id, email) {
+  if (!confirm(`Delete user?\n${email}`)) return;
+  db.collection("users").doc(id)
+    .delete()
+    .then(() => {
+      alert("User deleted");
+      loadUsers();
+    });
+}
+
+function logout() {
+  localStorage.clear();
+  location.href = "otp-login.html";
+}
+
+loadUsers();
+</script>
 
 </body>
 </html>
