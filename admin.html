@@ -1,100 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Panel | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
-    <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  const firebaseConfig = {
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Amigos Cleaning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+    button {
+      padding: 6px 12px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: darkgreen;
+    }
+  </style>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+</head>
+
+<body>
+
+  <h2>Distributor Approval Dashboard</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="distributorList">
+      <tr><td colspan="3">Loading...</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Firebase Init + Admin Logic -->
+  <script>
+    const firebaseConfig = {    
     apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
     authDomain: "amigoscleaning-47ba4.firebaseapp.com",
     projectId: "amigoscleaning-47ba4",
     storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
     messagingSenderId: "742485216892",
     appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-  };
+   };
 
-  firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-</head>
-<body>
+    const tableBody = document.getElementById("distributorList");
 
-<script>
-if (localStorage.getItem("role") !== "admin") {
-  location.href = "otp-login.html?admin=true";
-}
-</script>
+    db.collection("users")
+      .where("role", "==", "distributor")
+      .where("approved", "==", false)
+      .onSnapshot(snapshot => {
 
-<h2>Admin Dashboard</h2>
+        tableBody.innerHTML = "";
 
-<h3>Pending Distributor Approvals</h3>
+        if (snapshot.empty) {
+          tableBody.innerHTML =
+            `<tr><td colspan="3">No pending distributors</td></tr>`;
+          return;
+        }
 
-<table border="1" cellpadding="10">
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Mobile</th>
-      <th>Status</th>
-      <th>Action</th>
+        snapshot.forEach(doc => {
+          const data = doc.data();
 
-    </tr>
-  </thead>
-  <tbody id="pendingList"></tbody>
-</table>
+          tableBody.innerHTML += `
+            <tr>
+              <td>${data.email}</td>
+              <td>${data.mobile}</td>
+              <td>
+                <button onclick="approveUser('${doc.id}')">
+                  Approve
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      });
 
-<br>
-<button onclick="logout()">Logout</button>
-
-<script>
-function loadPending() {
-  let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
-  let tbody = document.getElementById("pendingList");
-  tbody.innerHTML = "";
-
-  pending.forEach((user, index) => {
-    if (!user.approved) {
-      tbody.innerHTML += `
-      tbody.innerHTML += `
-<tr>
-  <td>${user.email}</td>
-  <td>${user.mobile}</td>
-  <td>Pending</td>
-  <td>
-    <button onclick="approve(${index})">Approve</button>
-  </td>
-</tr>
-`;
-
-      `;
+    function approveUser(docId) {
+      db.collection("users").doc(docId).update({
+        approved: true
+      }).then(() => {
+        alert("Distributor approved successfully");
+      }).catch(err => {
+        alert(err.message);
+      });
     }
-  });
-}
-
-function approve(index) {
-  let pending = JSON.parse(localStorage.getItem("pendingDistributors"));
-  pending[index].approved = true;
-  localStorage.setItem("pendingDistributors", JSON.stringify(pending));
-  alert("Distributor approved");
-  loadPending();
-  alert(
-  "Distributor Approved!\n" +
-  "SMS notification will be sent to: " + distributorMobile
-);
-
-}
-
-function logout() {
-  localStorage.clear();
-  location.href = "otp-login.html?admin=true";
-}
-
-loadPending();
-
-  console.log("Firebase initialized", firebase.apps.length);
-
-</script>
+  </script>
 
 </body>
 </html>
