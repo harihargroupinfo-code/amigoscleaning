@@ -1,17 +1,21 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Register | Amigos</title>
+  <meta charset="UTF-8">
+  <title>Signup | Amigos Cleaning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+  <!-- Firebase Init -->
   <script>
-  const firebaseConfig = {
+    const firebaseConfig = {
     apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
     authDomain: "amigoscleaning-47ba4.firebaseapp.com",
     projectId: "amigoscleaning-47ba4",
@@ -19,170 +23,117 @@
     messagingSenderId: "742485216892",
     appId: "1:742485216892:web:9c60dee666b039cf3983f9"
    
-  };
+    };
 
-  firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-    console.log("Firebase initialized", firebase.apps.length);
-     console.log("Firebase apps:", firebase.apps.length);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
+    console.log("Firebase initialized:", firebase.apps.length);
+  </script>
 
-</script>
-
-
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+    }
+    .signup-box {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .signup-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .signup-box input,
+    .signup-box select,
+    .signup-box button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .signup-box button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .signup-box button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <a href="index.html">Home</a>
-  <a href="login.html">Login</a>
-</nav>
+  <div class="signup-box">
+    <h2>Create Account</h2>
 
-<div class="login-box">
-  <h3>Register Account</h3>
+    <select id="role">
+      <option value="">Select Role</option>
+      <option value="retailer">Retailer</option>
+      <option value="distributor">Distributor</option>
+    </select>
 
-  <!-- REGISTER AS -->
-  <label>Register As</label>
-  <select id="role">
-    <option value="">Select Role</option>
-    <option value="retailer">Retailer</option>
-    <option value="distributor">Distributor</option>
-  </select>
+    <input type="email" id="email" placeholder="Email ID">
 
-  <input type="text" placeholder="Full Name">
-  <input type="email" placeholder="Email">
-  <input type="tel" id="mobile" placeholder="Mobile Number" required>
-  <input type="password" placeholder="Password">
+    <input type="tel" id="mobile" placeholder="Mobile Number (10 digits)">
 
-  <button type="button" onclick="register()">Register</button>
+    <button type="button" onclick="register()">Register</button>
+  </div>
 
-  <p style="text-align:center; margin-top:12px;">
-    Already have an account?
-    <a href="otp-login.html">Login with OTP</a>
-  </p>
-</div>
-
-<script>
-  
+  <!-- Register Function -->
   <script>
-function isValidEmail(email) {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return pattern.test(email);
-}
+    function register() {
+      console.log("Register clicked");
 
-  function isValidMobile(mobile) {
-  const pattern = /^[6-9]\d{9}$/;
-  return pattern.test(mobile);
-}
+      const role = document.getElementById("role").value;
+      const email = document.getElementById("email").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
 
+      if (!role || !email || !mobile) {
+        alert("Please fill all fields");
+        return;
+      }
 
-function register() {
-  console.log("DB object:", db);
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        alert("Enter a valid email");
+        return;
+      }
 
-  const role = document.getElementById("role").value;
-  const email = document.querySelector('input[type="email"]').value;
-  const mobile = document.getElementById("mobile").value;
+      if (!/^[6-9]\d{9}$/.test(mobile)) {
+        alert("Enter valid 10-digit Indian mobile number");
+        return;
+      }
 
-
-if (!role || !email || !mobile) {
-  alert("Please fill all fields");
-  return;
-}
-
-if (!isValidEmail(email)) {
-  alert("Please enter a valid email address");
-  return;
-}
-
-if (!isValidMobile(mobile)) {
-  alert("Please enter a valid 10-digit mobile number");
-  return;
-}
-
-
-  }
-
-  if (role === "distributor") {
-    // Get existing pending list
-    let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
-
-    // Add new distributor
-    pending.push({ email: email, approved: false });
-
-    localStorage.setItem("pendingDistributors", JSON.stringify(pending));
-
-    alert("Registration successful. Waiting for admin approval.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  // Retailer → direct login
-  localStorage.setItem("registeredRole", role);
-  window.location.href = "otp-login.html";
-}
-
-  pending.push({
-  email: email,
-  mobile: mobile,
-  approved: false
-});
-</script>
-<script>
-function register() {
-  alert("Register button clicked");
-}
-</script>
-
-  <script>
-function register() {
-  console.log("Register function started");
-
-  const role = document.getElementById("role").value;
-  const email = document.getElementById("email").value;
-  const mobile = document.getElementById("mobile").value;
-
-  if (!role || !email || !mobile) {
-    alert("Fill all fields");
-    return;
-  }
-
-  db.collection("users").add({
-    role: role,
-    email: email,
-    mobile: "+91" + mobile,
-    approved: role === "distributor" ? false : true,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    alert("Registered successfully");
-  }).catch(error => {
-    console.error(error);
-    alert(error.message);
-  });
-}
-</script>
-
+      db.collection("users").add({
+        role: role,
+        email: email,
+        mobile: "+91" + mobile,
+        approved: role === "distributor" ? false : true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        alert(
+          role === "distributor"
+            ? "Registered successfully. Waiting for admin approval."
+            : "Registered successfully."
+        );
+        window.location.href = "otp-login.html";
+      })
+      .catch(error => {
+        console.error("Firestore Error:", error);
+        alert(error.message);
+      });
+    }
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
