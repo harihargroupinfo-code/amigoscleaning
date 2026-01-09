@@ -53,7 +53,7 @@ function register() {
   const role = document.getElementById("role").value;
   const email = document.querySelector('input[type="email"]').value;
 
- if (!role || !email) {
+if (!role || !email || !mobile) {
   alert("Please fill all fields");
   return;
 }
@@ -62,12 +62,12 @@ if (!isValidEmail(email)) {
   alert("Please enter a valid email address");
   return;
 }
-const mobile = document.getElementById("mobile").value;
 
 if (!isValidMobile(mobile)) {
   alert("Please enter a valid 10-digit mobile number");
   return;
 }
+
 
   }
 
@@ -94,6 +94,7 @@ if (!isValidMobile(mobile)) {
 
 </body>
 </html>
+
 
 
 
