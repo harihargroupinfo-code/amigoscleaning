@@ -20,8 +20,10 @@ if (localStorage.getItem("role") !== "admin") {
   <thead>
     <tr>
       <th>Email</th>
+      <th>Mobile</th>
       <th>Status</th>
       <th>Action</th>
+
     </tr>
   </thead>
   <tbody id="pendingList"></tbody>
@@ -39,13 +41,17 @@ function loadPending() {
   pending.forEach((user, index) => {
     if (!user.approved) {
       tbody.innerHTML += `
-        <tr>
-          <td>${user.email}</td>
-          <td>Pending</td>
-          <td>
-            <button onclick="approve(${index})">Approve</button>
-          </td>
-        </tr>
+      tbody.innerHTML += `
+<tr>
+  <td>${user.email}</td>
+  <td>${user.mobile}</td>
+  <td>Pending</td>
+  <td>
+    <button onclick="approve(${index})">Approve</button>
+  </td>
+</tr>
+`;
+
       `;
     }
   });
@@ -69,3 +75,4 @@ loadPending();
 
 </body>
 </html>
+
