@@ -11,48 +11,71 @@
       background: #f4f6f8;
       padding: 20px;
     }
+
     h2 {
       text-align: center;
     }
 
-    <input type="text" id="searchInput" placeholder="Search email or mobile">
-<select id="roleFilter">
-  <option value="">All Roles</option>
-  <option value="retailer">Retailer</option>
-  <option value="distributor">Distributor</option>
-</select>
-<select id="statusFilter">
-  <option value="">All Status</option>
-  <option value="approved">Approved</option>
-  <option value="pending">Pending</option>
-  <option value="blocked">Blocked</option>
-</select>
-<button onclick="loadUsers()">Apply</button>
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 8px;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
       background: #fff;
-      margin-top: 20px;
     }
+
     th, td {
       padding: 10px;
       border: 1px solid #ddd;
       text-align: center;
     }
+
     th {
       background: #007bff;
       color: #fff;
     }
+
     button {
-      padding: 6px 12px;
-      background: green;
-      color: white;
-      border: none;
       cursor: pointer;
+      border: none;
+      padding: 6px 10px;
+      margin: 2px;
     }
-    button:hover {
-      background: darkgreen;
+
+    .approve-btn {
+      background: green;
+      color: #fff;
+    }
+
+    .block-btn {
+      background: red;
+      color: #fff;
+    }
+
+    .status-approved {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .status-blocked {
+      color: red;
+      font-weight: bold;
     }
   </style>
 
@@ -60,121 +83,163 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+  <!-- Excel Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 
 <body>
 
-  <h2>Distributor Approval Dashboard</h2>
+<h2>Admin Dashboard – Amigos Cleaning</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Email</th>
-        <th>Mobile</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="distributorList">
-      <tr><td colspan="3">Loading...</td></tr>
-    </tbody>
-  </table>
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="Search email or mobile">
 
-  <!-- Firebase Init + Admin Logic -->
-  <script>
-    const firebaseConfig = {    
-    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
+  <select id="roleFilter">
+    <option value="">All Roles</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+  </select>
+
+  <select id="statusFilter">
+    <option value="">All Status</option>
+    <option value="approved">Approved</option>
+    <option value="pending">Pending</option>
+    <option value="blocked">Blocked</option>
+  </select>
+
+  <button onclick="loadUsers()">Apply</button>
+  <button onclick="exportExcel()">Export to Excel</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="userTable">
+    <tr><td colspan="5">Loading...</td></tr>
+  </tbody>
+</table>
+
+<script>
+  /* 🔥 PASTE YOUR FIREBASE CONFIG HERE */
+  const firebaseConfig = {
+   apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
     authDomain: "amigoscleaning-47ba4.firebaseapp.com",
     projectId: "amigoscleaning-47ba4",
     storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
     messagingSenderId: "742485216892",
     appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-   };
+  };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-    const tableBody = document.getElementById("distributorList");
+  const tableBody = document.getElementById("userTable");
 
-    db.collection("users")
-      .where("role", "==", "distributor")
-      .where("approved", "==", false)
-      .onSnapshot(snapshot => {
+  function loadUsers() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const role = document.getElementById("roleFilter").value;
+    const status = document.getElementById("statusFilter").value;
 
-        tableBody.innerHTML = "";
+    let query = db.collection("users");
 
-        if (snapshot.empty) {
-          tableBody.innerHTML =
-            `<tr><td colspan="3">No pending distributors</td></tr>`;
-          return;
-        }
+    if (role) query = query.where("role", "==", role);
+    if (status === "approved") query = query.where("approved", "==", true);
+    if (status === "pending") query = query.where("approved", "==", false);
+    if (status === "blocked") query = query.where("blocked", "==", true);
 
-        snapshot.forEach(doc => {
-          const data = doc.data();
+    query.get().then(snapshot => {
+      tableBody.innerHTML = "";
+
+      if (snapshot.empty) {
+        tableBody.innerHTML =
+          `<tr><td colspan="5">No users found</td></tr>`;
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const u = doc.data();
+
+        if (
+          u.email.toLowerCase().includes(search) ||
+          u.mobile.includes(search)
+        ) {
+          let statusText = "Pending";
+          let statusClass = "status-pending";
+
+          if (u.blocked) {
+            statusText = "Blocked";
+            statusClass = "status-blocked";
+          } else if (u.approved) {
+            statusText = "Approved";
+            statusClass = "status-approved";
+          }
 
           tableBody.innerHTML += `
             <tr>
-              <td>${data.email}</td>
-              <td>${data.mobile}</td>
+              <td>${u.email}</td>
+              <td>${u.mobile}</td>
+              <td>${u.role}</td>
+              <td class="${statusClass}">${statusText}</td>
               <td>
-                <button onclick="approveUser('${doc.id}')">
-                  Approve
-                </button>
+                ${u.role === "distributor" && !u.approved && !u.blocked
+                  ? `<button class="approve-btn"
+                      onclick="approveUser('${doc.id}')">Approve</button>`
+                  : ""}
+                ${!u.blocked
+                  ? `<button class="block-btn"
+                      onclick="blockUser('${doc.id}')">Block</button>`
+                  : ""}
               </td>
-            </tr>
-          `;
-        });
+            </tr>`;
+        }
       });
+    });
+  }
 
-    function approveUser(docId) {
-      db.collection("users").doc(docId).update({
-        approved: true
-      }).then(() => {
-        alert("Distributor approved successfully");
-      }).catch(err => {
-        alert(err.message);
-      });
-    }
+  function approveUser(id) {
+    if (!confirm("Approve this distributor?")) return;
 
-    function blockUser(docId) {
-  if (!confirm("Block this user?")) return;
+    db.collection("users").doc(id).update({
+      approved: true
+    }).then(() => {
+      alert("Distributor approved.\nPlease notify via SMS/Email.");
+      loadUsers();
+    });
+  }
 
-  db.collection("users").doc(docId).update({
-    blocked: true
-  }).then(() => {
-    alert("User blocked");
-    loadUsers();
-  });
-}
+  function blockUser(id) {
+    if (!confirm("Block this user?")) return;
 
-    if (user.blocked) {
-  alert("Your account is suspended");
-  return;
-}
+    db.collection("users").doc(id).update({
+      blocked: true
+    }).then(() => {
+      alert("User blocked");
+      loadUsers();
+    });
+  }
 
-    <button onclick="exportExcel()">Export to Excel</button>
+  function exportExcel() {
+    db.collection("users").get().then(snapshot => {
+      let data = [];
+      snapshot.forEach(doc => data.push(doc.data()));
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Users");
+      XLSX.writeFile(wb, "amigoscleaning-users.xlsx");
+    });
+  }
 
-<script>
-function exportExcel() {
-  db.collection("users").get().then(snapshot => {
-    let data = [];
-    snapshot.forEach(doc => data.push(doc.data()));
-
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Users");
-    XLSX.writeFile(wb, "amigos-users.xlsx");
-  });
-}
+  loadUsers();
 </script>
-
-  </script>
 
 </body>
 </html>
-
-
-
-
-
+   
