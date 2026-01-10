@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact Us | Amigos</title>
+<title>About Us | Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Font Awesome Icons -->
@@ -23,9 +23,9 @@ body {
 .header {
   background: linear-gradient(135deg,#0d6efd,#00b4d8);
   color: #fff;
-  padding: 14px;
+  padding: 16px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -34,118 +34,91 @@ body {
   padding: 20px 16px;
 }
 
-/* Title */
-.title {
+/* Section Title */
+.section-title {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.title h1 {
-  font-size: 24px;
+.section-title h1 {
+  font-size: 26px;
   margin-bottom: 6px;
 }
 
-.title p {
+.section-title p {
   font-size: 14px;
   color: #666;
 }
 
-/* Cards */
-.cards {
-  display: grid;
-  gap: 16px;
+/* About Content */
+.about-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-.card {
+.about-box strong {
+  color: #0d6efd;
+}
+
+/* Values */
+.values {
+  display: grid;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.value-card {
   background: #fff;
   border-radius: 16px;
   padding: 18px;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
+  text-align: center;
   box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 }
 
-.card i {
-  font-size: 26px;
+.value-card i {
+  font-size: 30px;
   color: #0d6efd;
-  margin-top: 4px;
+  margin-bottom: 8px;
 }
 
-.card h3 {
-  margin: 0;
+.value-card h3 {
   font-size: 16px;
+  margin-bottom: 6px;
 }
 
-.card p {
-  margin: 6px 0 0;
+.value-card p {
   font-size: 14px;
   color: #555;
 }
 
-.card a {
-  color: #0d6efd;
-  text-decoration: none;
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 25px;
 }
 
-/* WhatsApp Button */
-.whatsapp-btn {
-  display: block;
-  margin: 22px auto;
-  background: #25d366;
+.stat-box {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
   color: #fff;
-  padding: 14px;
-  text-align: center;
-  border-radius: 30px;
-  font-size: 15px;
-  max-width: 320px;
-  text-decoration: none;
-}
-
-.whatsapp-btn i {
-  margin-right: 8px;
-  font-size: 20px;
-}
-
-/* Map Section */
-.map-section {
-  margin-top: 30px;
-}
-
-.map-section h3 {
-  font-size: 16px;
-  margin: 20px 0 10px;
-}
-
-.map {
-  width: 100%;
-  height: 250px;
-  margin-bottom: 20px;
-}
-
-.map iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
   border-radius: 16px;
-}
-
-/* Social Media */
-.social {
+  padding: 20px 10px;
   text-align: center;
-  margin: 25px 0 10px;
 }
 
-.social h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
+.stat-box h2 {
+  margin: 0;
+  font-size: 24px;
 }
 
-.social a {
-  margin: 0 12px;
-  font-size: 26px;
-  color: #0d6efd;
-  text-decoration: none;
+.stat-box p {
+  margin: 6px 0 0;
+  font-size: 13px;
 }
 
 /* Floating WhatsApp */
@@ -181,95 +154,84 @@ body {
 
 <!-- HEADER -->
 <div class="header">
-  <i class="fa-solid fa-phone"></i> Contact Us
+  About Amigos
 </div>
 
 <div class="container">
 
   <!-- TITLE -->
-  <div class="title">
-    <h1>Get in Touch</h1>
-    <p>We’re here to support you with Amigos</p>
+  <div class="section-title">
+    <h1>Who We Are</h1>
+    <p>Quality, Trust & Long-Term Relationships</p>
   </div>
 
-  <!-- CONTACT DETAILS -->
-  <div class="cards">
+  <!-- ABOUT CONTENT -->
+  <div class="about-box">
+    <p>
+      <strong>Amigos </strong> was founded in <strong>2021</strong> with a clear vision —
+      to focus on <strong>quality over quantity</strong>.
+    </p>
 
-    <div class="card">
-      <i class="fa-solid fa-envelope"></i>
-      <div>
-        <h3>Email</h3>
-        <p><a href="mailto:harihargroup.info@gmail.com">harihargroup.info@gmail.com</a></p>
-      </div>
+    <p>
+      From day one, we believed that success does not come from selling more products,
+      but from delivering <strong>trust, consistency, and satisfaction</strong>.
+    </p>
+
+    <p>
+      We don’t just manufacture and supply housekeeping products —
+      we build long-term partnerships with our retailers, distributors, and customers.
+    </p>
+
+    <p>
+      Today, Amigos is proud to be a trusted name across the region,
+      delivering reliable cleaning solutions that people depend on every day.
+    </p>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values">
+
+    <div class="value-card">
+      <i class="fa-solid fa-award"></i>
+      <h3>Quality First</h3>
+      <p>Every product is designed with strict quality standards.</p>
     </div>
 
-    <div class="card">
-      <i class="fa-solid fa-phone"></i>
-      <div>
-        <h3>Phone</h3>
-        <p><a href="tel:+919146466898">+91 91 4646 6898</a></p>
-      </div>
+    <div class="value-card">
+      <i class="fa-solid fa-handshake"></i>
+      <h3>Trust & Reliability</h3>
+      <p>We believe trust is earned through consistency.</p>
     </div>
 
-    <div class="card">
-      <i class="fa-solid fa-location-dot"></i>
-      <div>
-        <h3>Office Address</h3>
-        <p>
-          Plot No A-49,<br>
-          In front of Baramati RTO,<br>
-          Baramati, Tal-Baramati,<br>
-          Dist-Pune – 413133
-        </p>
-      </div>
-    </div>
-
-    <div class="card">
-      <i class="fa-solid fa-industry"></i>
-      <div>
-        <h3>Factory Address</h3>
-        <p>
-          Amigos, Gojubavi,<br>
-          In front of Bauli,<br>
-          Tal-Baramati,<br>
-          Dist-Pune – 413133
-        </p>
-      </div>
+    <div class="value-card">
+      <i class="fa-solid fa-users"></i>
+      <h3>Customer Focus</h3>
+      <p>Your satisfaction drives everything we do.</p>
     </div>
 
   </div>
 
-  <!-- WHATSAPP BUTTON -->
-  <a class="whatsapp-btn"
-     href="https://wa.me/919146466898?text=Hello%20Amigos%20Cleaning"
-     target="_blank">
-    <i class="fa-brands fa-whatsapp"></i> Chat with us on WhatsApp
-  </a>
-
-  <!-- MAPS -->
-  <div class="map-section">
-    <h3>📍 Office Location</h3>
-    <div class="map">
-      <iframe src="https://www.google.com/maps?q=5JM2%2BXQ%20Baramati%2C%20Maharashtra&output=embed"
-        loading="lazy"></iframe>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-box">
+      <h2>300+</h2>
+      <p>Retail Counters</p>
     </div>
 
-    <h3>🏭 Factory Location</h3>
-    <div class="map">
-      <iframe src="https://www.google.com/maps?q=6JQ4%2B8R%2C%20Gojubavi%2C%20Maharashtra%20413133&output=embed"
-        loading="lazy"></iframe>
+    <div class="stat-box">
+      <h2>50+</h2>
+      <p>Happy Distributors</p>
     </div>
-  </div>
 
-  <!-- SOCIAL MEDIA -->
-  <div class="social">
-    <h3>Follow Us</h3>
-    <a href="https://www.instagram.com/amigos_homecare_products?igsh=cmw0d2s3NjBsNjJj">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank">
-      <i class="fa-brands fa-facebook"></i>
-    </a>
+    <div class="stat-box">
+      <h2>2000+</h2>
+      <p>Happy Clients</p>
+    </div>
+
+    <div class="stat-box">
+      <h2>2021</h2>
+      <p>Established</p>
+    </div>
   </div>
 
 </div>
@@ -283,7 +245,7 @@ body {
 
 <!-- FOOTER -->
 <div class="footer">
-  © Amigos A Prduct by Harihar Group pf Industries | All Rights Reserved
+  © Amigos A Product by Harihar Group of Industries | Quality You Can Trust
 </div>
 
 </body>
