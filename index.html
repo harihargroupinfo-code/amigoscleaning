@@ -19,7 +19,7 @@ body {
   color: #333;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 .navbar {
   background: #fff;
   padding: 12px 16px;
@@ -27,6 +27,9 @@ body {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .nav-left {
@@ -36,29 +39,63 @@ body {
 }
 
 .nav-left img {
-  height: 38px;
+  height: 36px;
 }
 
 .nav-left span {
   font-weight: 600;
   color: #0d6efd;
+  font-size: 16px;
+}
+
+/* Desktop menu */
+.nav-right {
+  display: flex;
+  gap: 16px;
 }
 
 .nav-right a {
-  margin-left: 14px;
   text-decoration: none;
   font-size: 14px;
   color: #333;
 }
 
-@media (max-width: 600px) {
+/* Hamburger */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* ================= MOBILE MENU ================= */
+@media (max-width: 768px) {
+  .nav-right {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    display: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  }
+
   .nav-right a {
-    font-size: 13px;
-    margin-left: 10px;
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-right.active {
+    display: flex;
   }
 }
 
-/* HERO */
+/* ================= HERO ================= */
 .hero {
   background: linear-gradient(135deg,#0d6efd,#00b4d8);
   color: #fff;
@@ -112,11 +149,11 @@ body {
   color: #fff;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 .footer {
   position: relative;
   background: #f4f6f9;
-  padding: 30px 16px;
+  padding: 40px 16px;
   text-align: center;
   font-size: 12px;
   color: #555;
@@ -124,13 +161,13 @@ body {
 
 .footer img {
   position: absolute;
-  bottom: 10px;
+  bottom: -8px; /* pushed slightly down */
   right: 10px;
   width: 90px;
   opacity: 0.12;
 }
 
-/* FLOATING WHATSAPP */
+/* ================= FLOATING WHATSAPP ================= */
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
@@ -156,11 +193,15 @@ body {
 <!-- NAVBAR -->
 <div class="navbar">
   <div class="nav-left">
-   <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
-
-    <span>Amigosg</span>
+    <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
+    <span>Amigos</span>
   </div>
-  <div class="nav-right">
+
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+  <div class="nav-right" id="navMenu">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
     <a href="about.html">About</a>
@@ -192,6 +233,12 @@ body {
   <i class="fa-brands fa-whatsapp"></i>
 </a>
 
+<!-- MOBILE MENU SCRIPT -->
+<script>
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("active");
+}
+</script>
+
 </body>
 </html>
-
