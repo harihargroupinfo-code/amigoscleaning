@@ -332,3 +332,9 @@ body {
     height: 180px;
   }
 }
+
+/* HEADER LOGO SIZE */
+.nav-logo {
+  height: 32px;        /* reduced from large size */
+  width: auto;
+}
