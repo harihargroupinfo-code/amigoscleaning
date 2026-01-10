@@ -1,69 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Products | Amigos</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<title>Products | Amigos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<!-- HEADER / NAVBAR -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/logo.jpg" alt="Amigos Cleaning Logo" class="nav-logo">
-    <span class="brand-name">Amigos Cleaning</span>
-  </div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-  </div>
+<div id="header-placeholder"></div>
 
-  <nav class="nav-right" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
-<nav class="navbar">
-  <h2 class="logo">Amigos</h2>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</nav>
-
-<section class="section">
+<section class="page">
   <h1>Our Products</h1>
 
-  <div class="cards">
+  <div class="products">
     <div class="card">
-      <img src="images/product1.jpg">
-      <h3>Product One</h3>
-      <p>High quality</p>
+      <img src="images/product1.jpg" alt="">
+      <h3>Floor Cleaner</h3>
     </div>
 
     <div class="card">
-      <img src="images/product2.jpg">
-      <h3>Product Two</h3>
-      <p>Affordable price</p>
+      <img src="images/product2.jpg" alt="">
+      <h3>Toilet Cleaner</h3>
     </div>
 
     <div class="card">
-      <img src="images/product3.jpg">
-      <h3>Product Three</h3>
-      <p>Best seller</p>
+      <img src="images/product3.jpg" alt="">
+      <h3>Dishwash Liquid</h3>
+    </div>
+
+    <div class="card">
+      <img src="images/product4.jpg" alt="">
+      <h3>Handwash</h3>
     </div>
   </div>
 </section>
 
-<footer class="footer">© Amigos</footer>
-<script>
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("active");
-}
-</script>
-
+<div id="footer-placeholder"></div>
+<script src="js/main.js"></script>
 </body>
 </html>
-
-
