@@ -349,3 +349,10 @@ body {
   border-radius: 8px;
   margin-bottom: 16px;
 }
+
+/* FOOTER LOGO (WATERMARK) */
+.footer-watermark {
+  width: 80px;         /* smaller watermark */
+  opacity: 0.08;       /* more subtle */
+  bottom: -18px;       /* pushed down */
+}
