@@ -233,3 +233,55 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,.35);
   z-index: 999;
 }
+/* OTP LOGIN PAGE */
+.login-section {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.login-box input,
+.login-box select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 10px;
+}
