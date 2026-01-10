@@ -31,10 +31,10 @@
   </nav>
 </header>
 
-<!-- ================= LOGIN SECTION ================= -->
+<!-- ================= OTP LOGIN ================= -->
 <section class="login-section">
 
-  <!-- SMALL LOGO ABOVE FORM -->
+  <!-- LOGO SAME WIDTH AS LOGIN BOX -->
   <img src="images/logo.jpg" class="login-logo" alt="Amigos Cleaning">
 
   <div class="login-box">
@@ -54,12 +54,16 @@
     <!-- Mobile -->
     <input type="tel" id="mobile" placeholder="Enter Mobile Number">
 
-    <button onclick="sendOTP()">Send OTP</button>
+    <!-- SEND OTP -->
+    <button type="button" onclick="sendOTP()">Send OTP</button>
 
     <!-- OTP -->
     <input type="text" id="otp" placeholder="Enter OTP" style="display:none">
-    <button type="button" onclick="sendOTP()">Send OTP</button> Verify OTP
-</button>
+
+    <!-- VERIFY -->
+    <button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none">
+      Verify OTP
+    </button>
 
     <p class="switch-link">
       Don’t have an account?
@@ -70,7 +74,7 @@
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © Amigos A Product by Harihar Group of Industries
+  © Amigos A Product by Harihar Group of Industries  |  All Rights reserved.
   <img src="images/logo.jpg" class="footer-watermark" alt="Logo">
 </footer>
 
@@ -92,56 +96,8 @@
       return;
     }
 
-    generatedOTP = "123456"; // demo OTP
-    alert("Demo OTP: 123456");
-
-    document.getElementById("otp").style.display = "block";
-    document.getElementById("verifyBtn").style.display = "block";
-  }
-
- <script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-
-  let generatedOTP = "";
-  let selectedRole = "";
-
-  function sendOTP() {
-    selectedRole = document.getElementById("role").value;
-    const email = document.getElementById("email").value;
-
-    if (!selectedRole || !email) {
-      alert("Please select role and enter email");
-      return;
-    }
-
-    generatedOTP = "123456"; // demo OTP
-    alert("Demo OTP: 123456");
-
-    document.getElementById("otp").style.display = "block";
-    document.getElementById("verifyBtn").style.display = "block";
-  }
-
- <script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-
-  let generatedOTP = "";
-  let selectedRole = "";
-
-  function sendOTP() {
-    selectedRole = document.getElementById("role").value;
-    const email = document.getElementById("email").value;
-
-    if (!selectedRole || !email) {
-      alert("Please select role and enter email");
-      return;
-    }
-
-    generatedOTP = "123456"; // demo OTP
-    alert("Demo OTP: 123456");
+    generatedOTP = "123456"; // DEMO OTP
+    alert("Demo OTP is 123456");
 
     document.getElementById("otp").style.display = "block";
     document.getElementById("verifyBtn").style.display = "block";
@@ -155,25 +111,16 @@
       return;
     }
 
-    // Save login session
+    // Save session
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("userRole", selectedRole);
 
-    // MOBILE-SAFE REDIRECT
+    // MOBILE SAFE REDIRECT
     setTimeout(() => {
       window.location.replace("index.html");
     }, 100);
   }
 </script>
 
-</script>
-
-</script>
-
 </body>
 </html>
-
-
-
-
-
