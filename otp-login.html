@@ -98,17 +98,49 @@
     document.getElementById("verifyBtn").style.display = "block";
   }
 
-  function verifyOTP() {
-    if (document.getElementById("otp").value === generatedOTP) {
-      if (selectedRole === "retailer") location.href = "retailer.html";
-      if (selectedRole === "distributor") location.href = "distributor.html";
-      if (selectedRole === "admin") location.href = "admin.html";
-    } else {
-      alert("Invalid OTP");
-    }
+ <script>
+  function toggleMenu() {
+    document.querySelector(".nav-right").classList.toggle("active");
   }
+
+  let generatedOTP = "";
+  let selectedRole = "";
+
+  function sendOTP() {
+    selectedRole = document.getElementById("role").value;
+    const email = document.getElementById("email").value;
+
+    if (!selectedRole || !email) {
+      alert("Please select role and enter email");
+      return;
+    }
+
+    generatedOTP = "123456"; // demo OTP
+    alert("Demo OTP: 123456");
+
+    document.getElementById("otp").style.display = "block";
+    document.getElementById("verifyBtn").style.display = "block";
+  }
+
+  function verifyOTP() {
+    const enteredOTP = document.getElementById("otp").value;
+
+    if (enteredOTP !== generatedOTP) {
+      alert("Invalid OTP");
+      return;
+    }
+
+    // Save role for session
+    localStorage.setItem("userRole", selectedRole);
+
+    // 🔥 ALL USERS GO TO HOME PAGE
+    window.location.href = "index.html";
+  }
+</script>
+
 </script>
 
 </body>
 </html>
+
 
