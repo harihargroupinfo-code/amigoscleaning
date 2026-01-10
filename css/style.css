@@ -243,10 +243,18 @@ body {
   padding: 20px;
 }
 
+/* OTP LOGIN LOGO — ADMIN STYLE */
 .login-logo {
-  width: 120px;
-  margin-bottom: 15px;
+  width: 100%;
+  max-width: 380px;   /* SAME as login box */
+  height: auto;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
+
 
 .login-box {
   width: 100%;
