@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Amigos </title>
+<title>Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Icons -->
+<!-- Font Awesome -->
 <link rel="stylesheet"
  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -13,12 +13,151 @@
 * { box-sizing: border-box; }
 
 body {
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-left">
-    <img src="./images/logo.jpg" alt="Amigos Logo" class="nav-logo">
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+}
 
-    <span>Amigos Cleaning</span>
+/* NAVBAR */
+.navbar {
+  background: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-left img {
+  height: 38px;
+}
+
+.nav-left span {
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.nav-right a {
+  margin-left: 14px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .nav-right a {
+    font-size: 13px;
+    margin-left: 10px;
+  }
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+  color: #fff;
+  padding: 50px 16px 60px;
+  text-align: center;
+}
+
+.hero-logo {
+  max-width: 260px;
+  width: 80%;
+  height: auto;
+  margin-bottom: 18px;
+  background: #fff;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.hero h1 {
+  font-size: 26px;
+  margin: 6px 0;
+}
+
+.hero p {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn.primary {
+  background: #fff;
+  color: #0d6efd;
+}
+
+.btn.outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+/* FOOTER */
+.footer {
+  position: relative;
+  background: #f4f6f9;
+  padding: 30px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+
+.footer img {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 90px;
+  opacity: 0.12;
+}
+
+/* FLOATING WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  z-index: 999;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-left">
+    <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
+    <span>Amigosg</span>
   </div>
   <div class="nav-right">
     <a href="index.html">Home</a>
@@ -26,13 +165,12 @@ body {
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
-</nav>
+</div>
 
- <!-- HERO SECTION WITH LOGO -->
+<!-- HERO -->
 <section class="hero">
-<img src="images/logo.jpg" alt="Amigos Cleaning Logo" class="hero-logo animate-logo">
-
-  <h1>Amigos </h1>
+  <img src="images/logo.jpg" alt="Amigos Cleaning Logo" class="hero-logo">
+  <h1>Amigos</h1>
   <p>Quality You Can Trust • Since 2021</p>
 
   <div class="hero-buttons">
@@ -41,234 +179,17 @@ body {
   </div>
 </section>
 
-  margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
-  background: #f2f4f8;
-  color: #333;
-}
-
-/* HEADER */
-.header {
-  background: linear-gradient(135deg,#0d6efd,#00b4d8);
-  color: #fff;
-  padding: 14px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* HERO */
-.hero {
-  padding: 30px 16px 20px;
-  text-align: center;
-  background: #fff;
-}
-
-.hero h1 {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.hero p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 18px;
-}
-
-/* PRIMARY BUTTONS */
-.primary-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.primary-buttons a {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 14px 8px;
-  text-align: center;
-  text-decoration: none;
-  color: #0d6efd;
-  font-size: 13px;
-  border: 1px solid #0d6efd;
-}
-
-.primary-buttons i {
-  display: block;
-  font-size: 20px;
-  margin-bottom: 6px;
-}
-
-/* LOGIN / SIGNUP */
-.auth-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.auth-buttons a {
-  flex: 1;
-  padding: 14px;
-  border-radius: 30px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.login {
-  background: #0d6efd;
-  color: #fff;
-}
-
-.signup {
-  background: #00b894;
-  color: #fff;
-}
-
-/* FEATURES */
-.features {
-  padding: 25px 16px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.feature {
-  background: #fff;
-  border-radius: 16px;
-  padding: 18px;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.feature i {
-  font-size: 28px;
-  color: #0d6efd;
-}
-
-.feature h3 {
-  margin: 0;
-  font-size: 15px;
-}
-
-.feature p {
-  margin: 4px 0 0;
-  font-size: 13px;
-  color: #666;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  padding: 14px;
-  font-size: 12px;
-  color: #777;
-}
-</style>
-</head>
-
-<body>
-
-<!-- HEADER -->
-<div class="header">
-  <i class="fa-solid fa-broom"></i> Amigos
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>Cleaning Solutions</h1>
-  <p>Quality products for retailers & distributors</p>
-
-  <!-- MAIN NAV BUTTONS -->
-  <div class="primary-buttons">
-    <a href="products.html">
-      <i class="fa-solid fa-box"></i>
-      Products
-    </a>
-    <a href="about.html">
-      <i class="fa-solid fa-circle-info"></i>
-      About
-    </a>
-    <a href="contact.html">
-      <i class="fa-solid fa-phone"></i>
-      Contact
-    </a>
-  </div>
-
-  <!-- AUTH -->
-  <div class="auth-buttons">
-    <a href="otp-login.html" class="login">
-      <i class="fa-solid fa-right-to-bracket"></i> Login
-    </a>
-    <a href="signup.html" class="signup">
-      <i class="fa-solid fa-user-plus"></i> Signup
-    </a>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<div class="features">
-  <div class="feature">
-    <i class="fa-solid fa-spray-can-sparkles"></i>
-    <div>
-      <h3>Premium Products</h3>
-      <p>Safe & effective cleaning solutions</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <i class="fa-solid fa-truck-fast"></i>
-    <div>
-      <h3>Fast Distribution</h3>
-      <p>Reliable supply across regions</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <i class="fa-solid fa-user-shield"></i>
-    <div>
-      <h3>Secure OTP Login</h3>
-      <p>Simple & safe authentication</p>
-    </div>
-  </div>
-
-  <div class="feature">
-    <i class="fa-solid fa-handshake"></i>
-    <div>
-      <h3>Business Growth</h3>
-      <p>Partner & grow with us</p>
-    </div>
-  </div>
-</div>
-
- <!-- FOOTER -->
+<!-- FOOTER -->
 <footer class="footer">
- <img src="./images/logo.jpg" class="footer-logo" alt="Amigos Logo">
-  <p>  ©  Amigos A Product by Harihar Group of Industries  |  all rights reserved</p>
+  <p>© Amigos A Product by Harihar Group of Industries | Quality You Can Trust</p>
+  <img src="images/logo.jpg" alt="Amigos Logo">
 </footer>
-</div>
 
-<script>
-  // Home page must stay public
-  // No redirect logic here
-</script>
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919146466898?text=Hello%20Amigos%20Cleaning"
+   class="whatsapp-float" target="_blank">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
