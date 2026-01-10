@@ -58,7 +58,11 @@
 
     <!-- OTP -->
     <input type="text" id="otp" placeholder="Enter OTP" style="display:none">
-    <button id="verifyBtn" onclick="verifyOTP()" style="display:none">Verify OTP</button>
+    <button type="button" onclick="sendOTP()">Send OTP</button>
+
+<button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none">
+  Verify OTP
+</button>
 
     <p class="switch-link">
       Don’t have an account?
@@ -142,5 +146,6 @@
 
 </body>
 </html>
+
 
 
