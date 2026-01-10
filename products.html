@@ -1,43 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Products | Amigos</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Our Products | Amigos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div id="header-placeholder"></div>
 
+<!-- ================= PRODUCTS PAGE ================= -->
 <section class="page">
+
   <h1>Our Products</h1>
+  <p style="margin-bottom:22px;color:#555;">
+    Premium quality cleaning solutions trusted by retailers,
+    distributors, and households.
+  </p>
 
-  <div class="products">
-    <div class="card">
-      <img src="images/product1.jpg" alt="">
+  <!-- PRODUCTS GRID -->
+  <div class="dashboard-grid products-grid">
+
+    <!-- PRODUCT CARD -->
+    <div class="dash-card product-card fade-up">
+      <img src="images/product1.jpg" alt="Floor Cleaner">
       <h3>Floor Cleaner</h3>
+      <p>Powerful cleaning solution for all types of floors.</p>
     </div>
 
-    <div class="card">
-      <img src="images/product2.jpg" alt="">
+    <div class="dash-card product-card fade-up">
+      <img src="images/product2.jpg" alt="Toilet Cleaner">
       <h3>Toilet Cleaner</h3>
+      <p>Deep cleaning formula for hygienic washrooms.</p>
     </div>
 
-    <div class="card">
-      <img src="images/product3.jpg" alt="">
+    <div class="dash-card product-card fade-up">
+      <img src="images/product3.jpg" alt="Dishwash Liquid">
       <h3>Dishwash Liquid</h3>
+      <p>Tough on grease, gentle on hands.</p>
     </div>
 
-    <div class="card">
-      <img src="images/product4.jpg" alt="">
-      <h3>Handwash</h3>
+    <div class="dash-card product-card fade-up">
+      <img src="images/product4.jpg" alt="Hand Wash">
+      <h3>Hand Wash</h3>
+      <p>Effective germ protection with pleasant fragrance.</p>
     </div>
+
+    <!-- You can duplicate cards for all 19 products -->
   </div>
+
 </section>
 
+<!-- FOOTER -->
 <div id="footer-placeholder"></div>
+
+<!-- MAIN JS -->
 <script src="js/main.js"></script>
+
 </body>
 </html>
