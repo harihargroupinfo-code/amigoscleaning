@@ -1,21 +1,99 @@
-<div id="header-placeholder"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Amigos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="navbar">
+  <div class="nav-left">
+    <img src="images/logo.jpg" class="nav-logo" alt="Amigos Logo">
+    <span class="brand-name">AMIGOS</span>
+  </div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <nav class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="otp-login.html" class="nav-btn">Login</a>
+  </nav>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
 <section class="hero">
-  <img src="images/logo.jpg" class="hero-logo" alt="Amigos Cleaning">
-  <h1>Amigos</h1>
-  <p>Delivering Trust & Quality Since 2021</p>
+  <img src="images/logo.jpg" class="hero-logo animate-logo" alt="Amigos Cleaning">
+
+  <h1>Quality Cleaning Products You Can Trust</h1>
+  <p>
+    Since 2021, Amigos Cleaning Solutions has delivered not just products,
+    but trust, quality, and long-lasting partnerships.
+  </p>
 
   <div class="hero-buttons">
-    <a href="products.html" class="btn primary">Explore Products</a>
-    <a href="otp-login.html" class="btn outline">Login / Signup</a>
+    <a href="signup.html" class="btn primary">Sign Up</a>
+    <a href="otp-login.html" class="btn secondary">Login</a>
   </div>
 </section>
 
+<!-- ================= STATS ================= -->
 <section class="stats">
-  <div><h2>300+</h2><p>Retail Counters</p></div>
-  <div><h2>50+</h2><p>Distributors</p></div>
-  <div><h2>2000+</h2><p>Happy Clients</p></div>
+  <div class="stat-card">
+    <h2>300+</h2>
+    <p>Retail Counters</p>
+  </div>
+  <div class="stat-card">
+    <h2>50+</h2>
+    <p>Distributors</p>
+  </div>
+  <div class="stat-card">
+    <h2>2000+</h2>
+    <p>Happy Clients</p>
+  </div>
 </section>
 
-<div id="footer-placeholder"></div>
-<script src="js/main.js"></script>
+<!-- ================= QUICK LINKS ================= -->
+<section class="quick-links">
+  <a href="products.html" class="card">
+    <i class="fas fa-box"></i>
+    <h3>Our Products</h3>
+  </a>
+
+  <a href="about.html" class="card">
+    <i class="fas fa-users"></i>
+    <h3>About Us</h3>
+  </a>
+
+  <a href="contact.html" class="card">
+    <i class="fas fa-phone"></i>
+    <h3>Contact Us</h3>
+  </a>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>©Amigos A Product by Harihar group of Industries | All Rights Reserved.</p>
+  <img src="images/logo.jpg" class="footer-watermark" alt="Amigos Logo">
+</footer>
+
+<!-- ================= JS ================= -->
+<script>
+  function toggleMenu() {
+    document.querySelector(".nav-right").classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>
