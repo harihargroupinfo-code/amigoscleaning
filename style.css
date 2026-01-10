@@ -111,4 +111,67 @@ select {
   border: 0;
   border-radius: 16px;
 }
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+  color: #fff;
+  padding: 50px 16px 60px;
+  text-align: center;
+}
+
+.hero-logo {
+  max-width: 260px;
+  width: 80%;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: 26px;
+  margin: 6px 0;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 14px;
+  opacity: 0.95;
+  margin-bottom: 22px;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn.primary {
+  background: #fff;
+  color: #0d6efd;
+}
+
+.btn.outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .hero-logo {
+    max-width: 220px;
+  }
+
+  .hero h1 {
+    font-size: 22px;
+  }
+}
+
 
