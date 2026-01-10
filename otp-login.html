@@ -126,6 +126,30 @@
     document.getElementById("verifyBtn").style.display = "block";
   }
 
+ <script>
+  function toggleMenu() {
+    document.querySelector(".nav-right").classList.toggle("active");
+  }
+
+  let generatedOTP = "";
+  let selectedRole = "";
+
+  function sendOTP() {
+    selectedRole = document.getElementById("role").value;
+    const email = document.getElementById("email").value;
+
+    if (!selectedRole || !email) {
+      alert("Please select role and enter email");
+      return;
+    }
+
+    generatedOTP = "123456"; // demo OTP
+    alert("Demo OTP: 123456");
+
+    document.getElementById("otp").style.display = "block";
+    document.getElementById("verifyBtn").style.display = "block";
+  }
+
   function verifyOTP() {
     const enteredOTP = document.getElementById("otp").value;
 
@@ -134,18 +158,24 @@
       return;
     }
 
-    // Save role for session
+    // Save login session
+    localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("userRole", selectedRole);
 
-    // 🔥 ALL USERS GO TO HOME PAGE
-    window.location.href = "index.html";
+    // MOBILE-SAFE REDIRECT
+    setTimeout(() => {
+      window.location.replace("index.html");
+    }, 100);
   }
+</script>
+
 </script>
 
 </script>
 
 </body>
 </html>
+
 
 
 
