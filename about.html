@@ -4,310 +4,47 @@
 <meta charset="UTF-8">
 <title>About Us | Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Icons -->
-<link rel="stylesheet"
- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-
-  <div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-  </div>
-
-  <nav class="nav-right" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
-  margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
-  background: #f2f4f8;
-  color: #333;
-}
-
-/* Header */
-.header {
-  background: linear-gradient(135deg,#0d6efd,#00b4d8);
-  color: #fff;
-  padding: 16px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* Container */
-.container {
-  padding: 20px 16px;
-}
-
-/* Section Title */
-.section-title {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.section-title h1 {
-  font-size: 26px;
-  margin-bottom: 6px;
-}
-
-.section-title p {
-  font-size: 14px;
-  color: #666;
-}
-
-/* Card */
-.card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
-
-/* About Text */
-.card p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #555;
-}
-
-.card strong {
-  color: #0d6efd;
-}
-
-/* Founder */
-.founder {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.founder i {
-  font-size: 36px;
-  color: #0d6efd;
-}
-
-/* Why Choose Us */
-.why {
-  display: grid;
-  gap: 16px;
-}
-
-.why-box {
-  text-align: center;
-  padding: 18px;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-}
-
-.why-box i {
-  font-size: 30px;
-  color: #0d6efd;
-  margin-bottom: 8px;
-}
-
-.why-box h3 {
-  margin: 6px 0;
-  font-size: 16px;
-}
-
-.why-box p {
-  font-size: 14px;
-  color: #555;
-}
-
-/* Stats */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.stat {
-  background: linear-gradient(135deg,#0d6efd,#00b4d8);
-  color: #fff;
-  border-radius: 16px;
-  padding: 22px 10px;
-  text-align: center;
-}
-
-.stat h2 {
-  margin: 0;
-  font-size: 26px;
-}
-
-.stat p {
-  margin-top: 6px;
-  font-size: 13px;
-}
-
-/* WhatsApp Floating */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25d366;
-  color: #fff;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  z-index: 999;
-  text-decoration: none;
-}
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div class="header">About Amigos</div>
+<div id="header-placeholder"></div>
 
-<div class="container">
+<section class="page">
+  <h1>About Amigos</h1>
 
-  <!-- ABOUT -->
-  <div class="section-title">
-    <h1>Our Story</h1>
-    <p>Quality over quantity — always</p>
-  </div>
+  <p>
+    Founded in <strong>2021</strong>, Amigos Cleaning was built with one belief:
+    <strong>quality matters more than quantity</strong>.
+  </p>
 
-  <div class="card">
-    <p>
-      <strong>Amigos</strong> was founded in <strong>2021</strong>
-      by Harihar Group of Industries with a clear purpose — to deliver products that people can trust.
-    </p>
-    <p>
-      From the very beginning, we focused on <strong>quality, consistency,
-      and long-term relationships</strong> instead of chasing numbers.
-    </p>
-    <p>
-      Today, we proudly serve hundreds of retailers and distributors while
-      reaching thousands of satisfied customers every day.
-    </p>
-  </div>
-
-  <!-- FOUNDER MESSAGE -->
-  <div class="section-title">
-    <h1>Founder’s Message</h1>
-  </div>
-
-  <div class="card founder">
-    <i class="fa-solid fa-user-tie"></i>
-    <div>
-      <p>
-        “When I started Amigos brand, my goal was simple —
-        to build a brand people can rely on.
-      </p>
-      <p>
-        We believe trust is more valuable than profit, and quality
-        speaks louder than marketing.
-      </p>
-      <p>
-        Every product that leaves our factory carries our responsibility
-        and our promise.”
-      </p>
-      <p><strong>— Akash Jadhav, Founder, Amigos</strong></p>
-    </div>
-  </div>
-
-  <!-- WHY CHOOSE US -->
-  <div class="section-title">
-    <h1>Why Choose Us</h1>
-  </div>
+  <p>
+    From day one, we focused not just on products — but on
+    <strong>trust, consistency, and long-term relationships</strong>.
+  </p>
 
   <div class="why">
-    <div class="why-box">
-      <i class="fa-solid fa-award"></i>
-      <h3>Premium Quality</h3>
-      <p>Strict quality control at every stage.</p>
-    </div>
-
-    <div class="why-box">
-      <i class="fa-solid fa-handshake"></i>
-      <h3>Trusted Network</h3>
-      <p>Strong relationships with partners & clients.</p>
-    </div>
-
-    <div class="why-box">
-      <i class="fa-solid fa-truck"></i>
-      <h3>Reliable Supply</h3>
-      <p>On-time delivery & consistent availability.</p>
-    </div>
+    <h2>Why Choose Us?</h2>
+    <ul>
+      <li>✔ Premium quality cleaning solutions</li>
+      <li>✔ Trusted by 300+ retail counters</li>
+      <li>✔ 50+ strong distributor network</li>
+      <li>✔ 2000+ satisfied customers</li>
+      <li>✔ Reliable after-sales support</li>
+    </ul>
   </div>
 
-  <!-- STATS -->
-  <div class="section-title">
-    <h1>Our Growth</h1>
+  <div class="founder">
+    <h2>Founder’s Message</h2>
+    <p>
+      “We believe business grows when trust is delivered with every product.
+      Amigos stands for honesty, consistency, and excellence.”
+    </p>
   </div>
+</section>
 
-  <div class="stats">
-    <div class="stat"><h2 data-target="300">0</h2><p>Retail Counters</p></div>
-    <div class="stat"><h2 data-target="50">0</h2><p>Distributors</p></div>
-    <div class="stat"><h2 data-target="2000">0</h2><p>Happy Clients</p></div>
-    <div class="stat"><h2 data-target="2021">0</h2><p>Established</p></div>
-  </div>
-
-</div>
-
-<!-- Floating WhatsApp -->
-<a href="https://wa.me/919146466898?text=Hello%20Amigos%20Cleaning"
-   class="whatsapp-float" target="_blank">
-  <i class="fa-brands fa-whatsapp"></i>
-</a>
-
-<div class="footer">
-  © Amigos A Product by Harihar Group of Industries | Quality You Can Trust
-</div>
-
-<!-- COUNTER SCRIPT -->
-<script>
-const counters = document.querySelectorAll('[data-target]');
-const speed = 200;
-
-const animateCounters = () => {
-  counters.forEach(counter => {
-    const target = +counter.dataset.target;
-    let count = 0;
-
-    const update = () => {
-      count += target / speed;
-      if (count < target) {
-        counter.innerText = Math.ceil(count);
-        requestAnimationFrame(update);
-      } else {
-        counter.innerText = target;
-      }
-    };
-    update();
-  });
-};
-
-window.onload = animateCounters;
-</script>
-<script>
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("active");
-}
-</script>
-
+<div id="footer-placeholder"></div>
+<script src="js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
