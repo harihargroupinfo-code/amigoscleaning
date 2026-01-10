@@ -91,16 +91,6 @@
       return;
     }
 
-    // Distributor approval check
-    if (selectedRole === "distributor") {
-      let pending = JSON.parse(localStorage.getItem("pendingDistributors")) || [];
-      let user = pending.find(u => u.email === email);
-      if (!user || !user.approved) {
-        alert("Distributor pending admin approval");
-        return;
-      }
-    }
-
     generatedOTP = "123456"; // demo OTP
     alert("Demo OTP: 123456");
 
@@ -121,3 +111,4 @@
 
 </body>
 </html>
+
