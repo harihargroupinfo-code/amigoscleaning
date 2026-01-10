@@ -214,12 +214,11 @@ select {
   }
 }
 
-/* LOGO ANIMATION */
 .animate-logo {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: logoFadeZoom 1.2s ease forwards;
+  opacity: 1;
+  transform: scale(1);
 }
+
 
 @keyframes logoFadeZoom {
   to {
@@ -246,4 +245,5 @@ select {
   width: 120px;
   opacity: 0.08;
 }
+
 
