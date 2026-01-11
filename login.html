@@ -134,9 +134,15 @@
   }
 })();
 </script>
+<script>
+if (localStorage.getItem("isLoggedIn") === "true") {
+  window.location.replace("index.html");
+}
+</script>
 
 </body>
 </html>
+
 
 
 
