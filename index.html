@@ -130,9 +130,21 @@ function logout() {
   window.location.href = "index.html";
 }
 </script>
+<script>
+(function () {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  if (isLoggedIn) {
+    document.body.classList.add("logged-in");
+  } else {
+    document.body.classList.remove("logged-in");
+  }
+})();
+</script>
 
 </body>
 </html>
+
 
 
 
