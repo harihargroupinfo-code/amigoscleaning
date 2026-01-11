@@ -1,18 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-
   if (isLoggedIn) {
-    if (loginBtn) loginBtn.classList.add("hide-auth");
-    if (signupBtn) signupBtn.classList.add("hide-auth");
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
+    document.body.classList.add("logged-in");
   } else {
-    if (loginBtn) loginBtn.classList.remove("hide-auth");
-    if (signupBtn) signupBtn.classList.remove("hide-auth");
-    if (logoutBtn) logoutBtn.style.display = "none";
+    document.body.classList.remove("logged-in");
   }
 });
 
