@@ -298,3 +298,13 @@ body {
 .hide-auth {
   display: none !important;
 }
+/* Hide auth buttons when logged in */
+body.logged-in #loginBtn,
+body.logged-in #signupBtn {
+  display: none !important;
+}
+
+body.logged-in #logoutBtn {
+  display: inline-block !important;
+}
+
