@@ -294,3 +294,7 @@ body {
   text-align: center;
   margin-top: 10px;
 }
+
+.hide-auth {
+  display: none !important;
+}
