@@ -70,7 +70,26 @@
     document.querySelector(".nav-right").classList.toggle("active");
   }
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn === "true") {
+      document.getElementById("loginBtn")?.style.display = "none";
+      document.getElementById("logoutBtn")?.style.display = "inline-block";
+    }
+  });
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+
+    alert("Logged out successfully");
+    window.location.replace("index.html");
+  }
+</script>
 
 </body>
 </html>
+
 
