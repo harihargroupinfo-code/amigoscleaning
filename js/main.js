@@ -1,15 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  // Hide/show ALL login & signup buttons (even duplicates)
-  document.querySelectorAll("#loginBtn, #signupBtn").forEach(btn => {
-    btn.style.display = isLoggedIn ? "none" : "inline-block";
-  });
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-  // Show/hide logout
-  document.querySelectorAll("#logoutBtn").forEach(btn => {
-    btn.style.display = isLoggedIn ? "inline-block" : "none";
-  });
+  if (isLoggedIn) {
+    if (loginBtn) loginBtn.classList.add("hide-auth");
+    if (signupBtn) signupBtn.classList.add("hide-auth");
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+  } else {
+    if (loginBtn) loginBtn.classList.remove("hide-auth");
+    if (signupBtn) signupBtn.classList.remove("hide-auth");
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
 });
 
 function logout() {
