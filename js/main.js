@@ -1,27 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
+  // Hide/show ALL login & signup buttons (even duplicates)
+  document.querySelectorAll("#loginBtn, #signupBtn").forEach(btn => {
+    btn.style.display = isLoggedIn ? "none" : "inline-block";
+  });
 
-  if (isLoggedIn === "true") {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-  } else {
-    if (loginBtn) loginBtn.style.display = "inline-block";
-    if (signupBtn) signupBtn.style.display = "inline-block";
-    if (logoutBtn) logoutBtn.style.display = "none";
-  }
+  // Show/hide logout
+  document.querySelectorAll("#logoutBtn").forEach(btn => {
+    btn.style.display = isLoggedIn ? "inline-block" : "none";
+  });
 });
 
 function logout() {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("userRole");
   window.location.href = "index.html";
-}
-
-function toggleMenu() {
-  document.querySelector(".nav-right")?.classList.toggle("active");
 }
