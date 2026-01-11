@@ -17,10 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function logout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("userRole");
-  alert("Logged out successfully");
-  window.location.replace("index.html");
+  localStorage.clear();
+  window.location.href = "index.html";
 }
 
 function toggleMenu() {
