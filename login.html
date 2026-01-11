@@ -1,15 +1,129 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Amigos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="login-box">
-  <h3>Customer Login</h3>
-  <input type="text" placeholder="Email">
-  <input type="password" placeholder="Password">
-  <button>Login</button>
-</div>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 
-<div class="login-box">
-  <h3>Retailer Login</h3>
-  <input type="text" placeholder="Retailer ID">
-  <input type="password" placeholder="Password">
-  <button>Login</button>
-</div>
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="navbar">
+  <div class="nav-left">
+    <img src="images/logo.jpg" class="nav-logo" alt="Amigos Logo">
+    <span class="brand-name">AMIGOS</span>
+  </div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <nav class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+
+    <!-- Login / Logout -->
+    <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
+    <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+      Logout
+    </a>
+  </nav>
+</header>
+
+<!-- ================= LOGIN SECTION ================= -->
+<section class="login-section">
+
+  <!-- LOGO SAME WIDTH AS LOGIN BOX -->
+  <img src="images/logo.jpg" class="login-logo" alt="Amigos Cleaning">
+
+  <div class="login-box">
+    <h2>OTP Login</h2>
+
+    <!-- ROLE -->
+    <select id="role">
+      <option value="">Select Role</option>
+      <option value="retailer">Retailer</option>
+      <option value="distributor">Distributor</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <!-- EMAIL -->
+    <input type="email" id="email" placeholder="Enter Email">
+
+    <!-- MOBILE -->
+    <input type="tel" id="mobile" placeholder="Enter Mobile Number">
+
+    <!-- SEND OTP -->
+    <button type="button" onclick="sendOTP()">Send OTP</button>
+
+    <!-- OTP -->
+    <input type="text" id="otp" placeholder="Enter OTP" style="display:none">
+
+    <!-- VERIFY -->
+    <button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none">
+      Verify OTP
+    </button>
+
+    <p class="switch-link">
+      Don’t have an account?
+      <a href="signup.html">Register</a>
+    </p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
+  <img src="images/logo.jpg" class="footer-watermark" alt="Amigos Logo">
+</footer>
+
+<!-- ================= JS ================= -->
+<script src="js/main.js"></script>
+
+<script>
+  let generatedOTP = "";
+  let selectedRole = "";
+
+  function sendOTP() {
+    selectedRole = document.getElementById("role").value;
+    const email = document.getElementById("email").value;
+
+    if (!selectedRole || !email) {
+      alert("Please select role and enter email");
+      return;
+    }
+
+    generatedOTP = "123456"; // DEMO OTP
+    alert("Demo OTP: 123456");
+
+    document.getElementById("otp").style.display = "block";
+    document.getElementById("verifyBtn").style.display = "block";
+  }
+
+  function verifyOTP() {
+    const enteredOTP = document.getElementById("otp").value;
+
+    if (enteredOTP !== generatedOTP) {
+      alert("Invalid OTP");
+      return;
+    }
+
+    // Save login session
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userRole", selectedRole);
+
+    // Redirect ALL users to HOME
+    setTimeout(() => {
+      window.location.replace("index.html");
+    }, 100);
+  }
+</script>
+
+</body>
+</html>
