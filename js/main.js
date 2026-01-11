@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function logout() {
-  localStorage.clear();
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("userRole");
   window.location.href = "index.html";
 }
 
