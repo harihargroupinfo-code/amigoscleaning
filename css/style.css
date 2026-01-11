@@ -314,3 +314,13 @@ body.logged-in a[href*="signup"],
 body.logged-in a[href*="register"] {
   display: none !important;
 }
+/* FORCE HIDE login/signup AFTER LOGIN */
+body.logged-in a[href*="login"],
+body.logged-in a[href*="signup"],
+body.logged-in a[href*="register"],
+body.logged-in button[data-auth="login"],
+body.logged-in button[data-auth="signup"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
