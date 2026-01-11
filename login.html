@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Amigos</title>
+  <title>OTP Login | Amigos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
@@ -23,26 +23,24 @@
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
- <nav class="nav-right">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="contact.html">Contact</a>
+  <nav class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
 
-  <!-- Login / Signup / Logout -->
-  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
+    <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
+    <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
 
-  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-    Logout
-  </a>
-</nav>
-
+    <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+      Logout
+    </a>
+  </nav>
 </header>
 
 <!-- ================= LOGIN SECTION ================= -->
 <section class="login-section">
 
-  <!-- LOGO SAME WIDTH AS LOGIN BOX -->
+  <!-- LOGO -->
   <img src="images/logo.jpg" class="login-logo" alt="Amigos Cleaning">
 
   <div class="login-box">
@@ -59,7 +57,7 @@
     <!-- EMAIL -->
     <input type="email" id="email" placeholder="Enter Email">
 
-    <!-- MOBILE -->
+    <!-- MOBILE (REQUIRED) -->
     <input type="tel" id="mobile" placeholder="Enter Mobile Number">
 
     <!-- SEND OTP -->
@@ -82,27 +80,40 @@
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
-  <img src="images/logo.jpg" class="footer-watermark" alt="Amigos Logo">
+  © 2025 Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
+  <img src="images/logo.jpg" class="footer-watermark" alt="Logo">
 </footer>
 
-<!-- ================= JS ================= -->
+<!-- ================= GLOBAL JS ================= -->
 <script src="js/main.js"></script>
 
+<!-- ================= LOGIN LOGIC ================= -->
 <script>
   let generatedOTP = "";
   let selectedRole = "";
 
   function sendOTP() {
     selectedRole = document.getElementById("role").value;
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
 
-    if (!selectedRole || !email) {
-      alert("Please select role and enter email");
+    if (!selectedRole) {
+      alert("Please select role");
       return;
     }
 
-    generatedOTP = "123456"; // DEMO OTP
+    if (!email) {
+      alert("Please enter email");
+      return;
+    }
+
+    if (!mobile || mobile.length < 10) {
+      alert("Please enter valid mobile number");
+      return;
+    }
+
+    // DEMO OTP
+    generatedOTP = "123456";
     alert("Demo OTP: 123456");
 
     document.getElementById("otp").style.display = "block";
@@ -110,26 +121,25 @@
   }
 
   function verifyOTP() {
-    const enteredOTP = document.getElementById("otp").value;
+    const enteredOTP = document.getElementById("otp").value.trim();
 
     if (enteredOTP !== generatedOTP) {
       alert("Invalid OTP");
       return;
     }
 
-    // Save login session
+    // SAVE SESSION
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("userRole", selectedRole);
 
-    // Redirect ALL users to HOME
-    setTimeout(() => {
+    // ROLE BASED REDIRECT
+    if (selectedRole === "admin") {
+      window.location.replace("admin.html");
+    } else {
       window.location.replace("index.html");
-    }, 100);
+    }
   }
 </script>
-<script src="js/main.js"></script>
 
 </body>
 </html>
-
-
