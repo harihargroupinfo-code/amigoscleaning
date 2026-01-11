@@ -21,15 +21,19 @@
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
   <nav class="nav-right">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="contact.html">Contact</a>
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="contact.html">Contact</a>
 
-    <a href="login.html" id="loginBtn">Login</a>
-    <a href="signup.html" id="signupBtn">Register</a>
+  <!-- AUTH BUTTONS -->
+  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
+  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
 
-    <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
-  </nav>
+  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+    Logout
+  </a>
+</nav>
+
 </header>
 
 <!-- ================= LOGIN ================= -->
@@ -120,5 +124,6 @@
 
 </body>
 </html>
+
 
 
