@@ -5,10 +5,7 @@
   <title>OTP Login | Amigos Cleaning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -17,7 +14,7 @@
 <!-- ================= HEADER ================= -->
 <header class="navbar">
   <div class="nav-left">
-    <img src="images/logo.jpg" class="nav-logo" alt="Amigos Logo">
+    <img src="images/logo.jpg" class="nav-logo">
     <span class="brand-name">AMIGOS</span>
   </div>
 
@@ -28,25 +25,21 @@
     <a href="products.html">Products</a>
     <a href="contact.html">Contact</a>
 
-    <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-    <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
+    <a href="login.html" id="loginBtn">Login</a>
+    <a href="signup.html" id="signupBtn">Register</a>
 
-    <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-      Logout
-    </a>
+    <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
   </nav>
 </header>
 
-<!-- ================= LOGIN SECTION ================= -->
+<!-- ================= LOGIN ================= -->
 <section class="login-section">
 
-  <!-- LOGO -->
-  <img src="images/logo.jpg" class="login-logo" alt="Amigos Cleaning">
+  <img src="images/logo.jpg" class="login-logo">
 
   <div class="login-box">
     <h2>OTP Login</h2>
 
-    <!-- ROLE -->
     <select id="role">
       <option value="">Select Role</option>
       <option value="retailer">Retailer</option>
@@ -54,40 +47,26 @@
       <option value="admin">Admin</option>
     </select>
 
-    <!-- EMAIL -->
     <input type="email" id="email" placeholder="Enter Email">
 
-    <!-- MOBILE (REQUIRED) -->
     <input type="tel" id="mobile" placeholder="Enter Mobile Number">
 
-    <!-- SEND OTP -->
     <button type="button" onclick="sendOTP()">Send OTP</button>
 
-    <!-- OTP -->
-    <input type="text" id="otp" placeholder="Enter OTP" style="display:none">
+    <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
 
-    <!-- VERIFY -->
-    <button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none">
+    <button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none;">
       Verify OTP
     </button>
-
-    <p class="switch-link">
-      Don’t have an account?
-      <a href="signup.html">Register</a>
-    </p>
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © 2025 Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
-  <img src="images/logo.jpg" class="footer-watermark" alt="Logo">
+  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
 </footer>
 
-<!-- ================= GLOBAL JS ================= -->
 <script src="js/main.js"></script>
 
-<!-- ================= LOGIN LOGIC ================= -->
 <script>
   let generatedOTP = "";
   let selectedRole = "";
@@ -97,22 +76,21 @@
     const email = document.getElementById("email").value.trim();
     const mobile = document.getElementById("mobile").value.trim();
 
-    if (!selectedRole) {
+    if (selectedRole === "") {
       alert("Please select role");
       return;
     }
 
-    if (!email) {
+    if (email === "") {
       alert("Please enter email");
       return;
     }
 
-    if (!mobile || mobile.length < 10) {
+    if (mobile === "" || mobile.length < 10) {
       alert("Please enter valid mobile number");
       return;
     }
 
-    // DEMO OTP
     generatedOTP = "123456";
     alert("Demo OTP: 123456");
 
@@ -121,28 +99,23 @@
   }
 
   function verifyOTP() {
-    const enteredOTP = document.getElementById("otp").value.trim();
+    const otp = document.getElementById("otp").value.trim();
 
-    if (enteredOTP !== generatedOTP) {
+    if (otp !== generatedOTP) {
       alert("Invalid OTP");
       return;
     }
 
-    // SAVE SESSION
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("userRole", selectedRole);
 
-    // ROLE BASED REDIRECT
     if (selectedRole === "admin") {
-      window.location.replace("admin.html");
+      window.location.href = "admin.html";
     } else {
-      window.location.replace("index.html");
+      window.location.href = "index.html";
     }
   }
 </script>
 
 </body>
 </html>
-
-
- 
