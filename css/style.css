@@ -308,3 +308,9 @@ body.logged-in #logoutBtn {
   display: inline-block !important;
 }
 
+/* Hide ALL login/signup links when logged in */
+body.logged-in a[href*="login"],
+body.logged-in a[href*="signup"],
+body.logged-in a[href*="register"] {
+  display: none !important;
+}
