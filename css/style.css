@@ -324,3 +324,9 @@ body.logged-in button[data-auth="signup"] {
   visibility: hidden !important;
   opacity: 0 !important;
 }
+.welcome-text {
+  margin-left: 10px;
+  font-weight: 600;
+  color: #2ecc71;
+  font-size: 14px;
+}
