@@ -2,188 +2,230 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Amigos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amigo</title>
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 
   <style>
-    /* ===== BASIC RESET ===== */
+    /* ===== RESET ===== */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
     body {
-      background: #ffffff;
-      color: #333;
-      line-height: 1.6;
+      background: #f4f6f8;
+      color: #2c3e50;
     }
 
-    /* ===== HEADER / NAVBAR ===== */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== HEADER / NAVBAR (ADMIN STYLE) ===== */
     header {
-      background: #1e8449;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
+      padding: 14px 16px;
       color: #fff;
-      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .navbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
     }
 
     .logo {
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo i {
+      font-size: 22px;
     }
 
     .nav-right {
       display: flex;
+      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      align-items: center;
     }
 
     .nav-right a {
-      color: #fff;
-      text-decoration: none;
       font-size: 14px;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 20px;
-    }
-
-    .nav-btn {
-      background: #27ae60;
+      transition: all 0.3s ease;
     }
 
     .nav-right a:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.2);
+      font-weight: 600;
     }
 
     .welcome-text {
       font-size: 13px;
       font-weight: 600;
-      color: #d4efdf;
+      color: #eafaf1;
     }
 
     /* ===== HERO ===== */
     .hero {
-      padding: 30px 15px;
+      padding: 50px 18px;
       text-align: center;
-      background: #eafaf1;
+      background: linear-gradient(180deg, #eafaf1, #f4f6f8);
+      animation: fadeIn 1s ease;
     }
 
     .hero h1 {
-      font-size: 26px;
+      font-size: 28px;
       margin-bottom: 10px;
       color: #1e8449;
     }
 
     .hero p {
       font-size: 15px;
-      margin-bottom: 15px;
+      color: #555;
     }
 
-    /* ===== MOBILE SECTIONS ===== */
-    .mobile-section {
-      padding: 25px 15px;
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 25px 16px;
+      max-width: 1000px;
+      margin: auto;
+      animation: slideUp 0.8s ease;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: #1e8449;
+      font-size: 22px;
+    }
+
+    /* ===== ABOUT CARDS ===== */
+    .about-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
     }
 
-    .mobile-section h2 {
-      font-size: 22px;
-      margin-bottom: 12px;
-      color: #1e8449;
-    }
-
-    /* ABOUT STATS */
     .stats {
       display: flex;
       justify-content: space-around;
-      margin-top: 15px;
+      margin-top: 18px;
     }
 
     .stats div {
       text-align: center;
     }
 
+    .stats i {
+      font-size: 22px;
+      color: #27ae60;
+      margin-bottom: 5px;
+    }
+
     .stats strong {
+      display: block;
       font-size: 20px;
       color: #27ae60;
     }
 
     .stats span {
-      display: block;
       font-size: 12px;
-      margin-top: 3px;
     }
 
-    /* PRODUCTS */
+    /* ===== PRODUCTS ===== */
     .product-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 18px 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 15px;
     }
 
     .product-card {
-      background: #f4f6f7;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 14px;
+      background: #fff;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* BUTTONS */
-    .btn-primary,
-    .btn-secondary {
+    .product-card i {
+      font-size: 28px;
+      color: #27ae60;
+      margin-bottom: 8px;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
       display: inline-block;
-      padding: 12px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      margin-top: 10px;
+      margin-top: 15px;
+      padding: 12px 22px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
+      color: #fff;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-card {
+      background: #fff;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .contact-card p {
+      margin: 10px 0;
       font-size: 14px;
     }
 
-    .btn-primary {
-      background: #27ae60;
-      color: #fff;
+    .contact-card i {
+      color: #27ae60;
+      margin-right: 6px;
     }
 
-    .btn-secondary {
-      background: #1f618d;
-      color: #fff;
-    }
-
-    /* FOOTER */
+    /* ===== FOOTER ===== */
     footer {
       background: #1e8449;
       color: #fff;
       text-align: center;
-      padding: 15px;
+      padding: 14px;
       font-size: 13px;
-    }
-
-    /* DESKTOP ENHANCEMENT */
-    @media (min-width: 768px) {
-      .hero h1 {
-        font-size: 34px;
-      }
-
-      .mobile-section {
-        max-width: 900px;
-        margin: auto;
-        margin-bottom: 30px;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      margin-top: 30px;
     }
 
     /* ===== AUTH VISIBILITY ===== */
@@ -196,42 +238,64 @@
     body.logged-in #logoutBtn {
       display: inline-block !important;
     }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== DESKTOP ===== */
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="navbar">
-      <div class="logo">Amigos</div>
-
-      <nav class="nav-right">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="contact.html">Contact</a>
-
-        <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-        <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
-
-        <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-          Logout
-        </a>
-
-        <span id="welcomeUser" class="welcome-text" style="display:none;"></span>
-      </nav>
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-broom"></i> Amigos Cleaning
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Quality Cleaning Solutions You Can Trust</h1>
-    <p>Delivering trust, quality & hygiene since 2021</p>
-  </section>
+    <nav class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact</a>
 
-  <!-- ABOUT US -->
-  <section class="mobile-section">
-    <h2>About Us</h2>
+      <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
+      <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
+
+      <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+        Logout
+      </a>
+
+      <span id="welcomeUser" class="welcome-text" style="display:none;"></span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Professional Cleaning Solutions</h1>
+  <p>Delivering quality, hygiene & trust since 2021</p>
+</section>
+
+<section class="section">
+  <h2>About Us</h2>
+  <div class="about-card">
     <p>
       Founded in 2021, Amigos Cleaning focuses on quality over quantity.
       We don’t just deliver products — we deliver trust.
@@ -239,71 +303,85 @@
 
     <div class="stats">
       <div>
+        <i class="fa-solid fa-store"></i>
         <strong>300+</strong>
         <span>Retail Counters</span>
       </div>
       <div>
+        <i class="fa-solid fa-truck"></i>
         <strong>50+</strong>
         <span>Distributors</span>
       </div>
       <div>
+        <i class="fa-solid fa-smile"></i>
         <strong>2000+</strong>
         <span>Happy Clients</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PRODUCTS -->
-  <section class="mobile-section">
-    <h2>Our Products</h2>
+<section class="section">
+  <h2>Our Products</h2>
 
-    <div class="product-grid">
-      <div class="product-card">Floor Cleaner</div>
-      <div class="product-card">Toilet Cleaner</div>
-      <div class="product-card">Dish Wash</div>
-      <div class="product-card">Glass Cleaner</div>
+  <div class="product-grid">
+    <div class="product-card">
+      <i class="fa-solid fa-water"></i>
+      Floor Cleaner
     </div>
+    <div class="product-card">
+      <i class="fa-solid fa-toilet"></i>
+      Toilet Cleaner
+    </div>
+    <div class="product-card">
+      <i class="fa-solid fa-soap"></i>
+      Dish Wash
+    </div>
+    <div class="product-card">
+      <i class="fa-solid fa-window-maximize"></i>
+      Glass Cleaner
+    </div>
+  </div>
 
-    <a href="products.html" class="btn-primary">View All Products</a>
-  </section>
+  <div style="text-align:center;">
+    <a href="products.html" class="btn">View All Products</a>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section class="mobile-section">
-    <h2>Contact Us</h2>
-    <p><strong>Email:</strong> harihargroup.info@gmail.com</p>
-    <p><strong>Phone:</strong> +91 91 4646 6898</p>
+<section class="section">
+  <h2>Contact Us</h2>
+  <div class="contact-card">
+    <p><i class="fa-solid fa-envelope"></i> harihargroup.info@gmail.com</p>
+    <p><i class="fa-solid fa-phone"></i> +91 91 4646 6898</p>
+    <a href="contact.html" class="btn">Get in Touch</a>
+  </div>
+</section>
 
-    <a href="contact.html" class="btn-secondary">Get in Touch</a>
-  </section>
+<footer>
+  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved.
+</footer>
 
-  <!-- FOOTER -->
-  <footer>
-    © Amigos A Product by Harihar Group of Industries  |   All Rights Reserved.
-  </footer>
+<script>
+  (function () {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const role = localStorage.getItem("userRole");
 
-  <!-- LOGIN STATE SCRIPT -->
-  <script>
-    (function () {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const role = localStorage.getItem("userRole");
-
-      if (isLoggedIn) {
-        document.body.classList.add("logged-in");
-
-        const welcome = document.getElementById("welcomeUser");
-        if (welcome && role) {
-          welcome.textContent = "Welcome " + role.charAt(0).toUpperCase() + role.slice(1);
-          welcome.style.display = "inline-block";
-        }
+    if (isLoggedIn) {
+      document.body.classList.add("logged-in");
+      const welcome = document.getElementById("welcomeUser");
+      if (welcome && role) {
+        welcome.textContent = "Welcome " + role.charAt(0).toUpperCase() + role.slice(1);
+        welcome.style.display = "inline-block";
       }
-    })();
-
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("userRole");
-      window.location.href = "index.html";
     }
-  </script>
+  })();
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+    window.location.href = "index.html";
+  }
+</script>
 
 </body>
 </html>
