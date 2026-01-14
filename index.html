@@ -1,189 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Amigos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amigo</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css" />
 
-  <!-- Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* ===== BASIC RESET ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER / NAVBAR ===== */
+    header {
+      background: #1e8449;
+      color: #fff;
+      padding: 12px 16px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-right a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 20px;
+    }
+
+    .nav-btn {
+      background: #27ae60;
+    }
+
+    .nav-right a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .welcome-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #d4efdf;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 30px 15px;
+      text-align: center;
+      background: #eafaf1;
+    }
+
+    .hero h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #1e8449;
+    }
+
+    .hero p {
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    /* ===== MOBILE SECTIONS ===== */
+    .mobile-section {
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    .mobile-section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #1e8449;
+    }
+
+    /* ABOUT STATS */
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+    }
+
+    .stats div {
+      text-align: center;
+    }
+
+    .stats strong {
+      font-size: 20px;
+      color: #27ae60;
+    }
+
+    .stats span {
+      display: block;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    /* PRODUCTS */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .product-card {
+      background: #f4f6f7;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* BUTTONS */
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #1f618d;
+      color: #fff;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1e8449;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+    }
+
+    /* DESKTOP ENHANCEMENT */
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .mobile-section {
+        max-width: 900px;
+        margin: auto;
+        margin-bottom: 30px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* ===== AUTH VISIBILITY ===== */
+    body.logged-in a[href*="login"],
+    body.logged-in a[href*="signup"],
+    body.logged-in a[href*="register"] {
+      display: none !important;
+    }
+
+    body.logged-in #logoutBtn {
+      display: inline-block !important;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/logo.jpg" class="nav-logo" alt="Amigos Logo">
-    <span class="brand-name">AMIGOS</span>
-  </div>
+  <!-- HEADER -->
+  <header>
+    <div class="navbar">
+      <div class="logo">Amigos</div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <nav class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
 
-  <nav class="nav-right">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="contact.html">Contact</a>
+        <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
+        <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
 
-  <!-- AUTH BUTTONS -->
-  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
+        <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+          Logout
+        </a>
 
-  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-    Logout
-  </a>
-</nav>
+        <span id="welcomeUser" class="welcome-text" style="display:none;"></span>
+      </nav>
+    </div>
+  </header>
 
-</header>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Quality Cleaning Solutions You Can Trust</h1>
+    <p>Delivering trust, quality & hygiene since 2021</p>
+  </section>
 
-<!-- ================= HERO SECTION ================= -->
-<section class="hero">
-  <img src="images/logo.jpg" class="hero-logo animate-logo" alt="Amigos Cleaning">
+  <!-- ABOUT US -->
+  <section class="mobile-section">
+    <h2>About Us</h2>
+    <p>
+      Founded in 2021, Amigos Cleaning focuses on quality over quantity.
+      We don’t just deliver products — we deliver trust.
+    </p>
 
-  <h1>Quality Cleaning Products You Can Trust</h1>
-  <p>
-    Since 2021, Amigos Cleaning Solutions has delivered not just products,
-    but trust, quality, and long-lasting partnerships.
-  </p>
+    <div class="stats">
+      <div>
+        <strong>300+</strong>
+        <span>Retail Counters</span>
+      </div>
+      <div>
+        <strong>50+</strong>
+        <span>Distributors</span>
+      </div>
+      <div>
+        <strong>2000+</strong>
+        <span>Happy Clients</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="hero-buttons">
-    <a href="signup.html" class="btn primary">Sign Up</a>
-    <a href="otp-login.html" class="btn secondary">Login</a>
-  </div>
-</section>
+  <!-- PRODUCTS -->
+  <section class="mobile-section">
+    <h2>Our Products</h2>
 
-<!-- ================= STATS ================= -->
-<section class="stats">
-  <div class="stat-card">
-    <h2>300+</h2>
-    <p>Retail Counters</p>
-  </div>
-  <div class="stat-card">
-    <h2>50+</h2>
-    <p>Distributors</p>
-  </div>
-  <div class="stat-card">
-    <h2>2000+</h2>
-    <p>Happy Clients</p>
-  </div>
-</section>
+    <div class="product-grid">
+      <div class="product-card">Floor Cleaner</div>
+      <div class="product-card">Toilet Cleaner</div>
+      <div class="product-card">Dish Wash</div>
+      <div class="product-card">Glass Cleaner</div>
+    </div>
 
-<!-- ================= QUICK LINKS ================= -->
-<section class="quick-links">
-  <a href="products.html" class="card">
-    <i class="fas fa-box"></i>
-    <h3>Our Products</h3>
-  </a>
+    <a href="products.html" class="btn-primary">View All Products</a>
+  </section>
 
-  <a href="about.html" class="card">
-    <i class="fas fa-users"></i>
-    <h3>About Us</h3>
-  </a>
+  <!-- CONTACT -->
+  <section class="mobile-section">
+    <h2>Contact Us</h2>
+    <p><strong>Email:</strong> harihargroup.info@gmail.com</p>
+    <p><strong>Phone:</strong> +91 91 4646 6898</p>
 
-  <a href="contact.html" class="card">
-    <i class="fas fa-phone"></i>
-    <h3>Contact Us</h3>
-  </a>
-</section>
+    <a href="contact.html" class="btn-secondary">Get in Touch</a>
+  </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  <p>©Amigos A Product by Harihar group of Industries | All Rights Reserved.</p>
-  <img src="images/logo.jpg" class="footer-watermark" alt="Amigos Logo">
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    © Amigos A Product by Harihar Group of Industries  |   All Rights Reserved.
+  </footer>
 
-<!-- ================= JS ================= -->
-<script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-</script>
-<script src="js/main.js"></script>
-
+  <!-- LOGIN STATE SCRIPT -->
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    (function () {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const role = localStorage.getItem("userRole");
 
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
+      if (isLoggedIn) {
+        document.body.classList.add("logged-in");
 
-  console.log("Auth check:", isLoggedIn);
+        const welcome = document.getElementById("welcomeUser");
+        if (welcome && role) {
+          welcome.textContent = "Welcome " + role.charAt(0).toUpperCase() + role.slice(1);
+          welcome.style.display = "inline-block";
+        }
+      }
+    })();
 
-  if (isLoggedIn) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-  } else {
-    if (loginBtn) loginBtn.style.display = "inline-block";
-    if (signupBtn) signupBtn.style.display = "inline-block";
-    if (logoutBtn) logoutBtn.style.display = "none";
-  }
-});
-
-function logout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("userRole");
-  window.location.href = "index.html";
-}
-</script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
-  }
-})();
-</script>
-
-  <section class="mobile-section about-section">
-  <h2>About Amigos Cleaning</h2>
-  <p>
-    Founded in 2021, Amigos Cleaning focuses on quality over quantity.
-    We don’t just deliver products — we deliver trust.
-  </p>
-
-  <div class="stats">
-    <div><strong>300+</strong><span>Retail Counters</span></div>
-    <div><strong>50+</strong><span>Distributors</span></div>
-    <div><strong>2000+</strong><span>Happy Clients</span></div>
-  </div>
-</section>
-
-<section class="mobile-section product-section">
-  <h2>Our Products</h2>
-
-  <div class="product-grid">
-    <div class="product-card">Floor Cleaner</div>
-    <div class="product-card">Toilet Cleaner</div>
-    <div class="product-card">Dish Wash</div>
-    <div class="product-card">Glass Cleaner</div>
-  </div>
-
-  <a href="products.html" class="btn-primary">View All Products</a>
-</section>
-
-<section class="mobile-section contact-section">
-  <h2>Contact Us</h2>
-
-  <p><strong>Email:</strong> harihargroup.info@gmail.com</p>
-  <p><strong>Phone:</strong> +91 91 4646 6898</p>
-
-  <a href="contact.html" class="btn-secondary">Get in Touch</a>
-</section>
-
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userRole");
+      window.location.href = "index.html";
+    }
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
