@@ -330,3 +330,86 @@ body.logged-in button[data-auth="signup"] {
   color: #2ecc71;
   font-size: 14px;
 }
+
+/* General mobile section */
+.mobile-section {
+  padding: 20px 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mobile-section h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #1e8449;
+}
+
+/* ABOUT STATS */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.stats div {
+  text-align: center;
+}
+
+.stats strong {
+  font-size: 20px;
+  color: #27ae60;
+}
+
+.stats span {
+  display: block;
+  font-size: 12px;
+}
+
+/* PRODUCTS */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.product-card {
+  background: #f4f6f7;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* BUTTONS */
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background: #27ae60;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #1f618d;
+  color: #fff;
+}
+
+/* DESKTOP ENHANCEMENT */
+@media (min-width: 768px) {
+  .mobile-section {
+    max-width: 900px;
+    margin: auto;
+    margin-bottom: 40px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
