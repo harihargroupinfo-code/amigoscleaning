@@ -164,49 +164,53 @@
 </div>
 
 <script>
-  function register() {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const role = document.getElementById("role").value;
+function register() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const role = document.getElementById("role").value;
 
-    if (!name || !email || !mobile || !role) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    if (mobile.length !== 10) {
-      alert("Enter valid 10-digit mobile number");
-      return;
-    }
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    if (users.find(u => u.email === email)) {
-      alert("User already exists");
-      return;
-    }
-
-    users.push({
-      name,
-      email,
-      mobile,
-      role,
-      approved: role !== "distributor"
-    });
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert(
-      role === "distributor"
-        ? "Registration successful. Waiting for admin approval."
-        : "Registration successful. You can login now."
-    );
-
-    window.location.href = "login.html";
+  if (!name || !email || !mobile || !role) {
+    alert("Please fill all fields");
+    return;
   }
+
+  if (mobile.length !== 10) {
+    alert("Enter valid 10-digit mobile number");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // ❌ Already registered check
+  if (users.find(u => u.mobile === mobile)) {
+    alert("You are already registered. Please login.");
+    return;
+  }
+
+  users.push({
+    name,
+    email,
+    mobile,
+    role,
+    approved: role === "retailer", // retailer auto-approved
+    active: true
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  if (role === "distributor") {
+    alert("Registration successful.\nWaiting for admin approval.");
+  } else {
+    alert("Registration successful.\nYou can login now.");
+  }
+
+  window.location.href = "login.html";
+}
 </script>
+
 
 </body>
 </html>
+
 
