@@ -2,110 +2,194 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>OTP Login | Amigos</title>
+  <title>Login | Amigos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-</head>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 380px;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 25px 22px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .logo {
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 100%;
+      max-width: 260px;
+      object-fit: contain;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 10px 0 18px;
+      color: #1e8449;
+      font-size: 20px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-top: 12px;
+      display: block;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 11px 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #27ae60;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin-top: 16px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .link a {
+      color: #1e8449;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 20px 18px;
+      }
+    }
+  </style>
+</head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/logo.jpg" class="nav-logo">
-    <span class="brand-name">AMIGOS</span>
-  </div>
-
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-  <nav class="nav-right">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="contact.html">Contact</a>
-
-  <!-- AUTH BUTTONS -->
-  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
-
-  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-    Logout
-    <span id="welcomeUser" class="welcome-text" style="display:none;"></span>
-
-  </a>
-</nav>
-
-</header>
-
-<!-- ================= LOGIN ================= -->
-<section class="login-section">
-
-  <img src="images/logo.jpg" class="login-logo">
-
+<div class="login-wrapper">
   <div class="login-box">
-    <h2>OTP Login</h2>
 
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
+    </div>
+
+    <h2><i class="fa fa-lock"></i> OTP Login</h2>
+
+    <!-- ROLE -->
+    <label>Select Role</label>
     <select id="role">
-      <option value="">Select Role</option>
+      <option value="">-- Select Role --</option>
       <option value="retailer">Retailer</option>
       <option value="distributor">Distributor</option>
       <option value="admin">Admin</option>
     </select>
 
-    <input type="email" id="email" placeholder="Enter Email">
+    <!-- MOBILE -->
+    <label>Mobile Number</label>
+    <input type="tel" id="mobile" placeholder="Enter 10 digit mobile">
 
-    <input type="tel" id="mobile" placeholder="Enter Mobile Number">
+    <!-- OTP -->
+    <div id="otpSection" class="hidden">
+      <label>Enter OTP</label>
+      <input type="number" id="otp" placeholder="Enter OTP">
+    </div>
 
-    <button type="button" onclick="sendOTP()">Send OTP</button>
+    <button class="btn" onclick="sendOTP()">Send OTP</button>
+    <button class="btn hidden" id="verifyBtn" onclick="verifyOTP()">Verify & Login</button>
 
-    <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+    <div class="link">
+      Don’t have an account?
+      <a href="signup.html">Register here</a>
+    </div>
 
-    <button type="button" id="verifyBtn" onclick="verifyOTP()" style="display:none;">
-      Verify OTP
-    </button>
   </div>
-</section>
-
-<footer class="footer">
-  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved
-</footer>
-
-<script src="js/main.js"></script>
+</div>
 
 <script>
   let generatedOTP = "";
-  let selectedRole = "";
 
   function sendOTP() {
-    selectedRole = document.getElementById("role").value;
-    const email = document.getElementById("email").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
+    const role = document.getElementById("role").value;
+    const mobile = document.getElementById("mobile").value;
 
-    if (selectedRole === "") {
+    if (!role) {
       alert("Please select role");
       return;
     }
 
-    if (email === "") {
-      alert("Please enter email");
+    if (!mobile || mobile.length !== 10) {
+      alert("Please enter valid 10-digit mobile number");
       return;
     }
 
-    if (mobile === "" || mobile.length < 10) {
-      alert("Please enter valid mobile number");
-      return;
-    }
-
-    generatedOTP = "123456";
+    generatedOTP = "123456"; // demo
     alert("Demo OTP: 123456");
 
-    document.getElementById("otp").style.display = "block";
-    document.getElementById("verifyBtn").style.display = "block";
+    document.getElementById("otpSection").classList.remove("hidden");
+    document.getElementById("verifyBtn").classList.remove("hidden");
   }
 
   function verifyOTP() {
-    const otp = document.getElementById("otp").value.trim();
+    const otp = document.getElementById("otp").value;
+    const role = document.getElementById("role").value;
 
     if (otp !== generatedOTP) {
       alert("Invalid OTP");
@@ -113,38 +197,15 @@
     }
 
     localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userRole", selectedRole);
+    localStorage.setItem("userRole", role);
 
-    if (selectedRole === "admin") {
+    if (role === "admin") {
       window.location.href = "admin.html";
     } else {
       window.location.href = "index.html";
     }
   }
 </script>
-<script src="js/main.js"></script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
-  }
-})();
-</script>
-<script>
-if (localStorage.getItem("isLoggedIn") === "true") {
-  window.location.replace("index.html");
-}
-</script>
 
 </body>
 </html>
-
-
-
-
-
-
