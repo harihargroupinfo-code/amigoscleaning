@@ -164,9 +164,31 @@
   }
 })();
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedIn = localStorage.getItem("loggedIn");
+  const userName = localStorage.getItem("userName");
+  const role = localStorage.getItem("role");
+
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const welcomeBox = document.getElementById("welcomeBox");
+
+  if (loggedIn === "true" && userName && role) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (signupBtn) signupBtn.style.display = "none";
+
+    if (welcomeBox) {
+      welcomeBox.innerHTML = `Welcome, <b>${userName}</b> 👋 (${role})`;
+      welcomeBox.style.display = "block";
+    }
+  }
+});
+</script>
 
 </body>
 </html>
+
 
 
 
