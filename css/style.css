@@ -413,3 +413,71 @@ body.logged-in button[data-auth="signup"] {
   }
 }
 
+/* ===== TOP NAV BAR ===== */
+header {
+  background: linear-gradient(135deg, #1e8449, #27ae60);
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-right {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-right a {
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.nav-right a i {
+  margin-right: 4px;
+}
+
+.nav-right a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.nav-btn {
+  background: rgba(255,255,255,0.25);
+  font-weight: 600;
+}
+
+.welcome-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #eafaf1;
+}
+
+/* MOBILE ADJUSTMENT */
+@media (max-width: 600px) {
+  .nav-right {
+    justify-content: center;
+    width: 100%;
+    margin-top: 8px;
+  }
+}
