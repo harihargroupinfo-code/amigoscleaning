@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const name = localStorage.getItem("userName");
+  const role = localStorage.getItem("userRole");
+
+  if (name && role) {
+    const welcome = document.getElementById("welcomeUser");
+    if (welcome) {
+      welcome.innerText = `Welcome ${name}`;
+    }
+  }
+});
+</script>
+
 <head>
   <meta charset="UTF-8" />
   <title>Amigos</title>
@@ -393,6 +407,7 @@
 
 </body>
 </html>
+
 
 
 
