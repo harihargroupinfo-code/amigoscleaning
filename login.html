@@ -1,235 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login | Amigos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Amigos</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
- <style>
-  * { box-sizing: border-box; }
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(135deg,#1f3c88,#3a7bd5);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-  :root {
-    --green1: #1e8449;
-    --green2: #27ae60;
-    --radius: 18px;
-  }
+/* CARD */
+.login-card{
+  background:#fff;
+  width:100%;
+  max-width:380px;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
 
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--green1), var(--green2));
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* LOGO */
+.logo-box{
+  text-align:center;
+  margin-bottom:10px;
+}
+.logo-box img{
+  width:100%;
+  max-width:180px;
+}
 
-  .auth-wrapper {
-    width: 100%;
-    max-width: 380px;
-    padding: 20px;
-  }
+/* TITLE */
+h2{
+  text-align:center;
+  margin:10px 0 20px;
+  color:#1f3c88;
+}
 
-  .auth-box {
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 24px 22px;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-    animation: fadeUp 0.55s ease;
-  }
+/* INPUTS */
+input,select{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
 
-  @keyframes fadeUp {
-    from { transform: translateY(25px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#1f3c88;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{background:#162e66}
 
-  .logo {
-    text-align: center;
-    margin-bottom: 14px;
-  }
+/* LINKS */
+.links{
+  text-align:center;
+  margin-top:15px;
+}
+.links a{
+  color:#1f3c88;
+  text-decoration:none;
+  font-weight:600;
+  display:block;
+  margin-top:8px;
+}
 
-  .logo img {
-    width: 100%;
-    max-width: 240px;
-  }
+.message{
+  text-align:center;
+  color:red;
+  margin-bottom:10px;
+  font-size:13px;
+}
 
-  h2 {
-    text-align: center;
-    color: var(--green1);
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-
-  label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-    margin-top: 12px;
-    display: block;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 11px;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--green2);
-  }
-
-  .btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--green1), var(--green2));
-    color: #fff;
-    border: none;
-    padding: 12px;
-    margin-top: 18px;
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .btn:hover { transform: scale(1.03); }
-
-  .link {
-    text-align: center;
-    margin-top: 14px;
-    font-size: 13px;
-  }
-
-  .link a {
-    color: var(--green1);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .hidden { display: none; }
-
-  @media (max-width: 480px) {
-    .auth-box { padding: 20px 18px; }
-  }
 </style>
-
 </head>
+
 <body>
 
-<div class="login-wrapper">
-  <div class="login-box">
+<div class="login-card">
 
-    <!-- LOGO -->
-    <div class="logo">
-      <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
-    </div>
-
-    <h2><i class="fa fa-lock"></i> OTP Login</h2>
-
-    <!-- ROLE -->
-    <label>Select Role</label>
-    <select id="role">
-      <option value="">-- Select Role --</option>
-      <option value="retailer">Retailer</option>
-      <option value="distributor">Distributor</option>
-      <option value="admin">Admin</option>
-    </select>
-
-    <!-- MOBILE -->
-    <label>Mobile Number</label>
-    <input type="tel" id="mobile" placeholder="Enter 10 digit mobile">
-
-    <!-- OTP -->
-    <div id="otpSection" class="hidden">
-      <label>Enter OTP</label>
-      <input type="number" id="otp" placeholder="Enter OTP">
-    </div>
-
-    <button class="btn" onclick="sendOTP()">Send OTP</button>
-    <button class="btn hidden" id="verifyBtn" onclick="verifyOTP()">Verify & Login</button>
-
-    <div class="link">
-      Don’t have an account?
-      <a href="signup.html">Register here</a>
-    </div>
-
+  <!-- LOGO -->
+  <div class="logo-box">
+    <img src="images/logo.jpg" alt="Amigos Cleaning">
   </div>
+
+  <h2>OTP Login</h2>
+
+  <div class="message" id="msg"></div>
+
+  <select id="role">
+    <option value="">Select Role</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+    <option value="admin">Admin</option>
+  </select>
+
+  <input type="text" id="mobile" placeholder="Enter Mobile Number">
+
+  <button onclick="sendOTP()">Send OTP</button>
+
+  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
+
+  <div class="links">
+    <a href="signup.html">Create Account</a>
+    <a href="index.html">Back to Home</a>
+  </div>
+
 </div>
 
 <script>
-let generatedOTP = "";
-let loggedUser = null;
+const ADMIN_NUMBERS = ["9999999999","8888888888"];
+let generatedOTP="";
 
-function sendOTP() {
-  const role = document.getElementById("role").value;
-  const mobile = document.getElementById("mobile").value.trim();
+function sendOTP(){
+  const role=document.getElementById("role").value;
+  const mobile=document.getElementById("mobile").value.trim();
+  const msg=document.getElementById("msg");
 
-  if (!role) {
-    alert("Please select role");
+  msg.innerText="";
+
+  if(!role || !mobile){
+    msg.innerText="Please select role and enter mobile number";
     return;
   }
 
-  if (!mobile || mobile.length !== 10) {
-    alert("Please enter valid mobile number");
+  /* ADMIN LOGIN */
+  if(role==="admin"){
+    if(!ADMIN_NUMBERS.includes(mobile)){
+      msg.innerText="Unauthorized admin number";
+      return;
+    }
+    generatedOTP="123456";
+    alert("Demo OTP: 123456");
+    showOTP();
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
+  /* USER LOGIN */
+  const users=JSON.parse(localStorage.getItem("users"))||[];
+  const user=users.find(u=>u.mobile===mobile && u.role===role);
 
-  loggedUser = users.find(
-    u => u.mobile === mobile && u.role === role
-  );
-
-  // ❌ NOT REGISTERED
-  if (!loggedUser) {
-    alert("Signup required.\nPlease sign up – it's free and join with us!");
+  if(!user){
+    msg.innerText="Registration required. Please sign up (free)";
     return;
   }
 
-  // ❌ DISTRIBUTOR NOT APPROVED
-  if (role === "distributor" && loggedUser.approved !== true) {
-    alert("Distributor approval pending.\nPlease wait for admin approval.");
+  if(role==="distributor" && !user.approved){
+    msg.innerText="Distributor pending admin approval";
     return;
   }
 
-  generatedOTP = "123456"; // demo OTP
+  generatedOTP="123456";
   alert("Demo OTP: 123456");
-
-  document.getElementById("otpSection").classList.remove("hidden");
-  document.getElementById("verifyBtn").classList.remove("hidden");
+  showOTP();
 }
 
-function verifyOTP() {
-  const otp = document.getElementById("otp").value;
+function showOTP(){
+  document.getElementById("otp").style.display="block";
+  document.getElementById("verifyBtn").style.display="block";
+}
 
-  if (otp !== generatedOTP) {
+function verifyOTP(){
+  const otp=document.getElementById("otp").value;
+
+  if(otp!==generatedOTP){
     alert("Invalid OTP");
     return;
   }
 
-  // ✅ SAVE LOGIN SESSION
-  localStorage.setItem("isLoggedIn", "true");
-  localStorage.setItem("userRole", loggedUser.role);
-  localStorage.setItem("userName", loggedUser.name);
-  localStorage.setItem("userMobile", loggedUser.mobile);
+  const role=document.getElementById("role").value;
+  localStorage.setItem("loggedIn","true");
+  localStorage.setItem("role",role);
 
-  if (loggedUser.role === "admin") {
-    window.location.href = "admin.html";
-  } else {
-    window.location.href = "index.html";
+  if(role==="admin"){
+    location.href="admin.html";
+  }else{
+    location.href="index.html";
   }
 }
 </script>
+
 </body>
 </html>
-
-
-
