@@ -2,234 +2,213 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Signup | Amigos Cleaning</title>
+  <title>Register | Amigos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     * { box-sizing: border-box; }
 
     body {
-
-      <!-- HEADER / NAVBAR -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/logo.jpg" alt="Amigos Cleaning Logo" class="nav-logo">
-    <span class="brand-name">Amigos Cleaning</span>
-  </div>
-
-  <div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-  </div>
-
- <nav class="nav-right">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="contact.html">Contact</a>
-
-  <!-- AUTH BUTTONS -->
-  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
-
-  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-    Logout
-  </a>
-</nav>
-
-</header>
-
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, #007bff, #00b894);
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 15px;
+      justify-content: center;
     }
 
-    .card {
-      background: #fff;
+    .register-wrapper {
       width: 100%;
-      max-width: 360px;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .register-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px 22px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .logo {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
-    .logo i {
-      font-size: 42px;
-      color: #00b894;
+    .logo img {
+      width: 100%;
+      max-width: 260px;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      color: #1e8449;
+      font-size: 20px;
     }
 
-    .input-group {
-      position: relative;
-      margin-bottom: 15px;
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-top: 12px;
+      display: block;
     }
 
-    .input-group i {
-      position: absolute;
-      top: 50%;
-      left: 12px;
-      transform: translateY(-50%);
-      color: #888;
-    }
-
-    .input-group input,
-    .input-group select {
+    input, select {
       width: 100%;
-      padding: 12px 12px 12px 40px;
+      padding: 11px;
+      margin-top: 6px;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 14px;
     }
 
-    button {
+    input:focus, select:focus {
+      outline: none;
+      border-color: #27ae60;
+    }
+
+    .btn {
       width: 100%;
-      padding: 12px;
+      background: linear-gradient(135deg, #1e8449, #27ae60);
+      color: #fff;
       border: none;
-      border-radius: 8px;
-      background: #00b894;
-      color: white;
+      padding: 12px;
+      margin-top: 18px;
+      border-radius: 30px;
       font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
+      transition: 0.3s;
     }
 
-    .link-text {
+    .btn:hover {
+      transform: scale(1.03);
+    }
+
+    .note {
+      font-size: 12px;
+      color: #777;
+      margin-top: 10px;
       text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
     }
 
-    .link-text a {
-      color: #007bff;
+    .link {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .link a {
+      color: #1e8449;
+      font-weight: 600;
       text-decoration: none;
     }
+
+    @media (max-width: 480px) {
+      .register-box {
+        padding: 20px 18px;
+      }
+    }
   </style>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
-
 <body>
 
-<div class="card">
-  <div class="logo">
-    <i class="fa-solid fa-user-plus"></i>
-  </div>
+<div class="register-wrapper">
+  <div class="register-box">
 
-  <h2>Create Account</h2>
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
+    </div>
 
-  <div class="input-group">
-    <i class="fa-solid fa-envelope"></i>
-    <input type="email" id="email" placeholder="Email">
-  </div>
+    <h2><i class="fa fa-user-plus"></i> Create Account</h2>
 
-  <div class="input-group">
-    <i class="fa-solid fa-phone"></i>
-    <input type="text" id="mobile" placeholder="Mobile Number">
-  </div>
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="Enter full name">
 
-  <div class="input-group">
-    <i class="fa-solid fa-user-tag"></i>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter email">
+
+    <label>Mobile Number</label>
+    <input type="tel" id="mobile" placeholder="10-digit mobile">
+
+    <label>Select Role</label>
     <select id="role">
-      <option value="">Select Role</option>
+      <option value="">-- Select Role --</option>
       <option value="retailer">Retailer</option>
       <option value="distributor">Distributor</option>
     </select>
-  </div>
 
-  <button onclick="register()">Register</button>
+    <button class="btn" onclick="register()">Register</button>
 
-  <div class="link-text">
-    Already have an account?
-    <a href="otp-login.html">Login with OTP</a>
+    <div class="note">
+      Distributor accounts require admin approval.
+    </div>
+
+    <div class="link">
+      Already have an account?
+      <a href="login.html">Login here</a>
+    </div>
+
   </div>
 </div>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
-    authDomain: "amigoscleaning-47ba4.firebaseapp.com",
-    projectId: "amigoscleaning-47ba4",
-    storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
-    messagingSenderId: "742485216892",
-    appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  function normalizeMobile(m) {
-    return m.replace(/\D/g, "").slice(-10);
-  }
-
   function register() {
+    const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
-    let mobile = normalizeMobile(document.getElementById("mobile").value);
+    const mobile = document.getElementById("mobile").value.trim();
     const role = document.getElementById("role").value;
 
-    if (!email || !mobile || !role)
-      return alert("Fill all fields");
+    if (!name || !email || !mobile || !role) {
+      alert("Please fill all fields");
+      return;
+    }
 
-    db.collection("users").add({
+    if (mobile.length !== 10) {
+      alert("Enter valid 10-digit mobile number");
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.find(u => u.email === email)) {
+      alert("User already exists");
+      return;
+    }
+
+    users.push({
+      name,
       email,
       mobile,
       role,
-      approved: role === "retailer",
-      blocked: false
-    }).then(() => {
-      alert("Registration successful");
-      location.href = "otp-login.html";
+      approved: role !== "distributor"
     });
-  }
-</script>
-<script>
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("active");
-}
-</script>
-<script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-</script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert(
+      role === "distributor"
+        ? "Registration successful. Waiting for admin approval."
+        : "Registration successful. You can login now."
+    );
+
+    window.location.href = "login.html";
   }
-})();
-</script>
-<script>
-if (localStorage.getItem("isLoggedIn") === "true") {
-  window.location.replace("index.html");
-}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
