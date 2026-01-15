@@ -194,6 +194,14 @@ header button {
       <option value="retailer">Retailers</option>
     </select>
   </div>
+<div class="filter-box">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search by name or mobile"
+    onkeyup="searchUsers()"
+  />
+</div>
 
   <div id="userList"></div>
 
@@ -283,3 +291,4 @@ loadUsers();
 
 </body>
 </html>
+
