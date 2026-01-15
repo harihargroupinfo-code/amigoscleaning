@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Our Products | Amigos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<header>
+  <div class="navbar">
+    <!-- LEFT: LOGO -->
+    <div class="logo">
+      <i class="fa-solid fa-broom"></i> Amigos Cleaning
+    </div>
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- RIGHT: NAV LINKS -->
+    <nav class="nav-right">
+      <a href="index.html"><i class="fa fa-home"></i> Home</a>
+      <a href="products.html"><i class="fa fa-box"></i> Products</a>
+      <a href="about.html"><i class="fa fa-circle-info"></i> About</a>
+      <a href="contact.html"><i class="fa fa-phone"></i> Contact</a>
 
-  <!-- Icons -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
+      <a href="login.html" id="loginBtn" class="nav-btn">
+        <i class="fa fa-sign-in-alt"></i> Login
+      </a>
+
+      <a href="signup.html" id="signupBtn" class="nav-btn">
+        <i class="fa fa-user-plus"></i> Register
+      </a>
+
+      <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
+        <i class="fa fa-sign-out-alt"></i> Logout
+      </a>
+
+      <span id="welcomeUser" class="welcome-text"></span>
+    </nav>
+  </div>
+</header>
+
 
 <body>
 
@@ -103,6 +122,7 @@
 
 </body>
 </html>
+
 
 
 
