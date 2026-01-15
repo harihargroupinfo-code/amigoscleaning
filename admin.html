@@ -264,6 +264,21 @@ function loadUsers(filter = "all") {
     `;
   });
 }
+function searchUsers() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const list = document.getElementById("userList");
+  list.innerHTML = "";
+
+  users.forEach((u, index) => {
+    if (
+      u.name.toLowerCase().includes(keyword) ||
+      u.mobile.includes(keyword)
+    ) {
+      renderUserCard(u, index);
+    }
+  });
+}
 
 function approveUser(index) {
   let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -291,4 +306,5 @@ loadUsers();
 
 </body>
 </html>
+
 
