@@ -491,3 +491,14 @@ input {
   border: 1px solid #ccc;
   font-size: 14px;
 }
+@media (max-width: 480px) {
+  .login-box {
+    padding: 20px 16px;
+  }
+
+  input,
+  select {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
