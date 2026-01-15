@@ -2,322 +2,254 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard | Amigos Cleaning</title>
+<title>Admin Dashboard | Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Icons -->
+<!-- Font Awesome -->
 <link rel="stylesheet"
- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 * { box-sizing: border-box; }
 
 body {
-
- <!-- HEADER / NAVBAR -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/logo.jpg" alt="Amigos Cleaning Logo" class="nav-logo">
-    <span class="brand-name">Amigos Cleaning</span>
-  </div>
-
-  <div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-  </div>
-
- <nav class="nav-right">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="contact.html">Contact</a>
-
-  <!-- AUTH BUTTONS -->
-  <a href="login.html" id="loginBtn" class="nav-btn">Login</a>
-  <a href="signup.html" id="signupBtn" class="nav-btn">Register</a>
-
-  <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-    Logout
-  </a>
-</nav>
-
-</header>
-
   margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
-  background: #f2f4f8;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f7;
 }
 
-/* Header */
-.header {
-  background: linear-gradient(135deg,#0d6efd,#00b4d8);
+/* HEADER */
+header {
+  background: linear-gradient(135deg,#1e8449,#27ae60);
   color: #fff;
-  padding: 16px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Filters */
-.filters {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-}
-
-.filters select {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-/* Card */
-.card {
-  background: #fff;
-  margin: 10px;
-  padding: 14px;
-  border-radius: 14px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-
-.card .row {
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.role {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: #eee;
+header h1 {
+  font-size: 18px;
+  margin: 0;
 }
 
-.role.distributor { background:#fff3cd; color:#856404; }
-.role.retailer { background:#d1e7dd; color:#0f5132; }
-
-.status {
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.actions button {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
+header button {
+  background: #fff;
+  color: #1e8449;
   border: none;
-  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: 600;
 }
 
-.approve { background:#198754; color:#fff; }
-.block { background:#ffc107; }
-.delete { background:#dc3545; color:#fff; }
-
-/* Empty */
-.empty {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+/* CONTAINER */
+.container {
+  padding: 15px;
+  max-width: 1100px;
+  margin: auto;
 }
 
-/* Logout */
-.logout {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background:#dc3545;
-  color:#fff;
-  border:none;
-  border-radius:50%;
-  width:48px;
-  height:48px;
-  font-size:18px;
+/* FILTER */
+.filter {
+  margin-bottom: 15px;
+}
+
+.filter select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  background: #27ae60;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+/* STATUS */
+.status-approved { color: green; font-weight: 600; }
+.status-pending { color: orange; font-weight: 600; }
+
+/* BUTTONS */
+.action-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.approve-btn {
+  background: #27ae60;
+  color: #fff;
+}
+
+.delete-btn {
+  background: #c0392b;
+  color: #fff;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead { display: none; }
+
+  tr {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+  }
 }
 </style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-<div class="header">
-  <i class="fa-solid fa-user-shield"></i> Admin Dashboard
+<header>
+  <h1><i class="fa fa-user-shield"></i> Admin Dashboard</h1>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+  <div class="filter">
+    <label>Filter Role:</label>
+    <select onchange="loadUsers(this.value)">
+      <option value="all">All</option>
+      <option value="retailer">Retailers</option>
+      <option value="distributor">Distributors</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+  </table>
+
 </div>
-
-<div class="filters">
-  <select id="roleFilter" onchange="loadUsers()">
-    <option value="">All Roles</option>
-    <option value="retailer">Retailer</option>
-    <option value="distributor">Distributor</option>
-  </select>
-
-  <select id="statusFilter" onchange="loadUsers()">
-    <option value="">All Status</option>
-    <option value="approved">Approved</option>
-    <option value="pending">Pending</option>
-    <option value="blocked">Blocked</option>
-  </select>
-</div>
-
-<div id="list"></div>
-
-<button class="logout" onclick="logout()">
-  <i class="fa-solid fa-right-from-bracket"></i>
-</button>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAWHg2Fx0XCguBDAsuehl9YWA-G6tWoO24",
-  authDomain: "amigoscleaning-47ba4.firebaseapp.com",
-  projectId: "amigoscleaning-47ba4",
-  storageBucket: "amigoscleaning-47ba4.firebasestorage.app",
-  messagingSenderId: "742485216892",
-  appId: "1:742485216892:web:9c60dee666b039cf3983f9"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+/* 🔐 ADMIN SECURITY */
+if (
+  localStorage.getItem("isLoggedIn") !== "true" ||
+  localStorage.getItem("userRole") !== "admin"
+) {
+  window.location.href = "login.html";
+}
 
-function loadUsers() {
-  const roleF = document.getElementById("roleFilter").value;
-  const statusF = document.getElementById("statusFilter").value;
-  const list = document.getElementById("list");
-  list.innerHTML = "";
+/* LOAD USERS */
+function loadUsers(filter = "all") {
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const table = document.getElementById("userTable");
+  table.innerHTML = "";
 
-  db.collection("users").get().then(snapshot => {
-    if (snapshot.empty) {
-      list.innerHTML = `<div class="empty">No users found</div>`;
-      return;
+  users.forEach((u, i) => {
+    if (filter !== "all" && u.role !== filter) return;
+
+    let statusText = u.approved ? "Approved" : "Pending";
+    let statusClass = u.approved ? "status-approved" : "status-pending";
+
+    let actionBtns = "";
+
+    if (u.role === "distributor" && !u.approved) {
+      actionBtns += `
+        <button class="action-btn approve-btn"
+          onclick="approveUser(${i})">
+          Approve
+        </button>
+      `;
     }
 
-    snapshot.forEach(doc => {
-      const u = doc.data();
+    actionBtns += `
+      <button class="action-btn delete-btn"
+        onclick="deleteUser(${i})">
+        Delete
+      </button>
+    `;
 
-      if (roleF && u.role !== roleF) return;
-      if (statusF === "approved" && !u.approved) return;
-      if (statusF === "pending" && u.approved) return;
-      if (statusF === "blocked" && !u.blocked) return;
-
-      list.innerHTML += `
-        <div class="card">
-          <div class="row">
-            <strong>${u.email || "No Email"}</strong>
-            <span class="role ${u.role}">${u.role}</span>
-          </div>
-
-          <div class="status">
-            📱 ${u.mobile}<br>
-            ${u.blocked ? "🚫 Blocked" :
-              u.approved ? "✅ Approved" : "⏳ Pending"}
-          </div>
-
-          <div class="actions">
-            ${(!u.approved && u.role==="distributor") ?
-              `<button class="approve"
-                onclick="approve('${doc.id}')">Approve</button>` : ""}
-
-            <button class="block"
-              onclick="toggleBlock('${doc.id}', ${u.blocked})">
-              ${u.blocked ? "Unblock" : "Block"}
-            </button>
-
-            <button class="delete"
-              onclick="deleteUser('${doc.id}','${u.email}')">
-              Delete
-            </button>
-          </div>
-        </div>
-      `;
-    });
+    table.innerHTML += `
+      <tr>
+        <td data-label="Name">${u.name}</td>
+        <td data-label="Email">${u.email}</td>
+        <td data-label="Mobile">${u.mobile}</td>
+        <td data-label="Role">${u.role}</td>
+        <td data-label="Status" class="${statusClass}">
+          ${statusText}
+        </td>
+        <td data-label="Action">${actionBtns}</td>
+      </tr>
+    `;
   });
 }
 
-function approve(id) {
-  db.collection("users").doc(id)
-    .update({ approved:true })
-    .then(() => {
-      alert("Distributor approved");
-      loadUsers();
-    });
+/* APPROVE DISTRIBUTOR */
+function approveUser(index) {
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  users[index].approved = true;
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Distributor approved successfully");
+  loadUsers();
 }
 
-function toggleBlock(id, blocked) {
-  db.collection("users").doc(id)
-    .update({ blocked: !blocked })
-    .then(loadUsers);
+/* DELETE USER */
+function deleteUser(index) {
+  if (!confirm("Are you sure you want to DELETE this user?")) return;
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  users.splice(index, 1);
+  localStorage.setItem("users", JSON.stringify(users));
+  loadUsers();
 }
 
-function deleteUser(id, email) {
-  if (!confirm(`Delete user?\n${email}`)) return;
-  db.collection("users").doc(id)
-    .delete()
-    .then(() => {
-      alert("User deleted");
-      loadUsers();
-    });
-}
-
+/* LOGOUT */
 function logout() {
   localStorage.clear();
-  location.href = "otp-login.html";
+  window.location.href = "login.html";
 }
 
+/* INIT */
 loadUsers();
-</script>
-<script>
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("active");
-}
-</script>
-<script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn === "true") {
-      document.getElementById("loginBtn")?.style.display = "none";
-      document.getElementById("logoutBtn")?.style.display = "inline-block";
-    }
-  });
-
-  function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
-
-    alert("Logged out successfully");
-    window.location.replace("index.html");
-  }
-</script>
-<script src="js/main.js"></script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
-  }
-})();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
