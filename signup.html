@@ -1,216 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Register | Amigos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Amigos</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
- <style>
-  * { box-sizing: border-box; }
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(135deg,#1f3c88,#3a7bd5);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-  :root {
-    --green1: #1e8449;
-    --green2: #27ae60;
-    --radius: 18px;
-  }
+.card{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
 
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--green1), var(--green2));
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.logo{
+  text-align:center;
+}
+.logo img{
+  width:100%;
+  max-width:180px;
+}
 
-  .auth-wrapper {
-    width: 100%;
-    max-width: 380px;
-    padding: 20px;
-  }
+h2{
+  text-align:center;
+  color:#1f3c88;
+  margin:15px 0;
+}
 
-  .auth-box {
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 24px 22px;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-    animation: fadeUp 0.55s ease;
-  }
+input,select{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
 
-  @keyframes fadeUp {
-    from { transform: translateY(25px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#1f3c88;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{background:#162e66}
 
-  .logo {
-    text-align: center;
-    margin-bottom: 14px;
-  }
+.msg{
+  text-align:center;
+  font-size:13px;
+  margin-bottom:10px;
+  color:red;
+}
 
-  .logo img {
-    width: 100%;
-    max-width: 240px;
-  }
-
-  h2 {
-    text-align: center;
-    color: var(--green1);
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-
-  label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-    margin-top: 12px;
-    display: block;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 11px;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--green2);
-  }
-
-  .btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--green1), var(--green2));
-    color: #fff;
-    border: none;
-    padding: 12px;
-    margin-top: 18px;
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .btn:hover { transform: scale(1.03); }
-
-  .link {
-    text-align: center;
-    margin-top: 14px;
-    font-size: 13px;
-  }
-
-  .link a {
-    color: var(--green1);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .hidden { display: none; }
-
-  @media (max-width: 480px) {
-    .auth-box { padding: 20px 18px; }
-  }
+.links{
+  text-align:center;
+  margin-top:10px;
+}
+.links a{
+  text-decoration:none;
+  color:#1f3c88;
+  font-weight:600;
+}
 </style>
-/head>
+</head>
+
 <body>
 
-<div class="register-wrapper">
-  <div class="register-box">
+<div class="card">
 
-    <!-- LOGO -->
-    <div class="logo">
-      <img src="images/logo.jpg" alt="Amigos Cleaning Logo">
-    </div>
-
-    <h2><i class="fa fa-user-plus"></i> Create Account</h2>
-
-    <label>Full Name</label>
-    <input type="text" id="name" placeholder="Enter full name">
-
-    <label>Email</label>
-    <input type="email" id="email" placeholder="Enter email">
-
-    <label>Mobile Number</label>
-    <input type="tel" id="mobile" placeholder="10-digit mobile">
-
-    <label>Select Role</label>
-    <select id="role">
-      <option value="">-- Select Role --</option>
-      <option value="retailer">Retailer</option>
-      <option value="distributor">Distributor</option>
-    </select>
-
-    <button class="btn" onclick="register()">Register</button>
-
-    <div class="note">
-      Distributor accounts require admin approval.
-    </div>
-
-    <div class="link">
-      Already have an account?
-      <a href="login.html">Login here</a>
-    </div>
-
+  <div class="logo">
+    <img src="images/logo.jpg" alt="Amigos Cleaning">
   </div>
+
+  <h2>Create Account</h2>
+
+  <div class="msg" id="msg"></div>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="text" id="mobile" placeholder="Mobile Number">
+
+  <select id="role">
+    <option value="">Select Role</option>
+    <option value="retailer">Retailer</option>
+    <option value="distributor">Distributor</option>
+  </select>
+
+  <button onclick="register()">Register</button>
+
+  <div class="links">
+    <a href="login.html">Already have an account? Login</a>
+  </div>
+
 </div>
 
 <script>
-function register() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const mobile = document.getElementById("mobile").value.trim();
-  const role = document.getElementById("role").value;
+function register(){
+  const name=document.getElementById("name").value.trim();
+  const email=document.getElementById("email").value.trim();
+  const mobile=document.getElementById("mobile").value.trim();
+  const role=document.getElementById("role").value;
+  const msg=document.getElementById("msg");
 
-  if (!name || !email || !mobile || !role) {
-    alert("Please fill all fields");
+  msg.innerText="";
+
+  if(!name||!email||!mobile||!role){
+    msg.innerText="All fields are required";
     return;
   }
 
-  if (mobile.length !== 10) {
-    alert("Enter valid 10-digit mobile number");
+  let users=JSON.parse(localStorage.getItem("users"))||[];
+
+  if(users.some(u=>u.email===email)){
+    msg.innerText="Email already registered";
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  // ❌ Already registered check
-  if (users.find(u => u.mobile === mobile)) {
-    alert("You are already registered. Please login.");
+  if(users.some(u=>u.mobile===mobile)){
+    msg.innerText="Mobile number already registered";
     return;
   }
+
+  const approved = role==="retailer";
 
   users.push({
     name,
     email,
     mobile,
     role,
-    approved: role === "retailer", // retailer auto-approved
-    active: true
+    approved
   });
 
-  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("users",JSON.stringify(users));
 
-  if (role === "distributor") {
-    alert("Registration successful.\nWaiting for admin approval.");
-  } else {
-    alert("Registration successful.\nYou can login now.");
+  if(role==="distributor"){
+    alert("Signup successful! Waiting for admin approval.");
+  }else{
+    alert("Signup successful! You can login now.");
   }
 
-  window.location.href = "login.html";
+  location.href="login.html";
 }
 </script>
 
-
 </body>
 </html>
-
-
