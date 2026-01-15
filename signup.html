@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Segoe UI, sans-serif;
@@ -16,15 +17,16 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:15px;
 }
 
 .card{
   background:#fff;
   width:100%;
   max-width:420px;
-  padding:25px;
   border-radius:18px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  padding:25px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.25);
 }
 
 .logo{
@@ -32,13 +34,13 @@ body{
 }
 .logo img{
   width:100%;
-  max-width:180px;
+  max-width:160px;
 }
 
 h2{
   text-align:center;
   color:#1f3c88;
-  margin:15px 0;
+  margin:15px 0 20px;
 }
 
 input,select{
@@ -65,13 +67,13 @@ button:hover{background:#162e66}
 .msg{
   text-align:center;
   font-size:13px;
-  margin-bottom:10px;
   color:red;
+  margin-bottom:10px;
 }
 
 .links{
   text-align:center;
-  margin-top:10px;
+  margin-top:12px;
 }
 .links a{
   text-decoration:none;
@@ -94,8 +96,8 @@ button:hover{background:#162e66}
   <div class="msg" id="msg"></div>
 
   <input type="text" id="name" placeholder="Full Name">
-  <input type="email" id="email" placeholder="Email">
-  <input type="text" id="mobile" placeholder="Mobile Number">
+  <input type="email" id="email" placeholder="Email Address">
+  <input type="tel" id="mobile" placeholder="Mobile Number">
 
   <select id="role">
     <option value="">Select Role</option>
@@ -138,23 +140,18 @@ function register(){
     return;
   }
 
-  const approved = role==="retailer";
-
   users.push({
-    name,
-    email,
-    mobile,
-    role,
-    approved
+    name,email,mobile,role,
+    approved: role==="retailer"
   });
 
   localStorage.setItem("users",JSON.stringify(users));
 
-  if(role==="distributor"){
-    alert("Signup successful! Waiting for admin approval.");
-  }else{
-    alert("Signup successful! You can login now.");
-  }
+  alert(
+    role==="distributor"
+    ? "Signup successful! Waiting for admin approval."
+    : "Signup successful! You can login now."
+  );
 
   location.href="login.html";
 }
