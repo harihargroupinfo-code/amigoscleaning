@@ -165,50 +165,71 @@
 </div>
 
 <script>
-  let generatedOTP = "";
+let generatedOTP = "";
+let loggedUser = null;
 
-  function sendOTP() {
-    const role = document.getElementById("role").value;
-    const mobile = document.getElementById("mobile").value;
+function sendOTP() {
+  const role = document.getElementById("role").value;
+  const mobile = document.getElementById("mobile").value.trim();
 
-    if (!role) {
-      alert("Please select role");
-      return;
-    }
-
-    if (!mobile || mobile.length !== 10) {
-      alert("Please enter valid 10-digit mobile number");
-      return;
-    }
-
-    generatedOTP = "123456"; // demo
-    alert("Demo OTP: 123456");
-
-    document.getElementById("otpSection").classList.remove("hidden");
-    document.getElementById("verifyBtn").classList.remove("hidden");
+  if (!role) {
+    alert("Please select role");
+    return;
   }
 
-  function verifyOTP() {
-    const otp = document.getElementById("otp").value;
-    const role = document.getElementById("role").value;
-
-    if (otp !== generatedOTP) {
-      alert("Invalid OTP");
-      return;
-    }
-
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userRole", role);
-
-    if (role === "admin") {
-      window.location.href = "admin.html";
-    } else {
-      window.location.href = "index.html";
-    }
+  if (!mobile || mobile.length !== 10) {
+    alert("Please enter valid mobile number");
+    return;
   }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  loggedUser = users.find(
+    u => u.mobile === mobile && u.role === role
+  );
+
+  // ❌ NOT REGISTERED
+  if (!loggedUser) {
+    alert("Signup required.\nPlease sign up – it's free and join with us!");
+    return;
+  }
+
+  // ❌ DISTRIBUTOR NOT APPROVED
+  if (role === "distributor" && loggedUser.approved !== true) {
+    alert("Distributor approval pending.\nPlease wait for admin approval.");
+    return;
+  }
+
+  generatedOTP = "123456"; // demo OTP
+  alert("Demo OTP: 123456");
+
+  document.getElementById("otpSection").classList.remove("hidden");
+  document.getElementById("verifyBtn").classList.remove("hidden");
+}
+
+function verifyOTP() {
+  const otp = document.getElementById("otp").value;
+
+  if (otp !== generatedOTP) {
+    alert("Invalid OTP");
+    return;
+  }
+
+  // ✅ SAVE LOGIN SESSION
+  localStorage.setItem("isLoggedIn", "true");
+  localStorage.setItem("userRole", loggedUser.role);
+  localStorage.setItem("userName", loggedUser.name);
+  localStorage.setItem("userMobile", loggedUser.mobile);
+
+  if (loggedUser.role === "admin") {
+    window.location.href = "admin.html";
+  } else {
+    window.location.href = "index.html";
+  }
+}
 </script>
-
 </body>
 </html>
+
 
 
