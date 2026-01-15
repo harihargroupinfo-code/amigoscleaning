@@ -182,28 +182,35 @@ if (
 function loadUsers(filter = "all") {
   const users = JSON.parse(localStorage.getItem("users")) || [];
   const table = document.getElementById("userTable");
+
   table.innerHTML = "";
 
-  users.forEach((u, i) => {
+  if (users.length === 0) {
+    table.innerHTML = `<tr><td colspan="6">No users found</td></tr>`;
+    return;
+  }
+
+  users.forEach((u, index) => {
+
     if (filter !== "all" && u.role !== filter) return;
 
-    let statusText = u.approved ? "Approved" : "Pending";
+    let statusText = u.approved ? "Approved" : "Pending Approval";
     let statusClass = u.approved ? "status-approved" : "status-pending";
 
-    let actionBtns = "";
+    let actions = "";
 
     if (u.role === "distributor" && !u.approved) {
-      actionBtns += `
+      actions += `
         <button class="action-btn approve-btn"
-          onclick="approveUser(${i})">
+          onclick="approveUser(${index})">
           Approve
         </button>
       `;
     }
 
-    actionBtns += `
+    actions += `
       <button class="action-btn delete-btn"
-        onclick="deleteUser(${i})">
+        onclick="deleteUser(${index})">
         Delete
       </button>
     `;
@@ -217,7 +224,7 @@ function loadUsers(filter = "all") {
         <td data-label="Status" class="${statusClass}">
           ${statusText}
         </td>
-        <td data-label="Action">${actionBtns}</td>
+        <td data-label="Action">${actions}</td>
       </tr>
     `;
   });
@@ -258,4 +265,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
 
