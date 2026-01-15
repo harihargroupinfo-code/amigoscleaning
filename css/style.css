@@ -481,3 +481,13 @@ header {
     margin-top: 8px;
   }
 }
+select,
+input {
+  width: 100%;
+  max-width: 100%;
+  padding: 11px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
