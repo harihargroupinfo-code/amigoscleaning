@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Segoe UI, sans-serif;
@@ -16,36 +17,32 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:15px;
 }
 
-/* CARD */
-.login-card{
+.card{
   background:#fff;
   width:100%;
-  max-width:380px;
+  max-width:400px;
   border-radius:18px;
   padding:25px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  box-shadow:0 15px 35px rgba(0,0,0,0.25);
 }
 
-/* LOGO */
-.logo-box{
+.logo{
   text-align:center;
-  margin-bottom:10px;
 }
-.logo-box img{
+.logo img{
   width:100%;
-  max-width:180px;
+  max-width:160px;
 }
 
-/* TITLE */
 h2{
   text-align:center;
-  margin:10px 0 20px;
   color:#1f3c88;
+  margin:15px 0 20px;
 }
 
-/* INPUTS */
 input,select{
   width:100%;
   padding:12px;
@@ -55,7 +52,6 @@ input,select{
   font-size:14px;
 }
 
-/* BUTTON */
 button{
   width:100%;
   padding:12px;
@@ -68,41 +64,38 @@ button{
 }
 button:hover{background:#162e66}
 
-/* LINKS */
-.links{
+.msg{
   text-align:center;
-  margin-top:15px;
-}
-.links a{
-  color:#1f3c88;
-  text-decoration:none;
-  font-weight:600;
-  display:block;
-  margin-top:8px;
-}
-
-.message{
-  text-align:center;
+  font-size:13px;
   color:red;
   margin-bottom:10px;
-  font-size:13px;
 }
 
+.links{
+  text-align:center;
+  margin-top:12px;
+}
+.links a{
+  text-decoration:none;
+  color:#1f3c88;
+  font-weight:600;
+  display:block;
+  margin-top:6px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="login-card">
+<div class="card">
 
-  <!-- LOGO -->
-  <div class="logo-box">
+  <div class="logo">
     <img src="images/logo.jpg" alt="Amigos Cleaning">
   </div>
 
   <h2>OTP Login</h2>
 
-  <div class="message" id="msg"></div>
+  <div class="msg" id="msg"></div>
 
   <select id="role">
     <option value="">Select Role</option>
@@ -111,7 +104,7 @@ button:hover{background:#162e66}
     <option value="admin">Admin</option>
   </select>
 
-  <input type="text" id="mobile" placeholder="Enter Mobile Number">
+  <input type="tel" id="mobile" placeholder="Mobile Number">
 
   <button onclick="sendOTP()">Send OTP</button>
 
@@ -119,29 +112,28 @@ button:hover{background:#162e66}
   <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
 
   <div class="links">
-    <a href="signup.html">Create Account</a>
+    <a href="signup.html">Create New Account</a>
     <a href="index.html">Back to Home</a>
   </div>
 
 </div>
 
 <script>
-const ADMIN_NUMBERS = ["9146466898","8600051765"];
+const ADMIN_NUMBERS=["9999999999","8888888888"];
 let generatedOTP="";
+let currentUser=null;
 
 function sendOTP(){
   const role=document.getElementById("role").value;
   const mobile=document.getElementById("mobile").value.trim();
   const msg=document.getElementById("msg");
-
   msg.innerText="";
 
-  if(!role || !mobile){
+  if(!role||!mobile){
     msg.innerText="Please select role and enter mobile number";
     return;
   }
 
-  /* ADMIN LOGIN */
   if(role==="admin"){
     if(!ADMIN_NUMBERS.includes(mobile)){
       msg.innerText="Unauthorized admin number";
@@ -153,16 +145,15 @@ function sendOTP(){
     return;
   }
 
-  /* USER LOGIN */
   const users=JSON.parse(localStorage.getItem("users"))||[];
-  const user=users.find(u=>u.mobile===mobile && u.role===role);
+  currentUser=users.find(u=>u.mobile===mobile && u.role===role);
 
-  if(!user){
+  if(!currentUser){
     msg.innerText="Registration required. Please sign up (free)";
     return;
   }
 
-  if(role==="distributor" && !user.approved){
+  if(role==="distributor" && !currentUser.approved){
     msg.innerText="Distributor pending admin approval";
     return;
   }
@@ -179,24 +170,26 @@ function showOTP(){
 
 function verifyOTP(){
   const otp=document.getElementById("otp").value;
-
   if(otp!==generatedOTP){
     alert("Invalid OTP");
     return;
   }
 
-  const role=document.getElementById("role").value;
   localStorage.setItem("loggedIn","true");
-  localStorage.setItem("role",role);
 
-  if(role==="admin"){
-    location.href="admin.html";
+  if(currentUser){
+    localStorage.setItem("userName",currentUser.name);
+    localStorage.setItem("role",currentUser.role);
   }else{
-    location.href="index.html";
+    localStorage.setItem("userName","Admin");
+    localStorage.setItem("role","admin");
   }
+
+  location.href = (localStorage.getItem("role")==="admin")
+    ? "admin.html"
+    : "index.html";
 }
 </script>
 
 </body>
 </html>
-
