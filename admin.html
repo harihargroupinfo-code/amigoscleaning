@@ -232,15 +232,21 @@
 
 function approveUser(index){
   let users = JSON.parse(localStorage.getItem("users")) || [];
-  users[index].approved = true;
+  let user = users[index];
+
+  user.approved = true;
   localStorage.setItem("users", JSON.stringify(users));
 
-  alert(
-    `Distributor Approved!\n\n` +
-    `Name: ${users[index].name}\n` +
-    `Mobile: ${users[index].mobile}\n\n` +
-    `They can now login successfully.`
-  );
+  emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+    name: user.name,
+    email: user.email
+  })
+  .then(() => {
+    alert("Distributor approved & email sent!");
+  })
+  .catch(() => {
+    alert("Approved, but email failed");
+  });
 
   loadUsers();
 }
@@ -275,5 +281,6 @@ function approveUser(index){
 
 </body>
 </html>
+
 
 
