@@ -27,3 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (logoutBtn) logoutBtn.style.display = "none";
   }
 });
+// Prevent accidental full clear
+window.addEventListener("storage", (e) => {
+  if (e.key === null) {
+    console.warn("localStorage.clear() was triggered");
+  }
+});
+
