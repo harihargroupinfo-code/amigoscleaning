@@ -169,8 +169,9 @@ function showOTP(){
 }
 
 function verifyOTP(){
-  const otp=document.getElementById("otp").value;
-  if(otp!==generatedOTP){
+  const otp = document.getElementById("otp").value;
+
+  if(otp !== generatedOTP){
     alert("Invalid OTP");
     return;
   }
@@ -178,21 +179,25 @@ function verifyOTP(){
   localStorage.setItem("loggedIn","true");
 
   if(currentUser){
-    localStorage.setItem("userName",currentUser.name);
-    localStorage.setItem("role",currentUser.role);
-    localStorage.setItem("loggedIn", "true");
-  }else{
+    localStorage.setItem("userName", currentUser.name);
+    localStorage.setItem("role", currentUser.role);
+  } else {
+    // admin
     localStorage.setItem("userName","Admin");
     localStorage.setItem("role","admin");
   }
 
-  location.href = (localStorage.getItem("role")==="admin")
-    ? "admin.html"
-    : "index.html";
+  if(localStorage.getItem("role") === "admin"){
+    location.href = "admin.html";
+  } else {
+    location.href = "index.html";
+  }
 }
+
 </script>
 
 </body>
 </html>
+
 
 
