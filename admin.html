@@ -223,13 +223,21 @@
     `;
   }
 
-  function approveUser(index) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users[index].approved = true;
-    localStorage.setItem("users", JSON.stringify(users));
-    alert("Distributor approved");
-    loadUsers();
-  }
+function approveUser(index){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  users[index].approved = true;
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert(
+    `Distributor Approved!\n\n` +
+    `Name: ${users[index].name}\n` +
+    `Mobile: ${users[index].mobile}\n\n` +
+    `They can now login successfully.`
+  );
+
+  loadUsers();
+}
+
 
   function deleteUser(index) {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -260,3 +268,4 @@
 
 </body>
 </html>
+
