@@ -171,9 +171,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedIn = localStorage.getItem("loggedIn");
+  const userName = localStorage.getItem("userName");
+  const role = localStorage.getItem("role");
+
+  const welcome = document.getElementById("welcomeUser");
+
+  if (loggedIn === "true" && userName && welcome) {
+    welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
+    welcome.style.display = "block";
+  }
+});
+</script>
 
 </body>
 </html>
+
 
 
 
