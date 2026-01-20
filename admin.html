@@ -177,10 +177,15 @@
     window.location.href = "login.html";
   }
 
-  function logout() {
-    localStorage.clear();
-    window.location.href = "login.html";
-  }
+ function logout() {
+  // Remove ONLY session data, NOT user database
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("role");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userName");
+
+  window.location.href = "login.html";
+}
 
   function loadUsers() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -282,6 +287,7 @@ function approveUser(index){
 
 </body>
 </html>
+
 
 
 
