@@ -124,41 +124,49 @@ let generatedOTP="";
 let currentUser=null;
 
 function sendOTP(){
-  const role=document.getElementById("role").value;
-  const mobile=document.getElementById("mobile").value.trim();
-  const msg=document.getElementById("msg");
-  msg.innerText="";
+  const role = document.getElementById("role").value;
+  const mobile = document.getElementById("mobile").value.trim();
+  const msg = document.getElementById("msg");
 
-  if(!role||!mobile){
-    msg.innerText="Please select role and enter mobile number";
+  msg.innerText = "";
+
+  if (!role || !mobile) {
+    msg.innerText = "Please select role and enter mobile number";
     return;
   }
 
-  if(role==="admin"){
-    if(!ADMIN_NUMBERS.includes(mobile)){
-      msg.innerText="Unauthorized admin number";
+  /* ADMIN LOGIN */
+  if (role === "admin") {
+    if (!ADMIN_NUMBERS.includes(mobile)) {
+      msg.innerText = "Unauthorized admin number";
       return;
     }
-    generatedOTP="123456";
+    generatedOTP = "123456";
     alert("Demo OTP: 123456");
     showOTP();
     return;
   }
 
-  const users=JSON.parse(localStorage.getItem("users"))||[];
-  currentUser=users.find(u=>u.mobile===mobile && u.role===role);
+  /* USER LOGIN (SINGLE SOURCE OF TRUTH) */
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if(!currentUser){
-    msg.innerText="Registration required. Please sign up (free)";
+  currentUser = users.find(u =>
+    u.mobile === mobile &&
+    u.role === role
+  );
+
+  if (!currentUser) {
+    msg.innerText = "Registration required. Please sign up (free)";
     return;
   }
 
-  if(role==="distributor" && !currentUser.approved){
-    msg.innerText="Distributor pending admin approval";
+  /* APPROVAL CHECK ONLY FOR DISTRIBUTOR */
+  if (role === "distributor" && currentUser.approved !== true) {
+    msg.innerText = "Distributor pending admin approval";
     return;
   }
 
-  generatedOTP="123456";
+  generatedOTP = "123456";
   alert("Demo OTP: 123456");
   showOTP();
 }
@@ -199,6 +207,7 @@ function verifyOTP(){
 
 </body>
 </html>
+
 
 
 
