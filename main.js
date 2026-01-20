@@ -1,6 +1,13 @@
-// LOGOUT FUNCTION (GLOBAL)
 function logout() {
-  localStorage.clear();
+  // Remove ONLY session-related keys
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("role");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userName");
+
+  // Optional: keep last role cleared
+  localStorage.removeItem("currentUser");
+
   window.location.href = "login.html";
 }
 
@@ -33,4 +40,5 @@ window.addEventListener("storage", (e) => {
     console.warn("localStorage.clear() was triggered");
   }
 });
+
 
