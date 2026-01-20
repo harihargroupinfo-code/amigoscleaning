@@ -237,7 +237,7 @@ function approveUser(index){
   user.approved = true;
   localStorage.setItem("users", JSON.stringify(users));
 
-  emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+  emailjs.send("service_c1bp7of","template_pv3y04k",{
     name: user.name,
     email: user.email
   })
@@ -281,6 +281,7 @@ function approveUser(index){
 
 </body>
 </html>
+
 
 
 
