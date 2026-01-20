@@ -237,20 +237,20 @@ function approveUser(index){
   user.approved = true;
   localStorage.setItem("users", JSON.stringify(users));
 
-  emailjs.send("service_c1bp7of","template_pv3y04k",{
+  emailjs.send("service_c1bp7of","template_pv3yO4k",{
     name: user.name,
     email: user.email
   })
   .then(() => {
-    alert("Distributor approved & email sent!");
+    alert("Distributor approved & email sent successfully");
   })
-  .catch(() => {
-    alert("Approved, but email failed");
+  .catch((err) => {
+    console.error(err);
+    alert("Distributor approved (Email not sent)");
   });
 
   loadUsers();
 }
-
 
   function deleteUser(index) {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -281,6 +281,7 @@ function approveUser(index){
 
 </body>
 </html>
+
 
 
 
