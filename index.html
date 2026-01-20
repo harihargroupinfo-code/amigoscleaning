@@ -447,9 +447,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedIn = localStorage.getItem("loggedIn");
+  const userName = localStorage.getItem("userName");
+  const role = localStorage.getItem("role");
+
+  const welcome = document.getElementById("welcomeUser");
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (loggedIn === "true" && userName) {
+    if (welcome) {
+      welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
+      welcome.style.display = "block";
+    }
+    if (loginBtn) loginBtn.style.display = "none";
+    if (signupBtn) signupBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+  }
+});
+</script>
 
 </body>
 </html>
+
 
 
 
