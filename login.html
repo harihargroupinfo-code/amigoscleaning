@@ -180,6 +180,7 @@ function verifyOTP(){
   if(currentUser){
     localStorage.setItem("userName",currentUser.name);
     localStorage.setItem("role",currentUser.role);
+    localStorage.setItem("loggedIn", "true");
   }else{
     localStorage.setItem("userName","Admin");
     localStorage.setItem("role","admin");
@@ -193,4 +194,5 @@ function verifyOTP(){
 
 </body>
 </html>
+
 
