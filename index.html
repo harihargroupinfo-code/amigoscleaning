@@ -178,6 +178,36 @@ nav a{
     width:85%;
   }
 }
+.brand-name{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:3px;
+  color:#ffffff;
+  text-transform:uppercase;
+  animation: slideDown 1s ease;
+}
+
+.brand-name span{
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  animation: glow 2s infinite alternate;
+}
+
+/* Glow animation */
+@keyframes glow{
+  from{
+    text-shadow: 0 0 5px #fff;
+  }
+  to{
+    text-shadow: 0 0 15px #fff, 0 0 30px #1e90ff;
+  }
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .brand-name{
+    font-size:22px;
+  }
+}
 
 
 </style>
@@ -186,7 +216,9 @@ nav a{
 <body>
 
 <header>
- <div class="brand-name">AMIGOS</div>
+ <div class="brand-name">
+  <span id="brandText"></span>
+</div>
   <div id="welcome" style="display:none"></div>
   <nav id="navLinks">
     <a href="index.html">Home</a>
@@ -269,9 +301,24 @@ counters.forEach(counter => {
 <footer class="site-footer">
   AMIGOS – A Product by Harihar Group of Industries | All Rights Reserved
 </footer>
+<script>
+const text = "AMIGOS";
+let index = 0;
+const speed = 150;
+
+function typeBrand(){
+  if(index < text.length){
+    document.getElementById("brandText").innerHTML += text.charAt(index);
+    index++;
+    setTimeout(typeBrand, speed);
+  }
+}
+typeBrand();
+</script>
 
 </body>
 </html>
+
 
 
 
