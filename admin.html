@@ -1,298 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-(function(){
-  emailjs.init("nWogP4Pkvlk2l46EL");
-})();
-</script>
+<meta charset="UTF-8">
+<title>Admin Dashboard | Amigos </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard | Amigos</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f4c81,#1e90ff);
+  color: #fff;
+}
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(0,0,0,0.25);
+}
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #f4f6fb;
-    }
+header img {
+  height: 40px;
+}
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #1f3c88, #3a7bd5);
-      color: white;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+#welcomeBox {
+  background: #fff;
+  color: #0f4c81;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+}
 
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-    }
+.logout-btn {
+  background: #ff4d4d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+}
 
-    header button {
-      background: white;
-      color: #1f3c88;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+/* Content */
+.container {
+  padding: 20px;
+}
 
-    /* SEARCH */
-    .filter-box {
-      padding: 15px;
-    }
+.card {
+  background: #fff;
+  color: #333;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
 
-    .filter-box input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
+.card h3 {
+  margin-top: 0;
+  color: #0f4c81;
+}
 
-    /* USER LIST */
-    #userList {
-      padding: 15px;
-      display: grid;
-      gap: 15px;
-    }
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .user-card {
-      background: white;
-      border-radius: 14px;
-      padding: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
+.approve {
+  background: #28a745;
+  color: #fff;
+}
 
-    .user-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
+.delete {
+  background: #dc3545;
+  color: #fff;
+}
 
-    .user-name {
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .user-info {
-      font-size: 13px;
-      color: #555;
-    }
-
-    .user-info div {
-      margin: 3px 0;
-    }
-
-    .badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      color: white;
-    }
-
-    .badge-approved {
-      background: #28a745;
-    }
-
-    .badge-pending {
-      background: #f39c12;
-    }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .approve-btn {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .delete-btn {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    /* MOBILE */
-    @media(max-width: 600px) {
-      .user-card {
-        flex-direction: column;
-      }
-    }
-  </style>
+@media(max-width:600px){
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1><i class="fa fa-user-shield"></i> Admin Dashboard</h1>
-  <button onclick="logout()">Logout</button>
+  <img src="images/logo.jpg" alt="Amigos Logo">
+  <div id="welcomeBox">Welcome Admin</div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
 
-<div class="filter-box">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search by name or mobile"
-    onkeyup="searchUsers()"
-  />
+<div class="container">
+  <h2>Distributor Approvals</h2>
+  <div id="approvalList"></div>
 </div>
 
-<div id="userList"></div>
-
 <script>
-  // 🔐 Admin protection
-  if (localStorage.getItem("role") !== "admin") {
-    alert("Unauthorized access");
-    window.location.href = "login.html";
+/* ---- SESSION CHECK ---- */
+if (localStorage.getItem("role") !== "admin") {
+  location.href = "login.html";
+}
+
+/* ---- LOAD USERS (PERSISTENT) ---- */
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+/* ---- SHOW APPROVALS ---- */
+function loadApprovals() {
+  const list = document.getElementById("approvalList");
+  list.innerHTML = "";
+
+  const pending = users.filter(u => u.role === "distributor" && !u.approved);
+
+  if (pending.length === 0) {
+    list.innerHTML = "<p>No pending approvals</p>";
+    return;
   }
 
- function logout() {
-  // Remove ONLY session data, NOT user database
+  pending.forEach((u, i) => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <h3>${u.name}</h3>
+      <p>Email: ${u.email}</p>
+      <p>Mobile: ${u.mobile}</p>
+      <button class="approve" onclick="approve(${i})">Approve</button>
+      <button class="delete" onclick="deleteUser(${i})">Delete</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+/* ---- APPROVE ---- */
+function approve(index) {
+  users[index].approved = true;
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Distributor Approved");
+  loadApprovals();
+}
+
+/* ---- DELETE ---- */
+function deleteUser(index) {
+  if (!confirm("Delete permanently?")) return;
+  users.splice(index, 1);
+  localStorage.setItem("users", JSON.stringify(users));
+  loadApprovals();
+}
+
+/* ---- LOGOUT (SAFE) ---- */
+function logout() {
   localStorage.removeItem("loggedIn");
   localStorage.removeItem("role");
-  localStorage.removeItem("userEmail");
   localStorage.removeItem("userName");
-
-  window.location.href = "login.html";
+  localStorage.removeItem("userEmail");
+  location.href = "login.html";
 }
 
-  function loadUsers() {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const list = document.getElementById("userList");
-    list.innerHTML = "";
-
-    users.forEach((u, index) => renderUserCard(u, index));
-  }
-
-  function renderUserCard(u, index) {
-    const list = document.getElementById("userList");
-
-    const badge = u.approved
-      ? `<span class="badge badge-approved">Approved</span>`
-      : `<span class="badge badge-pending">Pending</span>`;
-
-    let approveBtn = "";
-    if (u.role === "distributor" && !u.approved) {
-      approveBtn = `
-        <button class="approve-btn" onclick="approveUser(${index})">
-          <i class="fa fa-check"></i> Approve
-        </button>
-      `;
-    }
-
-    list.innerHTML += `
-      <div class="user-card">
-        <div>
-          <div class="user-header">
-            <div class="user-name">${u.name}</div>
-            ${badge}
-          </div>
-          <div class="user-info">
-            <div><i class="fa fa-envelope"></i> ${u.email}</div>
-            <div><i class="fa fa-phone"></i> ${u.mobile}</div>
-            <div><i class="fa fa-user"></i> ${u.role}</div>
-          </div>
-        </div>
-
-        <div class="actions">
-          ${approveBtn}
-          <button class="delete-btn" onclick="deleteUser(${index})">
-            <i class="fa fa-trash"></i> Delete
-          </button>
-        </div>
-      </div>
-    `;
-  }
-
-function approveUser(index){
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  let user = users[index];
-
-  user.approved = true;
-  localStorage.setItem("users", JSON.stringify(users));
-
-  emailjs.send("service_c1bp7of","template_pv3y04k",{
-    name: user.name,
-    email: user.email
-  })
-  .then(() => {
-    alert("Distributor approved & email sent successfully");
-  })
-  .catch((err) => {
-    console.error(err);
-    alert("Distributor approved (Email not sent)");
-  });
-
-  loadUsers();
-}
-
-  function deleteUser(index) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    if (!confirm("Are you sure you want to DELETE this user?")) return;
-    users.splice(index, 1);
-    localStorage.setItem("users", JSON.stringify(users));
-    loadUsers();
-  }
-
-  function searchUsers() {
-    const keyword = document.getElementById("searchInput").value.toLowerCase();
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const list = document.getElementById("userList");
-    list.innerHTML = "";
-
-    users.forEach((u, index) => {
-      if (
-        u.name.toLowerCase().includes(keyword) ||
-        u.mobile.includes(keyword)
-      ) {
-        renderUserCard(u, index);
-      }
-    });
-  }
-
-  loadUsers();
+loadApprovals();
 </script>
-<script src="main.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
