@@ -6,58 +6,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f4c81,#1e90ff);
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f4c81,#1e90ff);
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.login-box {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 350px;
-  text-align: center;
+.login-box{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
-.login-box img {
-  width: 100%;
-  max-width: 220px;
-  margin-bottom: 15px;
+.login-box img{
+  width:100%;
+  max-width:220px;
+  margin-bottom:15px;
 }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+select,input,button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:15px;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background: #1e90ff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
+button{
+  background:#1e90ff;
+  color:#fff;
+  border:none;
+  font-weight:bold;
 }
 
-button:hover {
-  background: #0f4c81;
-}
+button:hover{background:#0f4c81}
 
-.link {
-  margin-top: 10px;
-  display: block;
-  color: #1e90ff;
-  text-decoration: none;
+.link{
+  display:block;
+  margin-top:10px;
+  color:#1e90ff;
+  text-decoration:none;
 }
 </style>
 </head>
@@ -74,43 +71,87 @@ button:hover {
     <option value="admin">Admin</option>
   </select>
 
-  <input type="text" id="mobile" placeholder="Mobile Number">
+  <input type="text" id="mobile" placeholder="Enter Mobile Number">
 
-  <button onclick="login()">Send OTP</button>
+  <button onclick="sendOTP()">Send OTP</button>
 
-  <a class="link" href="signup.html">Create Account</a>
+  <input type="text" id="otp" placeholder="Enter OTP" style="display:none">
+
+  <button id="verifyBtn" onclick="verifyOTP()" style="display:none">
+    Verify OTP
+  </button>
+
+  <a href="signup.html" class="link">Create Account</a>
 </div>
 
 <script>
-let users = JSON.parse(localStorage.getItem("users")) || [];
+let generatedOTP = "";
+let currentUser = null;
 
-function login() {
-  const role = role.value;
-  const mobile = document.getElementById("mobile").value;
+function sendOTP(){
+  const role = document.getElementById("role").value;
+  const mobile = document.getElementById("mobile").value.trim();
 
-  if (!role || !mobile) {
-    alert("Enter role & mobile");
+  if(!role){
+    alert("Please select role");
     return;
   }
 
-  if (role !== "admin") {
-    const user = users.find(u => u.mobile === mobile && u.role === role);
-    if (!user) {
-      alert("Registration required");
-      return;
-    }
-    if (role === "distributor" && !user.approved) {
-      alert("Awaiting admin approval");
-      return;
-    }
-    localStorage.setItem("userName", user.name);
+  if(!mobile || mobile.length !== 10){
+    alert("Please enter valid 10-digit mobile number");
+    return;
   }
 
-  localStorage.setItem("loggedIn", "true");
-  localStorage.setItem("role", role);
+  let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if (role === "admin") location.href = "admin.html";
-  else location.href = "index.html";
+  // ADMIN LOGIN
+  if(role === "admin"){
+    const adminNumbers = ["9999999999","8888888888"]; // change
+    if(!adminNumbers.includes(mobile)){
+      alert("Unauthorized admin");
+      return;
+    }
+  } 
+  else {
+    currentUser = users.find(u => u.mobile === mobile && u.role === role);
+
+    if(!currentUser){
+      alert("Signup required. Please register first.");
+      return;
+    }
+
+    if(role === "distributor" && !currentUser.approved){
+      alert("Distributor awaiting admin approval");
+      return;
+    }
+  }
+
+  generatedOTP = "123456"; // demo
+  alert("Demo OTP: 123456");
+
+  document.getElementById("otp").style.display = "block";
+  document.getElementById("verifyBtn").style.display = "block";
+}
+
+function verifyOTP(){
+  const entered = document.getElementById("otp").value.trim();
+  if(entered !== generatedOTP){
+    alert("Invalid OTP");
+    return;
+  }
+
+  localStorage.setItem("loggedIn","true");
+  localStorage.setItem("role",document.getElementById("role").value);
+
+  if(currentUser){
+    localStorage.setItem("userName",currentUser.name);
+  }
+
+  if(document.getElementById("role").value === "admin"){
+    location.href = "admin.html";
+  } else {
+    location.href = "index.html";
+  }
 }
 </script>
 
