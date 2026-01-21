@@ -99,5 +99,36 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(footer);
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const year = new Date().getFullYear();
+
+  const footer = document.createElement("footer");
+  footer.className = "wave-footer";
+  footer.innerHTML = `
+    <div class="waves">
+      <div class="wave wave1"></div>
+      <div class="wave wave2"></div>
+      <div class="wave wave3"></div>
+    </div>
+
+    <div class="footer-content">
+      <div class="footer-brand">AMIGOS</div>
+      <div class="footer-text">
+        A Product by Harihar Group of Industries <br>
+        © ${year} All Rights Reserved
+      </div>
+
+      <div class="footer-social">
+        <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj" target="_blank">📷</a>
+        <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank">📘</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(footer);
+});
+</script>
+
 
 
