@@ -2,100 +2,70 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | Amigos</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Segoe UI, sans-serif;
-  background:linear-gradient(135deg,#1f3c88,#3a7bd5);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:15px;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f4c81,#1e90ff);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.card{
-  background:#fff;
-  width:100%;
-  max-width:400px;
-  border-radius:18px;
-  padding:25px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.25);
+.login-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
 }
 
-.logo{
-  text-align:center;
-}
-.logo img{
-  width:100%;
-  max-width:160px;
+.login-box img {
+  width: 100%;
+  max-width: 220px;
+  margin-bottom: 15px;
 }
 
-h2{
-  text-align:center;
-  color:#1f3c88;
-  margin:15px 0 20px;
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-input,select{
-  width:100%;
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  font-size:14px;
+button {
+  width: 100%;
+  padding: 10px;
+  background: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#1f3c88;
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{background:#162e66}
-
-.msg{
-  text-align:center;
-  font-size:13px;
-  color:red;
-  margin-bottom:10px;
+button:hover {
+  background: #0f4c81;
 }
 
-.links{
-  text-align:center;
-  margin-top:12px;
-}
-.links a{
-  text-decoration:none;
-  color:#1f3c88;
-  font-weight:600;
-  display:block;
-  margin-top:6px;
+.link {
+  margin-top: 10px;
+  display: block;
+  color: #1e90ff;
+  text-decoration: none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-
-  <div class="logo">
-    <img src="images/logo.jpg" alt="Amigos Cleaning">
-  </div>
-
-  <h2>OTP Login</h2>
-
-  <div class="msg" id="msg"></div>
+<div class="login-box">
+  <img src="images/logo.jpg" alt="Amigos Logo">
 
   <select id="role">
     <option value="">Select Role</option>
@@ -104,111 +74,45 @@ button:hover{background:#162e66}
     <option value="admin">Admin</option>
   </select>
 
-  <input type="tel" id="mobile" placeholder="Mobile Number">
+  <input type="text" id="mobile" placeholder="Mobile Number">
 
-  <button onclick="sendOTP()">Send OTP</button>
+  <button onclick="login()">Send OTP</button>
 
-  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
-  <button onclick="verifyOTP()" id="verifyBtn" style="display:none;">Verify OTP</button>
-
-  <div class="links">
-    <a href="signup.html">Create New Account</a>
-    <a href="index.html">Back to Home</a>
-  </div>
-
+  <a class="link" href="signup.html">Create Account</a>
 </div>
 
 <script>
-const ADMIN_NUMBERS=["8600051765","9146466898"];
-let generatedOTP="";
-let currentUser=null;
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
-function sendOTP(){
-  const role = document.getElementById("role").value;
-  const mobile = document.getElementById("mobile").value.trim();
-  const msg = document.getElementById("msg");
-
-  msg.innerText = "";
+function login() {
+  const role = role.value;
+  const mobile = document.getElementById("mobile").value;
 
   if (!role || !mobile) {
-    msg.innerText = "Please select role and enter mobile number";
+    alert("Enter role & mobile");
     return;
   }
 
-  /* ADMIN LOGIN */
-  if (role === "admin") {
-    if (!ADMIN_NUMBERS.includes(mobile)) {
-      msg.innerText = "Unauthorized admin number";
+  if (role !== "admin") {
+    const user = users.find(u => u.mobile === mobile && u.role === role);
+    if (!user) {
+      alert("Registration required");
       return;
     }
-    generatedOTP = "123456";
-    alert("Demo OTP: 123456");
-    showOTP();
-    return;
+    if (role === "distributor" && !user.approved) {
+      alert("Awaiting admin approval");
+      return;
+    }
+    localStorage.setItem("userName", user.name);
   }
 
-  /* USER LOGIN (SINGLE SOURCE OF TRUTH) */
-  const users = JSON.parse(localStorage.getItem("users")) || [];
+  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("role", role);
 
-  currentUser = users.find(u =>
-    u.mobile === mobile &&
-    u.role === role
-  );
-
-  if (!currentUser) {
-    msg.innerText = "Registration required. Please sign up (free)";
-    return;
-  }
-
-  /* APPROVAL CHECK ONLY FOR DISTRIBUTOR */
-  if (role === "distributor" && currentUser.approved !== true) {
-    msg.innerText = "Distributor pending admin approval";
-    return;
-  }
-
-  generatedOTP = "123456";
-  alert("Demo OTP: 123456");
-  showOTP();
+  if (role === "admin") location.href = "admin.html";
+  else location.href = "index.html";
 }
-
-function showOTP(){
-  document.getElementById("otp").style.display="block";
-  document.getElementById("verifyBtn").style.display="block";
-}
-
-function verifyOTP(){
-  const otp = document.getElementById("otp").value;
-
-  if(otp !== generatedOTP){
-    alert("Invalid OTP");
-    return;
-  }
-
-  localStorage.setItem("loggedIn","true");
-
-  if(currentUser){
-    localStorage.setItem("userName", currentUser.name);
-    localStorage.setItem("role", currentUser.role);
-  } else {
-    // admin
-    localStorage.setItem("userName","Admin");
-    localStorage.setItem("role","admin");
-  }
-
-  if(localStorage.getItem("role") === "admin"){
-    location.href = "admin.html";
-  } else {
-    location.href = "index.html";
-  }
-}
-
 </script>
-<script src="main.js"></script>
 
 </body>
 </html>
-
-
-
-
-
