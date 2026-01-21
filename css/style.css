@@ -871,3 +871,28 @@ button {
   .footer-text{ font-size:12px; }
 }
 
+.footer-brand{
+  position:relative;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+.footer-brand::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:0;
+  height:0;
+  background:rgba(30,144,255,0.3);
+  border-radius:50%;
+  transform:translate(-50%, -50%);
+  opacity:0;
+}
+
+.footer-brand:hover::after{
+  width:200%;
+  height:200%;
+  opacity:1;
+  transition:width .6s ease, height .6s ease, opacity .8s;
+}
