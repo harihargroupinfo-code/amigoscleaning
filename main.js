@@ -67,4 +67,37 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const year = new Date().getFullYear();
+
+  const footer = document.createElement("footer");
+  footer.className = "site-footer";
+
+  footer.innerHTML = `
+    <div class="wave"></div>
+
+    <div class="footer-wrapper">
+      <div class="footer-brand">AMIGOS</div>
+
+      <div class="footer-social">
+        <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </div>
+
+      <div class="footer-text">
+        © ${year} AMIGOS — A Product by Harihar Group of Industries<br>
+        All Rights Reserved
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(footer);
+});
+</script>
+
 
