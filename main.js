@@ -130,5 +130,32 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<footer class="amigos-footer">
+  <div class="footer-waves">
+    <span class="wave wave1"></span>
+    <span class="wave wave2"></span>
+    <span class="wave wave3"></span>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-brand">AMIGOS</div>
+
+    <div class="footer-text">
+      A Product by Harihar Group of Industries<br>
+      © <span id="footerYear"></span> All Rights Reserved
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj" target="_blank">📷</a>
+      <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank">📘</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("footerYear").innerText =
+    new Date().getFullYear();
+</script>
+
 
 
