@@ -41,4 +41,14 @@ window.addEventListener("storage", (e) => {
   }
 });
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const footer = document.createElement("footer");
+  footer.className = "site-footer";
+  footer.innerHTML =
+    "AMIGOS – A Product by Harihar Group of Industries | All Rights Reserved";
+  document.body.appendChild(footer);
+});
+</script>
+
 
