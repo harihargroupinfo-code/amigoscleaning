@@ -760,4 +760,114 @@ button {
     background-position:0% 50%;
   }
 }
+/* FOOTER BASE */
+.wave-footer{
+  position:relative;
+  width:100%;
+  height:220px;
+  background:linear-gradient(135deg, #0a1d3a, #102c54);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* GLASSY EFFECT */
+.wave-footer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(8px);
+  z-index:1;
+}
+
+/* WAVES */
+.waves{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+.wave{
+  position:absolute;
+  bottom:0;
+  width:200%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    #1e90ff,
+    #00bfff,
+    #6a5acd,
+    #1e90ff
+  );
+  opacity:0.25;
+  animation: waveMove linear infinite;
+}
+
+.wave1{ animation-duration:18s; bottom:0; }
+.wave2{ animation-duration:25s; bottom:10px; opacity:0.18; }
+.wave3{ animation-duration:35s; bottom:20px; opacity:0.12; }
+
+/* PARALLAX WAVE */
+@keyframes waveMove{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* FOOTER CONTENT */
+.footer-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  color:#fff;
+  animation: fadeUp 1.2s ease;
+}
+
+.footer-brand{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:3px;
+  margin-bottom:6px;
+  text-shadow:0 0 14px rgba(30,144,255,0.9);
+  animation: glowPulse 3s infinite alternate;
+}
+
+.footer-text{
+  font-size:14px;
+  opacity:0.9;
+  margin-bottom:12px;
+}
+
+/* SOCIAL ICONS */
+.footer-social a{
+  font-size:22px;
+  margin:0 10px;
+  color:#fff;
+  text-decoration:none;
+  transition:transform .3s, text-shadow .3s;
+}
+
+.footer-social a:hover{
+  transform:scale(1.3);
+  text-shadow:0 0 12px #1e90ff;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(30px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes glowPulse{
+  from{ text-shadow:0 0 8px #1e90ff; }
+  to{ text-shadow:0 0 18px #00bfff, 0 0 30px #6a5acd; }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .wave-footer{ height:200px; }
+  .footer-brand{ font-size:22px; }
+  .footer-text{ font-size:12px; }
+}
 
