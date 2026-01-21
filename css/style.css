@@ -651,18 +651,26 @@ button {
   align-items:center;
 }
 
-/* Wave animation */
 .wave{
   position:absolute;
   top:0;
   left:0;
   width:200%;
   height:100%;
-  background:url("https://i.imgur.com/ZAts69f.png");
-  background-size:50% 100%;
-  animation: waveMove 12s linear infinite;
-  opacity:0.15;
+  background:linear-gradient(
+    120deg,
+    #0a1d3a,
+    #1e90ff,
+    #00bfff,
+    #6a5acd,
+    #0a1d3a
+  );
+  background-size:200% 200%;
+  animation: waveMove 12s linear infinite,
+             gradientShift 6s ease infinite;
+  opacity:0.25;
 }
+
 
 @keyframes waveMove{
   from{ transform:translateX(0); }
@@ -739,6 +747,17 @@ button {
   }
   .footer-text{
     font-size:12px;
+  }
+}
+@keyframes gradientShift{
+  0%{
+    background-position:0% 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+  100%{
+    background-position:0% 50%;
   }
 }
 
