@@ -2,87 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard | Amigos </title>
+<title>Admin Dashboard | Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f4c81,#1e90ff);
-  color: #fff;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f4c81,#1e90ff);
+  color:#fff;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:rgba(0,0,0,0.25);
+}
+header img{height:40px;}
+#welcome{
+  background:#fff;
+  color:#0f4c81;
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:bold;
+}
+.logout{
+  background:#ff4d4d;
+  border:none;
+  padding:8px 14px;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-/* Header */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: rgba(0,0,0,0.25);
-}
+.container{padding:20px;}
+.section{margin-bottom:25px;}
+.section h2{margin-bottom:10px;}
 
-header img {
-  height: 40px;
+.card{
+  background:#fff;
+  color:#333;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:12px;
 }
+.card strong{color:#0f4c81;}
 
-#welcomeBox {
-  background: #fff;
-  color: #0f4c81;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: bold;
+.btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  margin-right:5px;
 }
-
-.logout-btn {
-  background: #ff4d4d;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* Content */
-.container {
-  padding: 20px;
-}
-
-.card {
-  background: #fff;
-  color: #333;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.card h3 {
-  margin-top: 0;
-  color: #0f4c81;
-}
-
-button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.approve {
-  background: #28a745;
-  color: #fff;
-}
-
-.delete {
-  background: #dc3545;
-  color: #fff;
-}
+.approve{background:#28a745;color:#fff;}
+.delete{background:#dc3545;color:#fff;}
 
 @media(max-width:600px){
-  header {
-    flex-direction: column;
-    gap: 10px;
-  }
+  header{flex-direction:column;gap:10px;}
 }
 </style>
 </head>
@@ -90,68 +68,100 @@ button {
 <body>
 
 <header>
-  <img src="images/logo.jpg" alt="Amigos Logo">
-  <div id="welcomeBox">Welcome Admin</div>
-  <button class="logout-btn" onclick="logout()">Logout</button>
+  <img src="images/logo.jpg">
+  <div id="welcome">Welcome Admin</div>
+  <button class="logout" onclick="logout()">Logout</button>
 </header>
 
 <div class="container">
-  <h2>Distributor Approvals</h2>
-  <div id="approvalList"></div>
+
+  <!-- Pending -->
+  <div class="section">
+    <h2>⏳ Pending Distributor Approvals</h2>
+    <div id="pendingList"></div>
+  </div>
+
+  <!-- Approved Distributors -->
+  <div class="section">
+    <h2>✅ Approved Distributors</h2>
+    <div id="approvedDistributors"></div>
+  </div>
+
+  <!-- Retailers -->
+  <div class="section">
+    <h2>🏪 Retailers</h2>
+    <div id="retailerList"></div>
+  </div>
+
 </div>
 
 <script>
-/* ---- SESSION CHECK ---- */
+// --- SECURITY ---
 if (localStorage.getItem("role") !== "admin") {
   location.href = "login.html";
 }
 
-/* ---- LOAD USERS (PERSISTENT) ---- */
+// --- LOAD USERS ---
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
-/* ---- SHOW APPROVALS ---- */
-function loadApprovals() {
-  const list = document.getElementById("approvalList");
-  list.innerHTML = "";
+// --- RENDER ---
+function renderDashboard() {
+  const pending = document.getElementById("pendingList");
+  const approved = document.getElementById("approvedDistributors");
+  const retailers = document.getElementById("retailerList");
 
-  const pending = users.filter(u => u.role === "distributor" && !u.approved);
+  pending.innerHTML = approved.innerHTML = retailers.innerHTML = "";
 
-  if (pending.length === 0) {
-    list.innerHTML = "<p>No pending approvals</p>";
-    return;
-  }
-
-  pending.forEach((u, i) => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <h3>${u.name}</h3>
-      <p>Email: ${u.email}</p>
-      <p>Mobile: ${u.mobile}</p>
-      <button class="approve" onclick="approve(${i})">Approve</button>
-      <button class="delete" onclick="deleteUser(${i})">Delete</button>
+  users.forEach((u, i) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <strong>${u.name}</strong><br>
+      📧 ${u.email}<br>
+      📱 ${u.mobile}
     `;
-    list.appendChild(div);
+
+    if (u.role === "distributor" && !u.approved) {
+      card.innerHTML += `
+        <br><br>
+        <button class="btn approve" onclick="approve(${i})">Approve</button>
+        <button class="btn delete" onclick="removeUser(${i})">Delete</button>
+      `;
+      pending.appendChild(card);
+    }
+
+    else if (u.role === "distributor" && u.approved) {
+      card.innerHTML += `<br><small>Approved Distributor</small>`;
+      approved.appendChild(card);
+    }
+
+    else if (u.role === "retailer") {
+      card.innerHTML += `<br><small>Retailer</small>`;
+      retailers.appendChild(card);
+    }
   });
+
+  if (!pending.innerHTML) pending.innerHTML = "<p>No pending distributors</p>";
+  if (!approved.innerHTML) approved.innerHTML = "<p>No approved distributors</p>";
+  if (!retailers.innerHTML) retailers.innerHTML = "<p>No retailers</p>";
 }
 
-/* ---- APPROVE ---- */
+// --- ACTIONS ---
 function approve(index) {
   users[index].approved = true;
   localStorage.setItem("users", JSON.stringify(users));
-  alert("Distributor Approved");
-  loadApprovals();
+  alert("Distributor approved");
+  renderDashboard();
 }
 
-/* ---- DELETE ---- */
-function deleteUser(index) {
+function removeUser(index) {
   if (!confirm("Delete permanently?")) return;
   users.splice(index, 1);
   localStorage.setItem("users", JSON.stringify(users));
-  loadApprovals();
+  renderDashboard();
 }
 
-/* ---- LOGOUT (SAFE) ---- */
+// --- LOGOUT SAFE ---
 function logout() {
   localStorage.removeItem("loggedIn");
   localStorage.removeItem("role");
@@ -160,7 +170,7 @@ function logout() {
   location.href = "login.html";
 }
 
-loadApprovals();
+renderDashboard();
 </script>
 
 </body>
