@@ -141,6 +141,44 @@ nav a{
   .main-logo{height: 60px;}
   .hero h1{font-size:28px;}
 }
+  .counter-section{
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  padding:60px 20px;
+  flex-wrap:wrap;
+  background:rgba(255,255,255,0.12);
+}
+
+.counter-box{
+  background:#ffffff;
+  color:#0f4c81;
+  width:200px;
+  padding:25px 10px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  animation: fadeInUp 1.2s ease;
+}
+
+.counter{
+  font-size:42px;
+  font-weight:bold;
+}
+
+.counter-box p{
+  margin-top:8px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .counter-box{
+    width:85%;
+  }
+}
+
 
 </style>
 </head>
@@ -172,6 +210,22 @@ nav a{
   <a href="products.html" class="btn">Our Products</a>
   <a href="contact.html" class="btn">Contact Us</a>
 </section>
+<section class="counter-section">
+  <div class="counter-box">
+    <div class="counter" data-target="500">0</div>
+    <p>Retailers</p>
+  </div>
+
+  <div class="counter-box">
+    <div class="counter" data-target="100">0</div>
+    <p>Distributors</p>
+  </div>
+
+  <div class="counter-box">
+    <div class="counter" data-target="10000">0</div>
+    <p>Happy Customers</p>
+  </div>
+</section>
 
 <script>
 if(localStorage.getItem("loggedIn") === "true"){
@@ -190,8 +244,31 @@ function logout(){
   location.href="login.html";
 }
 </script>
+<script>
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+  const target = +counter.getAttribute("data-target");
+  const speed = 200;
+
+  const updateCount = () => {
+    const count = +counter.innerText;
+    const inc = Math.ceil(target / speed);
+
+    if (count < target) {
+      counter.innerText = count + inc;
+      setTimeout(updateCount, 20);
+    } else {
+      counter.innerText = target + "+";
+    }
+  };
+
+  updateCount();
+});
+</script>
 
 </body>
 </html>
+
 
 
