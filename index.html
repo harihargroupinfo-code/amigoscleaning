@@ -1,490 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const name = localStorage.getItem("userName");
-  const role = localStorage.getItem("userRole");
-
-  if (name && role) {
-    const welcome = document.getElementById("welcomeUser");
-    if (welcome) {
-      welcome.innerText = `Welcome ${name}`;
-    }
-  }
-});
-</script>
-
 <head>
-  <div id="welcomeUser" style="
+<meta charset="UTF-8">
+<title>Amigos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f4c81,#1e90ff);
   color:#fff;
-  font-weight:600;
-  font-size:14px;
-  margin-left:10px;
-  display:none;">
-</div>
+}
 
-  <meta charset="UTF-8" />
-  <title>Amigos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:rgba(0,0,0,.25);
+}
 
-  <!-- Font Awesome Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+header img{height:40px}
 
-  <style>
-    /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+nav a{
+  color:#fff;
+  margin-left:15px;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-    body {
-      background: #f4f6f8;
-      color: #2c3e50;
-    }
+#welcome{
+  background:#ffffff;
+  color:#0f4c81;
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:bold;
+}
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+.hero{
+  padding:50px 20px;
+  text-align:center;
+}
 
-    /* ===== HEADER / NAVBAR (ADMIN STYLE) ===== */
-    header {
-      background: linear-gradient(135deg, #1e8449, #27ae60);
-      padding: 14px 16px;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
+.hero h1{font-size:32px;margin-bottom:10px}
+.hero p{font-size:18px}
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+.btn{
+  display:inline-block;
+  margin:10px;
+  padding:12px 20px;
+  background:#fff;
+  color:#0f4c81;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo i {
-      font-size: 22px;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .nav-right a {
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .nav-right a:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .nav-btn {
-      background: rgba(255,255,255,0.2);
-      font-weight: 600;
-    }
-
-    .welcome-text {
-      font-size: 13px;
-      font-weight: 600;
-      color: #eafaf1;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      padding: 50px 18px;
-      text-align: center;
-      background: linear-gradient(180deg, #eafaf1, #f4f6f8);
-      animation: fadeIn 1s ease;
-    }
-
-    .hero h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #1e8449;
-    }
-
-    .hero p {
-      font-size: 15px;
-      color: #555;
-    }
-
-    /* ===== SECTIONS ===== */
-    .section {
-      padding: 25px 16px;
-      max-width: 1000px;
-      margin: auto;
-      animation: slideUp 0.8s ease;
-    }
-
-    .section h2 {
-      text-align: center;
-      margin-bottom: 16px;
-      color: #1e8449;
-      font-size: 22px;
-    }
-
-    /* ===== ABOUT CARDS ===== */
-    .about-card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 18px;
-    }
-
-    .stats div {
-      text-align: center;
-    }
-
-    .stats i {
-      font-size: 22px;
-      color: #27ae60;
-      margin-bottom: 5px;
-    }
-
-    .stats strong {
-      display: block;
-      font-size: 20px;
-      color: #27ae60;
-    }
-
-    .stats span {
-      font-size: 12px;
-    }
-
-    /* ===== PRODUCTS ===== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 15px;
-    }
-
-    .product-card {
-      background: #fff;
-      padding: 18px;
-      border-radius: 14px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .product-card i {
-      font-size: 28px;
-      color: #27ae60;
-      margin-bottom: 8px;
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-
-    /* ===== BUTTONS ===== */
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 22px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #1e8449, #27ae60);
-      color: #fff;
-      font-weight: 600;
-      transition: transform 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    /* ===== CONTACT ===== */
-    .contact-card {
-      background: #fff;
-      padding: 22px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .contact-card p {
-      margin: 10px 0;
-      font-size: 14px;
-    }
-
-    .contact-card i {
-      color: #27ae60;
-      margin-right: 6px;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #1e8449;
-      color: #fff;
-      text-align: center;
-      padding: 14px;
-      font-size: 13px;
-      margin-top: 30px;
-    }
-
-    /* ===== AUTH VISIBILITY ===== */
-    body.logged-in a[href*="login"],
-    body.logged-in a[href*="signup"],
-    body.logged-in a[href*="register"] {
-      display: none !important;
-    }
-
-    body.logged-in #logoutBtn {
-      display: inline-block !important;
-    }
-
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== DESKTOP ===== */
-    @media (min-width: 768px) {
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+@media(max-width:600px){
+  header{flex-direction:column;gap:10px}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="navbar">
-    <!-- LEFT: LOGO -->
-    <div class="logo">
-      <i class="fa-solid fa-broom"></i> Amigos
-    </div>
-
-    <!-- RIGHT: NAV LINKS -->
-    <nav class="nav-right">
-      <a href="index.html"><i class="fa fa-home"></i> Home</a>
-      <a href="products.html"><i class="fa fa-box"></i> Products</a>
-      <a href="about.html"><i class="fa fa-circle-info"></i> About</a>
-      <a href="contact.html"><i class="fa fa-phone"></i> Contact</a>
-
-      <a href="login.html" id="loginBtn" class="nav-btn">
-        <i class="fa fa-sign-in-alt"></i> Login
-      </a>
-
-      <a href="signup.html" id="signupBtn" class="nav-btn">
-        <i class="fa fa-user-plus"></i> Register
-      </a>
-
-      <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-        <i class="fa fa-sign-out-alt"></i> Logout
-      </a>
-
-      <span id="welcomeUser" class="welcome-text"></span>
-    </nav>
-  </div>
+  <img src="images/logo.jpg">
+  <div id="welcome" style="display:none"></div>
+  <nav id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html" id="loginBtn">Login</a>
+    <a href="#" onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
+  </nav>
 </header>
 
 <section class="hero">
-  <h1>Professional Cleaning Solutions</h1>
-  <p>Delivering quality, hygiene & trust since 2021</p>
+  <h1>Welcome to Amigos Cleaning</h1>
+  <p>Delivering Trust & Quality Since 2021</p>
+
+  <a href="products.html" class="btn">Our Products</a>
+  <a href="contact.html" class="btn">Contact Us</a>
 </section>
-
-<section class="section">
-  <h2>About Us</h2>
-  <div class="about-card">
-    <p>
-      Founded in 2021, Amigos Cleaning focuses on quality over quantity.
-      We don’t just deliver products — we deliver trust.
-    </p>
-
-    <div class="stats">
-      <div>
-        <i class="fa-solid fa-store"></i>
-        <strong>300+</strong>
-        <span>Retail Counters</span>
-      </div>
-      <div>
-        <i class="fa-solid fa-truck"></i>
-        <strong>50+</strong>
-        <span>Distributors</span>
-      </div>
-      <div>
-        <i class="fa-solid fa-smile"></i>
-        <strong>2000+</strong>
-        <span>Happy Clients</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Our Products</h2>
-
-  <div class="product-grid">
-    <div class="product-card">
-      <i class="fa-solid fa-water"></i>
-      Floor Cleaner
-    </div>
-    <div class="product-card">
-      <i class="fa-solid fa-toilet"></i>
-      Toilet Cleaner
-    </div>
-    <div class="product-card">
-      <i class="fa-solid fa-soap"></i>
-      Dish Wash
-    </div>
-    <div class="product-card">
-      <i class="fa-solid fa-window-maximize"></i>
-      Glass Cleaner
-    </div>
-  </div>
-
-  <div style="text-align:center;">
-    <a href="products.html" class="btn">View All Products</a>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Contact Us</h2>
-  <div class="contact-card">
-    <p><i class="fa-solid fa-envelope"></i> harihargroup.info@gmail.com</p>
-    <p><i class="fa-solid fa-phone"></i> +91 91 4646 6898</p>
-    <a href="contact.html" class="btn">Get in Touch</a>
-  </div>
-</section>
-
-<footer>
-  © Amigos A Product by Harihar Group of Industries  |  All Rights Reserved.
-</footer>
 
 <script>
-  (function () {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const role = localStorage.getItem("userRole");
-
-    if (isLoggedIn) {
-      document.body.classList.add("logged-in");
-      const welcome = document.getElementById("welcomeUser");
-      if (welcome && role) {
-        welcome.textContent = "Welcome " + role.charAt(0).toUpperCase() + role.slice(1);
-        welcome.style.display = "inline-block";
-      }
-    }
-  })();
-
-  function logout() {
-  // Remove ONLY session-related keys
-  localStorage.removeItem("loggedIn");
-  localStorage.removeItem("userName");
-  localStorage.removeItem("role");
-
-  // Do NOT touch users data
-  window.location.href = "login.html";
+if(localStorage.getItem("loggedIn") === "true"){
+  document.getElementById("loginBtn").style.display="none";
+  document.getElementById("logoutBtn").style.display="inline";
+  const name = localStorage.getItem("userName") || "User";
+  const welcome = document.getElementById("welcome");
+  welcome.innerText = "Welcome, " + name;
+  welcome.style.display="block";
 }
 
+function logout(){
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("role");
+  localStorage.removeItem("userName");
+  location.href="login.html";
+}
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const welcomeBox = document.getElementById("welcomeBox");
-
-  if (loggedIn === "true" && userName && role) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-
-    if (welcomeBox) {
-      welcomeBox.innerHTML = `Welcome, <b>${userName}</b> 👋 (${role})`;
-      welcomeBox.style.display = "block";
-    }
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-
-  if (loggedIn === "true" && userName && welcome) {
-    welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-    welcome.style.display = "block";
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  if (loggedIn === "true" && userName) {
-    if (welcome) {
-      welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-      welcome.style.display = "block";
-    }
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-  }
-});
-</script>
-<script src="main.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
