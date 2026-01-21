@@ -51,4 +51,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const footer = document.createElement("footer");
+  footer.className = "site-footer";
+  footer.innerHTML = `
+    <div class="footer-content">
+      <span class="footer-brand">AMIGOS</span>
+      <span class="footer-text">
+        A Product by Harihar Group of Industries | All Rights Reserved
+      </span>
+    </div>
+  `;
+  document.body.appendChild(footer);
+});
+</script>
+
 
