@@ -1074,3 +1074,32 @@ button {
     font-size:12px;
   }
 }
+<footer class="footer">
+  <div class="footer-content">
+    © <span id="year"></span> All Rights Reserved | AMIGOS
+  </div>
+</footer>
+
+.footer {
+  width: 100%;
+  position: fixed;      /* stays at bottom */
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15px 0;
+  background: #0f172a;  /* adjust color */
+}
+
+.footer-content {
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+}
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
