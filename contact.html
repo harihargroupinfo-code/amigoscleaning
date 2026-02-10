@@ -1,259 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<header>
-<span id="welcomeUser"
-      style="
-        display:none;
-        background:linear-gradient(135deg,#3a7bd5,#1f3c88);
-        color:#fff;
-        font-weight:600;
-        padding:6px 14px;
-        border-radius:20px;
-        font-size:13px;
-        margin-right:10px;
-      ">
-</span>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS | Contact Us</title>
 
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", Arial, sans-serif;
+}
 
-<a href="login.html" id="loginBtn">Login</a>
-<a href="signup.html" id="signupBtn">Signup</a>
-<a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#020617,#0f172a);
+  padding-top:70px;
+  padding-bottom:70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
 
+/* ===== NAVBAR (SAME AS LOGIN) ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  z-index:1000;
+}
 
-  <div class="navbar">
-    <!-- LEFT: LOGO -->
-    <div class="logo">
-      <i class="fa-solid fa-broom"></i> Amigos Cleaning
-    </div>
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  color:#38bdf8;
+  text-decoration:none;
+  animation:logoPulse 3s ease-in-out infinite;
+  text-shadow:0 0 10px rgba(56,189,248,0.7);
+}
 
-    <!-- RIGHT: NAV LINKS -->
-    <nav class="nav-right">
-      <a href="index.html"><i class="fa fa-home"></i> Home</a>
-      <a href="products.html"><i class="fa fa-box"></i> Products</a>
-      <a href="about.html"><i class="fa fa-circle-info"></i> About</a>
-      <a href="contact.html"><i class="fa fa-phone"></i> Contact</a>
+@keyframes logoPulse{
+  0%,100%{opacity:1;}
+  50%{opacity:0.7;}
+}
 
-      <a href="login.html" id="loginBtn" class="nav-btn">
-        <i class="fa fa-sign-in-alt"></i> Login
-      </a>
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:22px;
+  font-size:15px;
+  transition:0.3s;
+}
 
-      <a href="signup.html" id="signupBtn" class="nav-btn">
-        <i class="fa fa-user-plus"></i> Register
-      </a>
+.nav-links a:hover{
+  color:#38bdf8;
+}
 
-      <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-        <i class="fa fa-sign-out-alt"></i> Logout
-      </a>
+/* ===== CONTACT CARD ===== */
+.contact-card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  width:100%;
+  max-width:420px;
+  padding:35px 30px;
+  border-radius:16px;
+  box-shadow:0 25px 50px rgba(0,0,0,0.4);
+  text-align:center;
+}
 
-      <span id="welcomeUser" class="welcome-text"></span>
-    </nav>
-  </div>
-</header>
+/* ===== TITLE ===== */
+.contact-title{
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:10px;
+}
 
+.contact-title span{
+  color:#38bdf8;
+  text-shadow:0 0 12px rgba(56,189,248,0.6);
+}
+
+.contact-subtitle{
+  font-size:15px;
+  color:#cbd5f5;
+  margin-bottom:25px;
+}
+
+/* ===== CONTACT INFO ===== */
+.contact-info{
+  text-align:left;
+  margin-bottom:25px;
+}
+
+.contact-info div{
+  margin-bottom:14px;
+  font-size:15px;
+  color:#e5e7eb;
+}
+
+.contact-info strong{
+  color:#38bdf8;
+}
+
+/* ===== SOCIAL LINKS ===== */
+.social-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:20px;
+}
+
+.social-links a{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.15);
+  transition:0.3s;
+}
+
+.social-links a:hover{
+  background:#38bdf8;
+}
+
+.social-links svg{
+  width:22px;
+  height:22px;
+  fill:#fff;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
+  padding:12px 0;
+}
+
+.footer-content{
+  color:#fff;
+  font-size:14px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .logo{font-size:20px;}
+  .nav-links a{margin-left:14px;font-size:14px;}
+  .contact-title{font-size:26px;}
+}
+</style>
+</head>
 
 <body>
 
-<!-- HEADER -->
-<div id="header-placeholder"></div>
-
-<!-- ================= CONTACT PAGE ================= -->
-<section class="page">
-
-  <h1>Contact Us</h1>
-  <p style="margin-bottom:20px;color:#555;">
-    We’re here to help you. Reach out to Amigos Cleaning for products,
-    distribution, or support.
-  </p>
-
-  <!-- ===== CONTACT CARDS ===== -->
-  <div class="dashboard-grid">
-
-    <!-- CONTACT DETAILS -->
-    <div class="dash-card">
-      <h3><i class="fa-solid fa-phone"></i> Get in Touch</h3>
-
-      <p><strong>Email</strong><br>
-        <a href="mailto:harihargroup.info@gmail.com">
-          harihargroup.info@gmail.com
-        </a>
-      </p>
-
-      <p><strong>Phone</strong><br>
-        <a href="tel:+919146466898">
-          +91 91 4646 6898
-        </a>
-      </p>
-
-      <p style="margin-top:14px;">
-        <strong>Business Hours</strong><br>
-        Mon – Sat : 9:30 AM – 7:00 PM
-      </p>
-    </div>
-
-    <!-- OFFICE ADDRESS -->
-    <div class="dash-card">
-      <h3><i class="fa-solid fa-location-dot"></i> Office Address</h3>
-
-      <p>
-        Plot No A-49, Infront of Baramati RTO,<br>
-        Baramati, Tal-Baramati,<br>
-        Dist-Pune, Pin-413133
-      </p>
-
-      <iframe
-        src="https://www.google.com/maps?q=5JM2+XQ+Baramati+Maharashtra&output=embed"
-        loading="lazy">
-      </iframe>
-    </div>
-
-    <!-- FACTORY ADDRESS -->
-    <div class="dash-card">
-      <h3><i class="fa-solid fa-industry"></i> Factory Location</h3>
-
-      <p>
-        Amigos, Gojubavi,<br>
-        Infront of Bauli,<br>
-        Tal-Baramati, Dist-Pune,<br>
-        Pin-413133
-      </p>
-
-      <iframe
-        src="https://www.google.com/maps?q=6JQ4+8R+Gojubavi+Maharashtra&output=embed"
-        loading="lazy">
-      </iframe>
-    </div>
-
-    <!-- SOCIAL MEDIA -->
-    <div class="dash-card">
-      <h3><i class="fa-solid fa-share-nodes"></i> Follow Us</h3>
-
-      <div class="social-links">
-        <a href="https://www.instagram.com/amigos_cleaning_partner?igsh=cmw0d2s3NjBsNjJj"
-           target="_blank" class="insta">
-          <i class="fa-brands fa-instagram"></i> Instagram
-        </a>
-
-        <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL"
-           target="_blank" class="fb">
-          <i class="fa-brands fa-facebook"></i> Facebook
-        </a>
-      </div>
-    </div>
-
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="logo">AMIGOS</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contacts</a>
+    <a href="login.html">Login</a>
   </div>
-</section>
+</nav>
 
-<!-- FOOTER -->
-<div id="footer-placeholder"></div>
+<!-- ===== CONTACT CARD ===== -->
+<div class="contact-card">
 
-<!-- MAIN JS -->
-<script src="js/main.js"></script>
-<script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+  <div class="contact-title">
+    Contact <span>AMIGOS</span>
+  </div>
+  <div class="contact-subtitle">
+    We’d love to hear from you
+  </div>
 
-    if (isLoggedIn === "true") {
-      document.getElementById("loginBtn")?.style.display = "none";
-      document.getElementById("logoutBtn")?.style.display = "inline-block";
-    }
-  });
+  <div class="contact-info">
+    <div><strong>📍 Address:</strong> Your Company Address Here</div>
+    <div><strong>📞 Phone:</strong> +91 XXXXX XXXXX</div>
+    <div><strong>📧 Email:</strong> info@amigos.com</div>
+  </div>
 
-  function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
+  <!-- ===== SOCIAL MEDIA ===== -->
+  <div class="social-links">
 
-    alert("Logged out successfully");
-    window.location.replace("index.html");
-  }
-</script>
-<script src="js/main.js"></script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook">
+      <svg viewBox="0 0 24 24">
+        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.691V11.01h3.13V8.309c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z"/>
+      </svg>
+    </a>
 
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
-  }
-})();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const welcomeBox = document.getElementById("welcomeBox");
-
-  if (loggedIn === "true" && userName && role) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-
-    if (welcomeBox) {
-      welcomeBox.innerHTML = `Welcome, <b>${userName}</b> 👋 (${role})`;
-      welcomeBox.style.display = "block";
-    }
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-
-  if (loggedIn === "true" && userName && welcome) {
-    welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-    welcome.style.display = "block";
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  if (loggedIn === "true" && userName) {
-    if (welcome) {
-      welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-      welcome.style.display = "block";
-    }
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-  }
-});
-</script>
-<script src="main.js"></script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/yourpage" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.343 3.608 1.318.975.975 1.256 2.242 1.318 3.608.058 1.266.069 1.646.069 4.841 0 3.196-.012 3.576-.069 4.842-.062 1.366-.343 2.633-1.318 3.608-.975.975-2.242 1.256-3.608 1.318-1.266.058-1.646.069-4.85.069-3.204 0-3.584-.012-4.85-.069-1.366-.062-2.633-.343-3.6
