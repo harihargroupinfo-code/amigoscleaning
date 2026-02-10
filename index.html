@@ -1,328 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta charset="UTF-8">
-<title>Amigos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS | Home</title>
 
 <style>
-body{
+*{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#0f4c81,#1e90ff);
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", Arial, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#020617,#0f172a);
+  padding-top:70px;
+  padding-bottom:70px;
   color:#fff;
 }
 
-header{
+/* ===== NAVBAR (SAME AS LOGIN) ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:15px;
-  background:rgba(0,0,0,.25);
+  justify-content:space-between;
+  padding:0 25px;
+  z-index:1000;
 }
 
-header img{height:40px}
+/* ===== AMIGOS LOGO (EXACT SAME) ===== */
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  color:#38bdf8;
+  text-decoration:none;
+  position:relative;
+  animation:logoPulse 3s ease-in-out infinite;
+  text-shadow:0 0 10px rgba(56,189,248,0.7);
+}
 
-nav a{
+@keyframes logoPulse{
+  0%,100%{ opacity:1; }
+  50%{ opacity:0.7; }
+}
+
+.nav-links a{
   color:#fff;
-  margin-left:15px;
   text-decoration:none;
-  font-weight:bold;
+  margin-left:22px;
+  font-size:15px;
+  transition:0.3s;
 }
 
-#welcome{
-  background:#ffffff;
-  color:#0f4c81;
-  padding:6px 14px;
-  border-radius:20px;
-  font-weight:bold;
+.nav-links a:hover{
+  color:#38bdf8;
 }
 
+/* ===== HERO SECTION ===== */
 .hero{
-  padding:50px 20px;
+  min-height:calc(100vh - 140px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-}
-
-.hero h1{font-size:32px;margin-bottom:10px}
-.hero p{font-size:18px}
-
-.btn{
-  display:inline-block;
-  margin:10px;
-  padding:12px 20px;
-  background:#fff;
-  color:#0f4c81;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-@media(max-width:600px){
-  header{flex-direction:column;gap:10px}
-}
-  /* Logo */
-.main-logo{
-  height: 70px;              /* Bigger logo */
-  animation: logoZoom 1.2s ease-in-out;
-}
-
-/* Hero section */
-.hero{
-  padding: 70px 20px;
-  text-align: center;
-  animation: fadeInUp 1.3s ease;
+  padding:20px;
 }
 
 .hero h1{
-  font-size: 34px;
-  margin-bottom: 12px;
-  animation: slideDown 1s ease;
+  font-size:42px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.hero h1 span{
+  color:#38bdf8;
+  text-shadow:0 0 15px rgba(56,189,248,0.6);
 }
 
 .hero p{
-  font-size: 18px;
-  opacity: 0.95;
-  animation: fadeIn 1.6s ease;
+  max-width:600px;
+  font-size:18px;
+  color:#cbd5f5;
+  line-height:1.6;
 }
 
-/* Buttons */
-.btn{
-  display: inline-block;
-  margin: 12px;
-  padding: 14px 24px;
-  background: #ffffff;
-  color: #0f4c81;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform .3s, box-shadow .3s;
-  animation: fadeInUp 1.8s ease;
-}
-
-.btn:hover{
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,.3);
-}
-
-/* Welcome badge animation */
-#welcome{
-  animation: pulse 2s infinite;
-}
-
-/* Animations */
-@keyframes logoZoom{
-  from{transform: scale(0.6); opacity:0;}
-  to{transform: scale(1); opacity:1;}
-}
-
-@keyframes fadeInUp{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes slideDown{
-  from{opacity:0; transform:translateY(-20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(255,255,255,.6);}
-  70%{box-shadow:0 0 0 10px rgba(255,255,255,0);}
-  100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
-}
-
-/* Mobile tweaks */
-@media(max-width:600px){
-  .main-logo{height: 60px;}
-  .hero h1{font-size:28px;}
-}
-  .counter-section{
+/* ===== FOOTER (SAME AS LOGIN) ===== */
+.footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
   display:flex;
   justify-content:center;
-  gap:25px;
-  padding:60px 20px;
-  flex-wrap:wrap;
-  background:rgba(255,255,255,0.12);
+  align-items:center;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
+  padding:12px 0;
 }
 
-.counter-box{
-  background:#ffffff;
-  color:#0f4c81;
-  width:200px;
-  padding:25px 10px;
-  border-radius:16px;
+.footer-content{
+  color:#fff;
+  font-size:14px;
   text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,.25);
-  animation: fadeInUp 1.2s ease;
 }
 
-.counter{
-  font-size:42px;
-  font-weight:bold;
-}
-
-.counter-box p{
-  margin-top:8px;
-  font-size:16px;
-  font-weight:bold;
-}
-
-/* Mobile */
+/* ===== MOBILE ===== */
 @media(max-width:600px){
-  .counter-box{
-    width:85%;
+  .logo{
+    font-size:20px;
+  }
+  .nav-links a{
+    margin-left:14px;
+    font-size:14px;
+  }
+  .hero h1{
+    font-size:32px;
+  }
+  .hero p{
+    font-size:16px;
   }
 }
-.brand-name{
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:3px;
-  color:#ffffff;
-  text-transform:uppercase;
-  animation: slideDown 1s ease;
-}
-
-.brand-name span{
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
-  animation: glow 2s infinite alternate;
-}
-
-/* Glow animation */
-@keyframes glow{
-  from{
-    text-shadow: 0 0 5px #fff;
-  }
-  to{
-    text-shadow: 0 0 15px #fff, 0 0 30px #1e90ff;
-  }
-}
-
-/* Mobile */
-@media(max-width:600px){
-  .brand-name{
-    font-size:22px;
-  }
-}
-
-
 </style>
 </head>
 
 <body>
 
-<header>
- <div class="brand-name">
-  <span id="brandText"></span>
-</div>
-  <div id="welcome" style="display:none"></div>
-  <nav id="navLinks">
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="logo">AMIGOS</a>
+  <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
-    <a href="contact.html">Contact</a>
-    <a href="login.html" id="loginBtn">Login</a>
-    <a href="#" onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
-  </nav>
-</header>
+    <a href="contact.html">Contacts</a>
+    <a href="login.html">Login</a>
+  </div>
+</nav>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <img src="images/logo.jpg" style="
-  width:180px;
-  margin-bottom:20px;
-  animation: logoZoom 1.5s ease;
-">
-
-  <h1>Welcome to Amigos</h1>
-  <p>Delivering Trust & Quality Since 2021</p>
-
-  <a href="products.html" class="btn">Our Products</a>
-  <a href="contact.html" class="btn">Contact Us</a>
-</section>
-<section class="counter-section">
-  <div class="counter-box">
-    <div class="counter" data-target="500">0</div>
-    <p>Retailers</p>
-  </div>
-
-  <div class="counter-box">
-    <div class="counter" data-target="100">0</div>
-    <p>Distributors</p>
-  </div>
-
-  <div class="counter-box">
-    <div class="counter" data-target="10000">0</div>
-    <p>Happy Customers</p>
-  </div>
+  <h1>Welcome to <span>AMIGOS</span></h1>
+  <p>
+    We manufacture and supply high-quality housekeeping products including
+    floor cleaners, toilet cleaners, dishwash, handwash, and glass cleaners —
+    trusted by dealers and businesses.
+  </p>
 </section>
 
-<script>
-if(localStorage.getItem("loggedIn") === "true"){
-  document.getElementById("loginBtn").style.display="none";
-  document.getElementById("logoutBtn").style.display="inline";
-  const name = localStorage.getItem("userName") || "User";
-  const welcome = document.getElementById("welcome");
-  welcome.innerText = "Welcome, " + name;
-  welcome.style.display="block";
-}
-
-function logout(){
-  localStorage.removeItem("loggedIn");
-  localStorage.removeItem("role");
-  localStorage.removeItem("userName");
-  location.href="login.html";
-}
-</script>
-<script>
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-  const target = +counter.getAttribute("data-target");
-  const speed = 200;
-
-  const updateCount = () => {
-    const count = +counter.innerText;
-    const inc = Math.ceil(target / speed);
-
-    if (count < target) {
-      counter.innerText = count + inc;
-      setTimeout(updateCount, 20);
-    } else {
-      counter.innerText = target + "+";
-    }
-  };
-
-  updateCount();
-});
-</script>
-<footer class="site-footer">
-  AMIGOS – A Product by Harihar Group of Industries | All Rights Reserved
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-content">
+    © <span id="year"></span> All Rights Reserved | AMIGOS
+  </div>
 </footer>
-<script>
-const text = "AMIGOS";
-let index = 0;
-const speed = 150;
 
-function typeBrand(){
-  if(index < text.length){
-    document.getElementById("brandText").innerHTML += text.charAt(index);
-    index++;
-    setTimeout(typeBrand, speed);
-  }
-}
-typeBrand();
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
