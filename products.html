@@ -21,7 +21,7 @@ body{
   color:#fff;
 }
 
-/* ===== NAVBAR (SAME AS OTHER PAGES) ===== */
+/* ===== NAVBAR ===== */
 .navbar{
   position:fixed;
   top:0;
@@ -88,23 +88,24 @@ body{
 
 /* ===== PRODUCTS GRID ===== */
 .products{
-  max-width:1100px;
+  max-width:1200px;
   margin:40px auto;
   padding:0 20px;
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:30px;
 }
 
 /* ===== PRODUCT CARD ===== */
 .product-card{
   background:rgba(255,255,255,0.08);
   backdrop-filter:blur(10px);
-  border-radius:14px;
-  padding:25px 20px;
+  border-radius:16px;
+  padding:22px;
   text-align:center;
   box-shadow:0 20px 40px rgba(0,0,0,0.35);
   transition:0.4s;
+  position:relative;
 }
 
 .product-card:hover{
@@ -112,15 +113,17 @@ body{
   box-shadow:0 25px 55px rgba(0,0,0,0.45);
 }
 
-.product-icon{
-  font-size:40px;
+.product-card img{
+  width:100%;
+  max-height:180px;
+  object-fit:contain;
   margin-bottom:15px;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));
 }
 
 .product-card h3{
   font-size:20px;
-  margin-bottom:10px;
-  color:#fff;
+  margin-bottom:8px;
 }
 
 .product-card p{
@@ -129,7 +132,20 @@ body{
   line-height:1.5;
 }
 
-/* ===== FOOTER (SAME AS OTHER PAGES) ===== */
+/* ===== COMING SOON BADGE ===== */
+.badge{
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:#facc15;
+  color:#000;
+  font-size:12px;
+  font-weight:700;
+  padding:5px 10px;
+  border-radius:20px;
+}
+
+/* ===== FOOTER ===== */
 .footer{
   position:fixed;
   bottom:0;
@@ -150,16 +166,9 @@ body{
 
 /* ===== MOBILE ===== */
 @media(max-width:600px){
-  .logo{
-    font-size:20px;
-  }
-  .nav-links a{
-    margin-left:14px;
-    font-size:14px;
-  }
-  .page-title h1{
-    font-size:30px;
-  }
+  .logo{font-size:20px;}
+  .nav-links a{margin-left:14px;font-size:14px;}
+  .page-title h1{font-size:30px;}
 }
 </style>
 </head>
@@ -180,40 +189,60 @@ body{
 <!-- ===== PAGE TITLE ===== -->
 <div class="page-title">
   <h1>Our <span>Products</span></h1>
-  <p>Premium housekeeping & cleaning solutions you can trust</p>
+  <p>High-quality cleaning solutions for homes & businesses</p>
 </div>
 
 <!-- ===== PRODUCTS ===== -->
 <section class="products">
 
   <div class="product-card">
-    <div class="product-icon">🧴</div>
+    <img src="image/floor-cleaner.png" alt="Floor Cleaner">
     <h3>Floor Cleaner</h3>
-    <p>Powerful cleaning formula that removes stains, kills germs, and leaves a fresh shine.</p>
+    <p>Removes tough stains, kills germs, and leaves long-lasting freshness.</p>
   </div>
 
   <div class="product-card">
-    <div class="product-icon">🚽</div>
+    <img src="image/toilet-cleaner.png" alt="Toilet Cleaner">
     <h3>Toilet Cleaner</h3>
-    <p>Deep-cleaning solution for tough stains, odor control, and hygienic protection.</p>
+    <p>Deep cleaning power for hygienic and sparkling toilets.</p>
   </div>
 
   <div class="product-card">
-    <div class="product-icon">🍽️</div>
+    <img src="image/dishwash.png" alt="Dishwash Liquid">
     <h3>Dishwash Liquid</h3>
-    <p>Gentle on hands, tough on grease — perfect for daily kitchen cleaning.</p>
+    <p>Tough on grease yet gentle on hands for daily use.</p>
   </div>
 
   <div class="product-card">
-    <div class="product-icon">🖐️</div>
+    <img src="image/handwash.png" alt="Hand Wash">
     <h3>Hand Wash</h3>
-    <p>Skin-friendly handwash with antibacterial protection and pleasant fragrance.</p>
+    <p>Antibacterial handwash with skin-friendly formula.</p>
   </div>
 
   <div class="product-card">
-    <div class="product-icon">🪟</div>
+    <img src="image/glass-cleaner.png" alt="Glass Cleaner">
     <h3>Glass Cleaner</h3>
-    <p>Crystal-clear shine for glass and mirrors without streaks or residue.</p>
+    <p>Crystal-clear shine without streaks or residue.</p>
+  </div>
+
+  <div class="product-card">
+    <img src="image/combo-pack.png" alt="Combo Pack">
+    <h3>Combo Pack (Pack of 4)</h3>
+    <p>Best value combo including Floor, Toilet, Dishwash & Handwash.</p>
+  </div>
+
+  <div class="product-card">
+    <span class="badge">Coming Soon</span>
+    <img src="image/white-phenyl.png" alt="White Phenyl">
+    <h3>White Phenyl</h3>
+    <p>Classic disinfectant phenyl for homes and institutions.</p>
+  </div>
+
+  <div class="product-card">
+    <span class="badge">Coming Soon</span>
+    <img src="image/bathroom-cleaner.png" alt="Bathroom Cleaner">
+    <h3>Bathroom Cleaner</h3>
+    <p>Specially formulated cleaner for tiles, fittings & wash areas.</p>
   </div>
 
 </section>
