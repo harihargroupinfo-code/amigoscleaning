@@ -24,7 +24,7 @@ body{
   color:#fff;
 }
 
-/* ===== NAVBAR (SAME AS LOGIN) ===== */
+/* ===== NAVBAR ===== */
 .navbar{
   position:fixed;
   top:0;
@@ -63,23 +63,34 @@ body{
   transition:0.3s;
 }
 
-.nav-links a:hover{
-  color:#38bdf8;
-}
+.nav-links a:hover{color:#38bdf8;}
 
-/* ===== CONTACT CARD ===== */
-.contact-card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
+/* ===== CONTACT LAYOUT ===== */
+.contact-wrapper{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
   width:100%;
-  max-width:420px;
-  padding:35px 30px;
-  border-radius:16px;
-  box-shadow:0 25px 50px rgba(0,0,0,0.4);
-  text-align:center;
+  max-width:1000px;
+  padding:20px;
 }
 
-/* ===== TITLE ===== */
+/* ===== GLASS CARD ===== */
+.glass{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 25px 50px rgba(0,0,0,0.45);
+  transition:0.4s;
+}
+
+.glass:hover{
+  transform:translateY(-6px);
+  box-shadow:0 35px 70px rgba(0,0,0,0.55);
+}
+
+/* ===== CONTACT INFO ===== */
 .contact-title{
   font-size:30px;
   font-weight:800;
@@ -91,55 +102,77 @@ body{
   text-shadow:0 0 12px rgba(56,189,248,0.6);
 }
 
-.contact-subtitle{
+.contact-sub{
   font-size:15px;
   color:#cbd5f5;
-  margin-bottom:25px;
-}
-
-/* ===== CONTACT INFO ===== */
-.contact-info{
-  text-align:left;
   margin-bottom:25px;
 }
 
 .contact-info div{
   margin-bottom:14px;
   font-size:15px;
-  color:#e5e7eb;
 }
 
 .contact-info strong{
   color:#38bdf8;
 }
 
-/* ===== SOCIAL LINKS ===== */
-.social-links{
-  display:flex;
+/* ===== WHATSAPP BUTTON ===== */
+.whatsapp-btn{
+  display:inline-flex;
+  align-items:center;
   justify-content:center;
-  gap:18px;
   margin-top:20px;
+  padding:12px 20px;
+  border-radius:30px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
 }
 
-.social-links a{
-  width:45px;
-  height:45px;
+.whatsapp-btn:hover{
+  background:#1ebe5d;
+  transform:scale(1.05);
+}
+
+/* ===== MAP ===== */
+.map iframe{
+  width:100%;
+  height:100%;
+  min-height:300px;
+  border:none;
+  border-radius:14px;
+}
+
+/* ===== FLOATING WHATSAPP ===== */
+.whatsapp-float{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  width:55px;
+  height:55px;
+  background:#25D366;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(255,255,255,0.15);
-  transition:0.3s;
+  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+  z-index:999;
+  animation:pulse 2s infinite;
 }
 
-.social-links a:hover{
-  background:#38bdf8;
-}
-
-.social-links svg{
-  width:22px;
-  height:22px;
+.whatsapp-float svg{
+  width:28px;
+  height:28px;
   fill:#fff;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6);}
+  70%{box-shadow:0 0 0 15px rgba(37,211,102,0);}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
 }
 
 /* ===== FOOTER ===== */
@@ -156,16 +189,15 @@ body{
   padding:12px 0;
 }
 
-.footer-content{
-  color:#fff;
-  font-size:14px;
-}
+.footer-content{font-size:14px;}
 
 /* ===== MOBILE ===== */
-@media(max-width:600px){
+@media(max-width:800px){
+  .contact-wrapper{
+    grid-template-columns:1fr;
+  }
   .logo{font-size:20px;}
   .nav-links a{margin-left:14px;font-size:14px;}
-  .contact-title{font-size:26px;}
 }
 </style>
 </head>
@@ -183,55 +215,36 @@ body{
   </div>
 </nav>
 
-<!-- ===== CONTACT CARD ===== -->
-<div class="contact-card">
+<!-- ===== CONTACT SECTION ===== -->
+<div class="contact-wrapper">
 
-  <div class="contact-title">
-    Contact <span>AMIGOS</span>
-  </div>
-  <div class="contact-subtitle">
-    We’d love to hear from you
-  </div>
+  <!-- CONTACT INFO -->
+  <div class="glass">
+    <div class="contact-title">Contact <span>AMIGOS</span></div>
+    <div class="contact-sub">We are always happy to connect with you</div>
 
-  <div class="contact-info">
-    <div><strong>📍 Address:</strong> Plot no A-49, MIDC, Baramati, Tal- Baramati, Dist- Pune, Pin- 413133</div>
-    <div><strong>📞 Phone:</strong> +91 914646 6898</div>
-    <div><strong>📧 Email:</strong> harihargroup.info@gmail.com</div>
-  </div>
+    <div class="contact-info">
+      <div><strong>📍 Address:</strong> Plot No A-49, MIDC, Baramati, Tal- Baramati, Dist- Pune, pin-413133</div>
+      <div><strong>📞 Phone:</strong> +91 914646 6898</div>
+      <div><strong>📧 Email:</strong>harihargroup.info@gmail.com</div>
+    </div>
 
-  <!-- ===== SOCIAL MEDIA ===== -->
-  <div class="social-links">
-
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/profile.php?id=100085486467451&mibextid=ZbWKwL" target="_blank" aria-label="Facebook">
-      <svg viewBox="0 0 24 24">
-        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.691V11.01h3.13V8.309c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z"/>
-      </svg>
+    <a href="https://wa.me/919146466898" target="_blank" class="whatsapp-btn">
+      Chat on WhatsApp
     </a>
+  </div>
 
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/amigos_homecare_products" target="_blank" aria-label="Instagram">
-      <svg viewBox="0 0 24 24">
-         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.343 3.608 1.318.975.975 1.256 2.242 1.318 3.608.058 1.266.069 1.646.069 4.841 0 3.196-.012 3.576-.069 4.842-.062 1.366-.343 2.633-1.318 3.608-.975.975-2.242 1.256-3.608 1.318-1.266.058-1.646.069-4.85.069-3.204 0-3.584-.012-4.85-.069-1.366-.062-2.633-.343-3.608-1.318-.975-.975-1.256-2.242-1.318-3.608C2.175 15.576 2.163 15.196 2.163 12c0-3.195.012-3.575.069-4.841.062-1.366.343-2.633 1.318-3.608.975-.975 2.242-1.256 3.608-1.318C8.416 2.175 8.796 2.163 12 2.163zm0 3.675a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm6.406-.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
-      </svg>
-    </a>
-
+  <!-- MAP -->
+  <div class="glass map">
+    <iframe 
+      src="https://www.google.com/maps?q=India&output=embed"
+      loading="lazy">
+    </iframe>
   </div>
 
 </div>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="footer-content">
-    © <span id="year"></span> All Rights Reserved | AMIGOS
-  </div>
-</footer>
-
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
-</body>
-</html>
-
-
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919146466898" target="_blank" class="whatsapp-float" aria-label="WhatsApp Chat">
+  <svg viewBox="0 0 24 24">
+    <path d="M20.52 3.48A11.94 11.94 0 0012.01 0C5.38 0 .04 5.34.04 11.97c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62a11.93 11.93 0 005.82 1.49h.01c6.63 0 11.98-5.34 11.98-11.97 0-3.2-1.25-6.21-3.
