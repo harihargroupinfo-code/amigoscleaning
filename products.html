@@ -1,213 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-<header>
-<span id="welcomeUser"
-      style="
-        display:none;
-        background:linear-gradient(135deg,#3a7bd5,#1f3c88);
-        color:#fff;
-        font-weight:600;
-        padding:6px 14px;
-        border-radius:20px;
-        font-size:13px;
-        margin-right:10px;
-      ">
-</span>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS | Products</title>
 
-<a href="login.html" id="loginBtn">Login</a>
-<a href="signup.html" id="signupBtn">Signup</a>
-<a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", Arial, sans-serif;
+}
 
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#020617,#0f172a);
+  padding-top:70px;
+  padding-bottom:70px;
+  color:#fff;
+}
 
-  <div class="navbar">
-    <!-- LEFT: LOGO -->
-    <div class="logo">
-      <i class="fa-solid fa-broom"></i> Amigos Cleaning
-    </div>
+/* ===== NAVBAR (SAME AS OTHER PAGES) ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  z-index:1000;
+}
 
-    <!-- RIGHT: NAV LINKS -->
-    <nav class="nav-right">
-      <a href="index.html"><i class="fa fa-home"></i> Home</a>
-      <a href="products.html"><i class="fa fa-box"></i> Products</a>
-      <a href="about.html"><i class="fa fa-circle-info"></i> About</a>
-      <a href="contact.html"><i class="fa fa-phone"></i> Contact</a>
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  color:#38bdf8;
+  text-decoration:none;
+  animation:logoPulse 3s ease-in-out infinite;
+  text-shadow:0 0 10px rgba(56,189,248,0.7);
+}
 
-      <a href="login.html" id="loginBtn" class="nav-btn">
-        <i class="fa fa-sign-in-alt"></i> Login
-      </a>
+@keyframes logoPulse{
+  0%,100%{opacity:1;}
+  50%{opacity:0.7;}
+}
 
-      <a href="signup.html" id="signupBtn" class="nav-btn">
-        <i class="fa fa-user-plus"></i> Register
-      </a>
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:22px;
+  font-size:15px;
+  transition:0.3s;
+}
 
-      <a href="#" id="logoutBtn" class="nav-btn" onclick="logout()" style="display:none;">
-        <i class="fa fa-sign-out-alt"></i> Logout
-      </a>
+.nav-links a:hover{
+  color:#38bdf8;
+}
 
-      <span id="welcomeUser" class="welcome-text"></span>
-    </nav>
-  </div>
-</header>
+/* ===== PAGE TITLE ===== */
+.page-title{
+  text-align:center;
+  margin:30px 20px 10px;
+}
 
+.page-title h1{
+  font-size:36px;
+  font-weight:800;
+}
+
+.page-title h1 span{
+  color:#38bdf8;
+  text-shadow:0 0 15px rgba(56,189,248,0.6);
+}
+
+.page-title p{
+  margin-top:10px;
+  color:#cbd5f5;
+  font-size:17px;
+}
+
+/* ===== PRODUCTS GRID ===== */
+.products{
+  max-width:1100px;
+  margin:40px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:25px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  border-radius:14px;
+  padding:25px 20px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  transition:0.4s;
+}
+
+.product-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 55px rgba(0,0,0,0.45);
+}
+
+.product-icon{
+  font-size:40px;
+  margin-bottom:15px;
+}
+
+.product-card h3{
+  font-size:20px;
+  margin-bottom:10px;
+  color:#fff;
+}
+
+.product-card p{
+  font-size:15px;
+  color:#cbd5f5;
+  line-height:1.5;
+}
+
+/* ===== FOOTER (SAME AS OTHER PAGES) ===== */
+.footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(6px);
+  padding:12px 0;
+}
+
+.footer-content{
+  color:#fff;
+  font-size:14px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .logo{
+    font-size:20px;
+  }
+  .nav-links a{
+    margin-left:14px;
+    font-size:14px;
+  }
+  .page-title h1{
+    font-size:30px;
+  }
+}
+</style>
+</head>
 
 <body>
 
-<!-- HEADER -->
-<div id="header-placeholder"></div>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="logo">AMIGOS</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contacts</a>
+    <a href="login.html">Login</a>
+  </div>
+</nav>
 
-<!-- ================= PRODUCTS PAGE ================= -->
-<section class="page">
+<!-- ===== PAGE TITLE ===== -->
+<div class="page-title">
+  <h1>Our <span>Products</span></h1>
+  <p>Premium housekeeping & cleaning solutions you can trust</p>
+</div>
 
-  <h1>Our Products</h1>
-  <p style="margin-bottom:22px;color:#555;">
-    Premium quality cleaning solutions trusted by retailers,
-    distributors, and households.
-  </p>
+<!-- ===== PRODUCTS ===== -->
+<section class="products">
 
-  <!-- PRODUCTS GRID -->
-  <div class="dashboard-grid products-grid">
+  <div class="product-card">
+    <div class="product-icon">🧴</div>
+    <h3>Floor Cleaner</h3>
+    <p>Powerful cleaning formula that removes stains, kills germs, and leaves a fresh shine.</p>
+  </div>
 
-    <!-- PRODUCT CARD -->
-    <div class="dash-card product-card fade-up">
-      <img src="images/product1.jpg" alt="Floor Cleaner">
-      <h3>Floor Cleaner</h3>
-      <p>Powerful cleaning solution for all types of floors.</p>
-    </div>
+  <div class="product-card">
+    <div class="product-icon">🚽</div>
+    <h3>Toilet Cleaner</h3>
+    <p>Deep-cleaning solution for tough stains, odor control, and hygienic protection.</p>
+  </div>
 
-    <div class="dash-card product-card fade-up">
-      <img src="images/product2.jpg" alt="Toilet Cleaner">
-      <h3>Toilet Cleaner</h3>
-      <p>Deep cleaning formula for hygienic washrooms.</p>
-    </div>
+  <div class="product-card">
+    <div class="product-icon">🍽️</div>
+    <h3>Dishwash Liquid</h3>
+    <p>Gentle on hands, tough on grease — perfect for daily kitchen cleaning.</p>
+  </div>
 
-    <div class="dash-card product-card fade-up">
-      <img src="images/product3.jpg" alt="Dishwash Liquid">
-      <h3>Dishwash Liquid</h3>
-      <p>Tough on grease, gentle on hands.</p>
-    </div>
+  <div class="product-card">
+    <div class="product-icon">🖐️</div>
+    <h3>Hand Wash</h3>
+    <p>Skin-friendly handwash with antibacterial protection and pleasant fragrance.</p>
+  </div>
 
-    <div class="dash-card product-card fade-up">
-      <img src="images/product4.jpg" alt="Hand Wash">
-      <h3>Hand Wash</h3>
-      <p>Effective germ protection with pleasant fragrance.</p>
-    </div>
-
-    <!-- You can duplicate cards for all 19 products -->
+  <div class="product-card">
+    <div class="product-icon">🪟</div>
+    <h3>Glass Cleaner</h3>
+    <p>Crystal-clear shine for glass and mirrors without streaks or residue.</p>
   </div>
 
 </section>
 
-<!-- FOOTER -->
-<div id="footer-placeholder"></div>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-content">
+    © <span id="year"></span> All Rights Reserved | AMIGOS
+  </div>
+</footer>
 
-<!-- MAIN JS -->
-<script src="js/main.js"></script>
 <script>
-  function toggleMenu() {
-    document.querySelector(".nav-right").classList.toggle("active");
-  }
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn === "true") {
-      document.getElementById("loginBtn")?.style.display = "none";
-      document.getElementById("logoutBtn")?.style.display = "inline-block";
-    }
-  });
-
-  function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
-
-    alert("Logged out successfully");
-    window.location.replace("index.html");
-  }
-</script>
-<script src="js/main.js"></script>
-<script>
-(function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-  } else {
-    document.body.classList.remove("logged-in");
-  }
-})();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const welcomeBox = document.getElementById("welcomeBox");
-
-  if (loggedIn === "true" && userName && role) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-
-    if (welcomeBox) {
-      welcomeBox.innerHTML = `Welcome, <b>${userName}</b> 👋 (${role})`;
-      welcomeBox.style.display = "block";
-    }
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-
-  if (loggedIn === "true" && userName && welcome) {
-    welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-    welcome.style.display = "block";
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const userName = localStorage.getItem("userName");
-  const role = localStorage.getItem("role");
-
-  const welcome = document.getElementById("welcomeUser");
-  const loginBtn = document.getElementById("loginBtn");
-  const signupBtn = document.getElementById("signupBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  if (loggedIn === "true" && userName) {
-    if (welcome) {
-      welcome.innerHTML = `Welcome, ${userName} 👋 (${role})`;
-      welcome.style.display = "block";
-    }
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-  }
-});
-</script>
-<script src="main.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
