@@ -21,7 +21,7 @@ body{
   color:#fff;
 }
 
-/* ===== NAVBAR (SAME AS LOGIN) ===== */
+/* ===== NAVBAR ===== */
 .navbar{
   position:fixed;
   top:0;
@@ -37,21 +37,20 @@ body{
   z-index:1000;
 }
 
-/* ===== AMIGOS LOGO (EXACT SAME) ===== */
+/* ===== LOGO ===== */
 .logo{
   font-size:22px;
   font-weight:800;
   letter-spacing:1.5px;
   color:#38bdf8;
   text-decoration:none;
-  position:relative;
   animation:logoPulse 3s ease-in-out infinite;
   text-shadow:0 0 10px rgba(56,189,248,0.7);
 }
 
 @keyframes logoPulse{
-  0%,100%{ opacity:1; }
-  50%{ opacity:0.7; }
+  0%,100%{opacity:1;}
+  50%{opacity:0.7;}
 }
 
 .nav-links a{
@@ -66,7 +65,7 @@ body{
   color:#38bdf8;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO ===== */
 .hero{
   min-height:calc(100vh - 140px);
   display:flex;
@@ -75,6 +74,20 @@ body{
   align-items:center;
   text-align:center;
   padding:20px;
+}
+
+/* ===== BRAND IMAGE ===== */
+.brand-image{
+  width:180px;
+  max-width:80%;
+  margin-bottom:20px;
+  animation:floatImage 4s ease-in-out infinite;
+  filter:drop-shadow(0 15px 30px rgba(0,0,0,0.5));
+}
+
+@keyframes floatImage{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-10px); }
 }
 
 .hero h1{
@@ -89,13 +102,13 @@ body{
 }
 
 .hero p{
-  max-width:600px;
+  max-width:620px;
   font-size:18px;
   color:#cbd5f5;
   line-height:1.6;
 }
 
-/* ===== FOOTER (SAME AS LOGIN) ===== */
+/* ===== FOOTER ===== */
 .footer{
   position:fixed;
   bottom:0;
@@ -130,6 +143,9 @@ body{
   .hero p{
     font-size:16px;
   }
+  .brand-image{
+    width:140px;
+  }
 }
 </style>
 </head>
@@ -147,13 +163,18 @@ body{
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO SECTION ===== -->
 <section class="hero">
+
+  <!-- BRAND IMAGE -->
+  <img src="image/brand.png" alt="AMIGOS Brand" class="brand-image">
+
   <h1>Welcome to <span>AMIGOS</span></h1>
+
   <p>
     We manufacture and supply high-quality housekeeping products including
     floor cleaners, toilet cleaners, dishwash, handwash, and glass cleaners —
-    trusted by dealers and businesses.
+    trusted by dealers and businesses across regions.
   </p>
 </section>
 
