@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS | Admin Login</title>
+<title>AMIGOS | Login</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:"Segoe UI",sans-serif;
+  font-family:"Segoe UI", Arial, sans-serif;
 }
 
 body{
   min-height:100vh;
   background:linear-gradient(135deg,#020617,#0f172a);
-  display:flex;
-  flex-direction:column;
   padding-top:70px;
   padding-bottom:70px;
-  color:white;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
 }
 
-/* ===== NAVBAR ===== */
+/* ===== NAVBAR (Same as other pages) ===== */
 .navbar{
   position:fixed;
   top:0;
@@ -45,7 +45,7 @@ body{
   letter-spacing:1.5px;
   color:#38bdf8;
   text-decoration:none;
-  animation:logoPulse 3s infinite;
+  animation:logoPulse 3s ease-in-out infinite;
   text-shadow:0 0 10px rgba(56,189,248,0.7);
 }
 
@@ -55,9 +55,9 @@ body{
 }
 
 .nav-links a{
-  color:white;
+  color:#fff;
   text-decoration:none;
-  margin-left:20px;
+  margin-left:22px;
   font-size:15px;
   transition:0.3s;
 }
@@ -66,59 +66,51 @@ body{
   color:#38bdf8;
 }
 
-/* ===== LOGIN CONTAINER ===== */
-.login-container{
+/* ===== LOGIN CARD ===== */
+.container{
   flex:1;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
 }
 
-.login-box{
+.login-card{
   width:100%;
   max-width:400px;
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
   backdrop-filter:blur(15px);
   border-radius:15px;
-  padding:30px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.5);
+  padding:35px;
+  box-shadow:0 0 25px rgba(0,0,0,0.5);
   text-align:center;
-  animation:fadeIn 1s ease;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.login-box h2{
+.login-card h2{
   margin-bottom:20px;
   font-size:26px;
   color:#38bdf8;
 }
 
 .input-group{
-  margin-bottom:15px;
+  margin-bottom:18px;
   text-align:left;
 }
 
 .input-group label{
   font-size:14px;
-  display:block;
   margin-bottom:5px;
+  display:block;
 }
 
 .input-group input{
   width:100%;
   padding:10px;
-  border-radius:8px;
   border:none;
-  outline:none;
+  border-radius:8px;
   font-size:15px;
+  outline:none;
 }
 
-/* ===== BUTTON ===== */
 button{
   width:100%;
   padding:10px;
@@ -126,9 +118,8 @@ button{
   border-radius:8px;
   background:#38bdf8;
   color:#000;
-  font-weight:bold;
+  font-weight:600;
   cursor:pointer;
-  margin-top:10px;
   transition:0.3s;
 }
 
@@ -136,15 +127,30 @@ button:hover{
   background:#0ea5e9;
 }
 
+#otpSection{
+  display:none;
+}
+
+.message{
+  margin-top:12px;
+  font-size:14px;
+}
+
 /* ===== FOOTER ===== */
 .footer{
   position:fixed;
   bottom:0;
+  left:0;
   width:100%;
-  text-align:center;
-  padding:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background:rgba(15,23,42,0.95);
   backdrop-filter:blur(6px);
+  padding:12px 0;
+}
+
+.footer-content{
   font-size:14px;
 }
 </style>
@@ -152,7 +158,6 @@ button:hover{
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="index.html" class="logo">AMIGOS</a>
   <div class="nav-links">
@@ -162,59 +167,76 @@ button:hover{
   </div>
 </nav>
 
-<!-- LOGIN -->
-<div class="login-container">
-  <div class="login-box">
+<div class="container">
+  <div class="login-card">
     <h2>Admin Login</h2>
 
-    <div class="input-group">
-      <label>Mobile Number</label>
-      <input type="text" id="mobile" placeholder="Enter Admin Mobile">
+    <div id="mobileSection">
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input type="text" id="mobile" placeholder="Enter Admin Mobile Number">
+      </div>
+      <button onclick="sendOTP()">Send OTP</button>
     </div>
 
-    <button onclick="sendOTP()">Send OTP</button>
-
-    <div class="input-group" id="otpSection" style="display:none;">
-      <label>Enter OTP</label>
-      <input type="text" id="otpInput" placeholder="Enter OTP">
+    <div id="otpSection">
+      <div class="input-group">
+        <label>Enter OTP</label>
+        <input type="text" id="otp" placeholder="Enter 6-digit OTP">
+      </div>
       <button onclick="verifyOTP()">Verify & Login</button>
     </div>
+
+    <div class="message" id="message"></div>
 
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
-  © <span id="year"></span> All Rights Reserved | AMIGOS
+  <div class="footer-content">
+    © <span id="year"></span> All Rights Reserved | AMIGOS
+  </div>
 </footer>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 
-const adminMobile="8600051765, 9146466898"; // 🔒 CHANGE THIS TO YOUR ADMIN NUMBER
-let generatedOTP="";
+/* ===== ADD YOUR 2 ADMIN NUMBERS HERE ===== */
+const ADMIN_NUMBERS = ["8600051765", "9146466898"];  // 👈 CHANGE THESE
 
+let generatedOTP = "";
+
+/* ===== SEND OTP ===== */
 function sendOTP(){
-  const mobile=document.getElementById("mobile").value;
+  const mobile = document.getElementById("mobile").value.trim();
+  const message = document.getElementById("message");
 
-  if(mobile!==adminMobile){
-    alert("Access Denied! Only Admin can login.");
+  if(!ADMIN_NUMBERS.includes(mobile)){
+    message.style.color = "#f87171";
+    message.textContent = "Access Denied. Only Admin Allowed.";
     return;
   }
 
-  generatedOTP=Math.floor(100000+Math.random()*900000);
-  alert("Demo OTP: "+generatedOTP); // Remove in real system
-  document.getElementById("otpSection").style.display="block";
+  generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  alert("Demo OTP: " + generatedOTP);  // Remove when backend added
+
+  document.getElementById("mobileSection").style.display = "none";
+  document.getElementById("otpSection").style.display = "block";
+
+  message.style.color = "#4ade80";
+  message.textContent = "OTP Sent Successfully!";
 }
 
+/* ===== VERIFY OTP ===== */
 function verifyOTP(){
-  const userOTP=document.getElementById("otpInput").value;
+  const otp = document.getElementById("otp").value.trim();
+  const message = document.getElementById("message");
 
-  if(userOTP==generatedOTP){
-    alert("Login Successful!");
-    window.location.href="admin-dashboard.html";
-  }else{
-    alert("Invalid OTP!");
+  if(otp === generatedOTP){
+    window.location.href = "admin-dashboard.html";
+  } else {
+    message.style.color = "#f87171";
+    message.textContent = "Invalid OTP!";
   }
 }
 </script>
