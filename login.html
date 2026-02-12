@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Login</title>
+<title>AMIGOS | Admin Login</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:"Segoe UI", Arial, sans-serif;
+  font-family:"Segoe UI",sans-serif;
 }
 
 body{
   min-height:100vh;
   background:linear-gradient(135deg,#020617,#0f172a);
+  display:flex;
+  flex-direction:column;
   padding-top:70px;
   padding-bottom:70px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  color:white;
 }
 
 /* ===== NAVBAR ===== */
@@ -39,27 +39,25 @@ body{
   z-index:1000;
 }
 
-/* ===== AMIGOS LOGO (HOME STYLE) ===== */
 .logo{
   font-size:22px;
   font-weight:800;
   letter-spacing:1.5px;
   color:#38bdf8;
   text-decoration:none;
-  position:relative;
-  animation:logoPulse 3s ease-in-out infinite;
+  animation:logoPulse 3s infinite;
   text-shadow:0 0 10px rgba(56,189,248,0.7);
 }
 
 @keyframes logoPulse{
-  0%,100%{ opacity:1; }
-  50%{ opacity:0.7; }
+  0%,100%{opacity:1;}
+  50%{opacity:0.7;}
 }
 
 .nav-links a{
-  color:#fff;
+  color:white;
   text-decoration:none;
-  margin-left:22px;
+  margin-left:20px;
   font-size:15px;
   transition:0.3s;
 }
@@ -68,139 +66,95 @@ body{
   color:#38bdf8;
 }
 
-/* ===== LOGIN CARD ===== */
-.login-card{
-  background:#fff;
+/* ===== LOGIN CONTAINER ===== */
+.login-container{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.login-box{
   width:100%;
-  max-width:380px;
-  padding:30px 25px;
-  border-radius:12px;
-  box-shadow:0 20px 45px rgba(0,0,0,0.35);
-}
-
-/* ===== LOGIN TITLE ===== */
-.login-title{
+  max-width:400px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:15px;
+  padding:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.5);
   text-align:center;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#0f172a;
-  animation:floatText 3s ease-in-out infinite;
+  animation:fadeIn 1s ease;
 }
 
-.login-title span{
-  color:#2563eb;
-  text-shadow:0 0 8px rgba(37,99,235,0.6);
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-@keyframes floatText{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-5px); }
-}
-
-/* ===== SUB TEXT ===== */
-.sub-text{
-  text-align:center;
-  font-size:14px;
+.login-box h2{
   margin-bottom:20px;
-  color:#475569;
+  font-size:26px;
+  color:#38bdf8;
 }
 
-/* ===== INPUTS ===== */
-.input-field{
-  width:100%;
-  height:45px;
-  padding:10px 12px;
+.input-group{
   margin-bottom:15px;
-  font-size:15px;
-  border-radius:6px;
-  border:1px solid #cbd5e1;
-  outline:none;
+  text-align:left;
 }
 
-.input-field:focus{
-  border-color:#2563eb;
+.input-group label{
+  font-size:14px;
+  display:block;
+  margin-bottom:5px;
+}
+
+.input-group input{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  font-size:15px;
 }
 
 /* ===== BUTTON ===== */
-.login-btn{
+button{
   width:100%;
-  height:45px;
-  background:#2563eb;
-  color:#fff;
-  font-size:16px;
+  padding:10px;
   border:none;
-  border-radius:6px;
+  border-radius:8px;
+  background:#38bdf8;
+  color:#000;
+  font-weight:bold;
   cursor:pointer;
+  margin-top:10px;
   transition:0.3s;
 }
 
-.login-btn:hover{
-  background:#1d4ed8;
-}
-
-/* ===== SIGNUP LINK ===== */
-.signup-link{
-  text-align:center;
-  margin-top:15px;
-  font-size:14px;
-}
-
-.signup-link a{
-  color:#2563eb;
-  text-decoration:none;
-  font-weight:600;
-}
-
-.signup-link a:hover{
-  text-decoration:underline;
+button:hover{
+  background:#0ea5e9;
 }
 
 /* ===== FOOTER ===== */
 .footer{
   position:fixed;
   bottom:0;
-  left:0;
   width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  text-align:center;
+  padding:12px;
   background:rgba(15,23,42,0.95);
   backdrop-filter:blur(6px);
-  padding:12px 0;
-}
-
-.footer-content{
-  color:#fff;
   font-size:14px;
-}
-
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-  .nav-links a{
-    margin-left:14px;
-    font-size:14px;
-  }
-  .logo{
-    font-size:20px;
-  }
-  .login-title{
-    font-size:26px;
-  }
-  .input-field{
-    height:48px;
-    font-size:16px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <a href="index.html" class="logo">AMIGOS</a>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
@@ -208,41 +162,62 @@ body{
   </div>
 </nav>
 
-<!-- ===== LOGIN CARD ===== -->
-<div class="login-card">
-  <div class="login-title">
-    <span>AMIGOS</span> Login
-  </div>
-  <div class="sub-text">Welcome back! Please login to continue</div>
+<!-- LOGIN -->
+<div class="login-container">
+  <div class="login-box">
+    <h2>Admin Login</h2>
 
-  <select class="input-field">
-    <option value="">Select Role</option>
-    <option>Admin</option>
-    <option>Retailor</option>
-    <option>Distributor</option>
-  </select>
+    <div class="input-group">
+      <label>Mobile Number</label>
+      <input type="text" id="mobile" placeholder="Enter Admin Mobile">
+    </div>
 
-  <input type="tel" class="input-field" placeholder="Mobile Number">
+    <button onclick="sendOTP()">Send OTP</button>
 
-  <button class="login-btn">Login</button>
+    <div class="input-group" id="otpSection" style="display:none;">
+      <label>Enter OTP</label>
+      <input type="text" id="otpInput" placeholder="Enter OTP">
+      <button onclick="verifyOTP()">Verify & Login</button>
+    </div>
 
-  <div class="signup-link">
-    Already have an account?
-    <a href="signup.html">Sign up</a>
   </div>
 </div>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-content">
-    © <span id="year"></span> All Rights Reserved | AMIGOS
-  </div>
+  © <span id="year"></span> All Rights Reserved | AMIGOS
 </footer>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const adminMobile="8600051765, 9146466898"; // 🔒 CHANGE THIS TO YOUR ADMIN NUMBER
+let generatedOTP="";
+
+function sendOTP(){
+  const mobile=document.getElementById("mobile").value;
+
+  if(mobile!==adminMobile){
+    alert("Access Denied! Only Admin can login.");
+    return;
+  }
+
+  generatedOTP=Math.floor(100000+Math.random()*900000);
+  alert("Demo OTP: "+generatedOTP); // Remove in real system
+  document.getElementById("otpSection").style.display="block";
+}
+
+function verifyOTP(){
+  const userOTP=document.getElementById("otpInput").value;
+
+  if(userOTP==generatedOTP){
+    alert("Login Successful!");
+    window.location.href="admin-dashboard.html";
+  }else{
+    alert("Invalid OTP!");
+  }
+}
 </script>
 
 </body>
 </html>
-
