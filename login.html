@@ -23,7 +23,7 @@ body{
   flex-direction:column;
 }
 
-/* ===== NAVBAR (Same as other pages) ===== */
+/* NAVBAR */
 .navbar{
   position:fixed;
   top:0;
@@ -36,37 +36,22 @@ body{
   align-items:center;
   justify-content:space-between;
   padding:0 25px;
-  z-index:1000;
 }
 
 .logo{
   font-size:22px;
   font-weight:800;
-  letter-spacing:1.5px;
   color:#38bdf8;
   text-decoration:none;
-  animation:logoPulse 3s ease-in-out infinite;
-  text-shadow:0 0 10px rgba(56,189,248,0.7);
-}
-
-@keyframes logoPulse{
-  0%,100%{opacity:1;}
-  50%{opacity:0.7;}
 }
 
 .nav-links a{
   color:#fff;
   text-decoration:none;
-  margin-left:22px;
-  font-size:15px;
-  transition:0.3s;
+  margin-left:20px;
 }
 
-.nav-links a:hover{
-  color:#38bdf8;
-}
-
-/* ===== LOGIN CARD ===== */
+/* LOGIN CARD */
 .container{
   flex:1;
   display:flex;
@@ -74,40 +59,37 @@ body{
   align-items:center;
 }
 
-.login-card{
+.card{
   width:100%;
-  max-width:400px;
+  max-width:420px;
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(15px);
   border-radius:15px;
-  padding:35px;
+  padding:30px;
   box-shadow:0 0 25px rgba(0,0,0,0.5);
-  text-align:center;
 }
 
-.login-card h2{
+.card h2{
+  text-align:center;
   margin-bottom:20px;
-  font-size:26px;
   color:#38bdf8;
 }
 
 .input-group{
-  margin-bottom:18px;
-  text-align:left;
+  margin-bottom:15px;
 }
 
-.input-group label{
+label{
   font-size:14px;
-  margin-bottom:5px;
   display:block;
+  margin-bottom:5px;
 }
 
-.input-group input{
+input, select{
   width:100%;
   padding:10px;
   border:none;
   border-radius:8px;
-  font-size:15px;
   outline:none;
 }
 
@@ -120,7 +102,6 @@ button{
   color:#000;
   font-weight:600;
   cursor:pointer;
-  transition:0.3s;
 }
 
 button:hover{
@@ -134,24 +115,17 @@ button:hover{
 .message{
   margin-top:12px;
   font-size:14px;
+  text-align:center;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer{
   position:fixed;
   bottom:0;
-  left:0;
   width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  text-align:center;
+  padding:10px;
   background:rgba(15,23,42,0.95);
-  backdrop-filter:blur(6px);
-  padding:12px 0;
-}
-
-.footer-content{
-  font-size:14px;
 }
 </style>
 </head>
@@ -168,75 +142,141 @@ button:hover{
 </nav>
 
 <div class="container">
-  <div class="login-card">
-    <h2>Admin Login</h2>
+<div class="card">
 
-    <div id="mobileSection">
-      <div class="input-group">
-        <label>Mobile Number</label>
-        <input type="text" id="mobile" placeholder="Enter Admin Mobile Number">
-      </div>
-      <button onclick="sendOTP()">Send OTP</button>
-    </div>
+<h2>Login</h2>
 
-    <div id="otpSection">
-      <div class="input-group">
-        <label>Enter OTP</label>
-        <input type="text" id="otp" placeholder="Enter 6-digit OTP">
-      </div>
-      <button onclick="verifyOTP()">Verify & Login</button>
-    </div>
-
-    <div class="message" id="message"></div>
-
+<!-- ROLE + MOBILE -->
+<div id="loginSection">
+  <div class="input-group">
+    <label>Select Role</label>
+    <select id="role">
+      <option value="">Choose Role</option>
+      <option value="admin">Admin</option>
+      <option value="distributor">Distributor</option>
+      <option value="retailer">Retailer</option>
+    </select>
   </div>
+
+  <div class="input-group">
+    <label>Mobile Number</label>
+    <input type="text" id="mobile" placeholder="Enter Mobile Number">
+  </div>
+
+  <button onclick="sendOTP()">Send OTP</button>
+</div>
+
+<!-- OTP SECTION -->
+<div id="otpSection">
+  <div class="input-group">
+    <label>Enter OTP</label>
+    <input type="text" id="otp" placeholder="Enter 6-digit OTP">
+  </div>
+  <button onclick="verifyOTP()">Verify & Login</button>
+</div>
+
+<div class="message" id="message"></div>
+
+</div>
 </div>
 
 <footer class="footer">
-  <div class="footer-content">
-    © <span id="year"></span> All Rights Reserved | AMIGOS
-  </div>
+  © <span id="year"></span> AMIGOS | All Rights Reserved
 </footer>
 
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ===== ADD YOUR 2 ADMIN NUMBERS HERE ===== */
-const ADMIN_NUMBERS = ["8600051765", "9146466898"];  // 👈 CHANGE THESE
+/* ===== ADMIN NUMBERS ===== */
+const ADMIN_NUMBERS = ["8600051765","9146466898"];
+
+/* ===== REGISTERED DISTRIBUTORS ===== */
+const DISTRIBUTORS = [
+  { mobile: "9000000001", name: "Raj Distributor" },
+  { mobile: "9000000002", name: "Sharma Enterprises" }
+];
+
+/* ===== REGISTERED RETAILERS ===== */
+const RETAILERS = [
+  { mobile: "8000000001", name: "Amit Retailer" },
+  { mobile: "8000000002", name: "Kiran Stores" }
+];
 
 let generatedOTP = "";
+let currentUser = null;
 
-/* ===== SEND OTP ===== */
 function sendOTP(){
+  const role = document.getElementById("role").value;
   const mobile = document.getElementById("mobile").value.trim();
   const message = document.getElementById("message");
 
-  if(!ADMIN_NUMBERS.includes(mobile)){
-    message.style.color = "#f87171";
-    message.textContent = "Access Denied. Only Admin Allowed.";
+  if(!role || !mobile){
+    message.style.color="red";
+    message.textContent="Please select role and enter mobile number.";
     return;
   }
 
+  if(role === "admin"){
+    if(!ADMIN_NUMBERS.includes(mobile)){
+      message.style.color="red";
+      message.textContent="Access denied. Admin only.";
+      return;
+    }
+    currentUser = { role:"admin" };
+  }
+
+  if(role === "distributor"){
+    const user = DISTRIBUTORS.find(u => u.mobile === mobile);
+    if(!user){
+      message.style.color="red";
+      message.textContent="You are not registered. Please register for free.";
+      return;
+    }
+    currentUser = { role:"distributor", name:user.name };
+  }
+
+  if(role === "retailer"){
+    const user = RETAILERS.find(u => u.mobile === mobile);
+    if(!user){
+      message.style.color="red";
+      message.textContent="You are not registered. Please register for free.";
+      return;
+    }
+    currentUser = { role:"retailer", name:user.name };
+  }
+
   generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-  alert("Demo OTP: " + generatedOTP);  // Remove when backend added
+  alert("Demo OTP: " + generatedOTP);
 
-  document.getElementById("mobileSection").style.display = "none";
-  document.getElementById("otpSection").style.display = "block";
+  document.getElementById("loginSection").style.display="none";
+  document.getElementById("otpSection").style.display="block";
 
-  message.style.color = "#4ade80";
-  message.textContent = "OTP Sent Successfully!";
+  message.style.color="lightgreen";
+  message.textContent="OTP Sent Successfully!";
 }
 
-/* ===== VERIFY OTP ===== */
 function verifyOTP(){
   const otp = document.getElementById("otp").value.trim();
   const message = document.getElementById("message");
 
-  if(otp === generatedOTP){
-    window.location.href = "admin-dashboard.html";
-  } else {
-    message.style.color = "#f87171";
-    message.textContent = "Invalid OTP!";
+  if(otp !== generatedOTP){
+    message.style.color="red";
+    message.textContent="Invalid OTP!";
+    return;
+  }
+
+  if(currentUser.role === "admin"){
+    window.location.href="admin-dashboard.html";
+  }
+
+  if(currentUser.role === "distributor"){
+    localStorage.setItem("userName", currentUser.name);
+    window.location.href="dealer-dashboard.html";
+  }
+
+  if(currentUser.role === "retailer"){
+    localStorage.setItem("userName", currentUser.name);
+    window.location.href="retailer-dashboard.html";
   }
 }
 </script>
