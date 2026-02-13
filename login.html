@@ -21,7 +21,6 @@ display:flex;
 flex-direction:column;
 }
 
-/* ===== NAVBAR ===== */
 .navbar{
 position:fixed;
 top:0;
@@ -31,7 +30,7 @@ background:rgba(15,23,42,0.95);
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:0 25px;
+padding:0 20px;
 }
 
 .logo{
@@ -43,30 +42,26 @@ font-size:20px;
 
 .nav-links a{
 color:white;
-margin-left:20px;
+margin-left:15px;
 text-decoration:none;
+font-size:14px;
 }
 
-.nav-links a:hover{
-color:#38bdf8;
-}
-
-/* ===== LOGIN CARD ===== */
 .container{
 flex:1;
 display:flex;
 justify-content:center;
 align-items:center;
-padding-top:80px;
-padding-bottom:40px;
+padding:80px 15px 20px 15px;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(12px);
-padding:35px;
+padding:30px;
 border-radius:15px;
-width:380px;
+width:100%;
+max-width:380px;
 }
 
 .card h2{
@@ -75,10 +70,9 @@ margin-bottom:20px;
 color:#38bdf8;
 }
 
-/* SAME SIZE INPUTS */
 .input-field{
 width:100%;
-height:42px;
+height:45px;
 padding:10px;
 margin-bottom:15px;
 border:none;
@@ -88,7 +82,7 @@ font-size:15px;
 
 button{
 width:100%;
-height:42px;
+height:45px;
 background:#38bdf8;
 border:none;
 border-radius:8px;
@@ -116,22 +110,11 @@ font-size:14px;
 color:#38bdf8;
 text-decoration:none;
 }
-
-/* ===== FOOTER ===== */
-.footer{
-height:50px;
-background:rgba(15,23,42,0.95);
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:14px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
 <a href="index.html" class="logo">AMIGOS</a>
 <div class="nav-links">
@@ -166,13 +149,8 @@ Not registered? <a href="signup.html">Sign Up Free</a>
 </div>
 </div>
 
-<div class="footer">
-© 2026 AMIGOS | All Rights Reserved
-</div>
-
 <script>
 
-/* ===== ADMIN NUMBERS ===== */
 const ADMIN_NUMBERS=["8600051765","9146466898"];
 
 function login(){
@@ -181,42 +159,39 @@ let mobile=document.getElementById("mobile").value.trim();
 let msg=document.getElementById("msg");
 
 if(!role||!mobile){
-msg.innerHTML="Please fill all fields.";
 msg.style.color="red";
+msg.innerHTML="Please fill all fields.";
 return;
 }
 
-/* ===== ADMIN LOGIN ===== */
+/* ===== ADMIN ===== */
 if(role==="admin"){
 if(!ADMIN_NUMBERS.includes(mobile)){
-msg.innerHTML="Only authorized admin allowed.";
 msg.style.color="red";
+msg.innerHTML="Unauthorized admin number.";
 return;
 }
-localStorage.setItem("role","admin");
 window.location="admin-dashboard.html";
 return;
 }
 
-/* ===== NORMAL USERS ===== */
 let users=JSON.parse(localStorage.getItem("users"))||[];
-
 let user=users.find(u=>u.mobile===mobile && u.role===role);
 
 if(!user){
-msg.innerHTML="You are not registered. Please register for free.";
 msg.style.color="red";
+msg.innerHTML="You are not registered. Please sign up first.";
 return;
 }
 
+/* ===== DISTRIBUTOR CHECK ===== */
 if(role==="distributor" && user.status!=="approved"){
-msg.innerHTML="Distributor request pending approval.";
 msg.style.color="orange";
+msg.innerHTML="Your request is pending approval.";
 return;
 }
 
 localStorage.setItem("userName",user.name);
-localStorage.setItem("role",role);
 
 if(role==="distributor") window.location="dealer-dashboard.html";
 if(role==="retailer") window.location="retailer-dashboard.html";
