@@ -2,6 +2,8 @@
 <html>
 <head>
 <title>Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
 margin:0;
@@ -11,12 +13,28 @@ color:white;
 padding:20px;
 }
 
-h1{color:#38bdf8;}
+.navbar{
+height:60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(15,23,42,0.95);
+padding:0 20px;
+}
+
+.logo{
+color:#38bdf8;
+font-weight:bold;
+text-decoration:none;
+}
+
+h1{color:#38bdf8;margin-top:20px;}
 
 .table{
 width:100%;
 margin-top:20px;
 border-collapse:collapse;
+background:rgba(255,255,255,0.05);
 }
 
 .table th,.table td{
@@ -26,24 +44,34 @@ text-align:center;
 }
 
 button{
-padding:5px 10px;
+padding:6px 12px;
 background:#38bdf8;
 border:none;
 border-radius:6px;
 cursor:pointer;
 }
+
+button:hover{
+background:#0ea5e9;
+}
 </style>
 </head>
+
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="navbar">
+<a href="index.html" class="logo">AMIGOS Admin</a>
+<a href="login.html" style="color:white;text-decoration:none;">Logout</a>
+</div>
 
-<h2>Pending Distributor Requests</h2>
+<h1>Pending Distributor Requests</h1>
+
 <table class="table" id="pendingTable">
-<tr><th>Name</th><th>Mobile</th><th>Action</th></tr>
+<tr><th>Name</th><th>Mobile</th><th>Approve</th></tr>
 </table>
 
-<h2>Approved Users</h2>
+<h1>Approved Users</h1>
+
 <table class="table" id="approvedTable">
 <tr><th>Name</th><th>Mobile</th><th>Role</th></tr>
 </table>
@@ -56,23 +84,25 @@ let pendingTable=document.getElementById("pendingTable");
 let approvedTable=document.getElementById("approvedTable");
 
 users.forEach((u,index)=>{
+
 if(u.role==="distributor" && u.status==="pending"){
-let row=`<tr>
+pendingTable.innerHTML+=`
+<tr>
 <td>${u.name}</td>
 <td>${u.mobile}</td>
 <td><button onclick="approve(${index})">Approve</button></td>
 </tr>`;
-pendingTable.innerHTML+=row;
 }
 
 if(u.status==="approved"){
-let row=`<tr>
+approvedTable.innerHTML+=`
+<tr>
 <td>${u.name}</td>
 <td>${u.mobile}</td>
 <td>${u.role}</td>
 </tr>`;
-approvedTable.innerHTML+=row;
 }
+
 });
 
 function approve(i){
