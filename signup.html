@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AMIGOS | Signup</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS | Sign Up</title>
+
 <style>
 body{
 margin:0;
@@ -12,26 +15,30 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+padding:15px;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
 padding:30px;
 border-radius:15px;
-width:350px;
+width:100%;
+max-width:380px;
 }
 
-input,select{
+.input-field{
 width:100%;
+height:45px;
 padding:10px;
-margin-bottom:10px;
+margin-bottom:15px;
 border:none;
 border-radius:8px;
 }
 
 button{
 width:100%;
-padding:10px;
+height:45px;
 background:#38bdf8;
 border:none;
 border-radius:8px;
@@ -42,12 +49,12 @@ font-weight:bold;
 <body>
 
 <div class="card">
-<h2>Register Free</h2>
+<h2 style="text-align:center;color:#38bdf8;">Register Free</h2>
 
-<input type="text" id="name" placeholder="Full Name">
-<input type="text" id="mobile" placeholder="Mobile Number">
+<input type="text" id="name" class="input-field" placeholder="Full Name">
+<input type="text" id="mobile" class="input-field" placeholder="Mobile Number">
 
-<select id="role">
+<select id="role" class="input-field">
 <option value="distributor">Distributor</option>
 <option value="retailer">Retailer</option>
 </select>
@@ -59,22 +66,34 @@ font-weight:bold;
 <script>
 
 function register(){
-let name=document.getElementById("name").value;
-let mobile=document.getElementById("mobile").value;
+
+let name=document.getElementById("name").value.trim();
+let mobile=document.getElementById("mobile").value.trim();
 let role=document.getElementById("role").value;
+
+if(!name||!mobile){
+alert("Fill all fields");
+return;
+}
 
 let users=JSON.parse(localStorage.getItem("users"))||[];
 
-users.push({
-name:name,
-mobile:mobile,
-role:role,
-status: role==="distributor"?"pending":"approved"
-});
+if(users.find(u=>u.mobile===mobile)){
+alert("Mobile already registered!");
+return;
+}
 
+let status=role==="distributor"?"pending":"approved";
+
+users.push({name:name,mobile:mobile,role:role,status:status});
 localStorage.setItem("users",JSON.stringify(users));
 
-alert("Registered Successfully!");
+if(role==="distributor"){
+alert("Thank you for registration. Your request is pending for approval.");
+}else{
+alert("Registration successful. You can login now.");
+}
+
 window.location="login.html";
 }
 
