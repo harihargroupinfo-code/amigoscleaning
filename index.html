@@ -130,6 +130,16 @@ font-size:28px;
 font-size:15px;
 }
 }
+  
+<script>
+let loggedUser=JSON.parse(localStorage.getItem("loggedUser"));
+if(loggedUser){
+document.write(`<div class="welcome">
+Welcome ${loggedUser.name} (${loggedUser.role})
+</div>`);
+}
+          
+</script>
 
 </style>
 </head>
@@ -168,3 +178,4 @@ Explore Products
 
 </body>
 </html>
+
