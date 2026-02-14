@@ -3,308 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Portal</title>
+<title>AMIGOS | Home</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
 
 body{
 background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 min-height:100vh;
+display:flex;
+flex-direction:column;
 color:white;
 }
 
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:12px 20px;
+padding:15px 25px;
 background:rgba(0,0,0,0.4);
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:10px;
-animation: glow 2s infinite alternate;
-}
-
-.logo img{height:40px;}
-
-.logo span{
-font-size:22px;
+font-size:26px;
 font-weight:bold;
+letter-spacing:2px;
+animation: glow 2s infinite alternate;
+cursor:pointer;
 }
 
 @keyframes glow{
-from{text-shadow:0 0 5px #00f7ff;}
-to{text-shadow:0 0 20px #00f7ff;}
+from{
+color:#00f7ff;
+text-shadow:0 0 5px #00f7ff, 0 0 10px #00f7ff;
+}
+to{
+color:white;
+text-shadow:0 0 20px #00f7ff, 0 0 30px #00f7ff;
+}
 }
 
 .nav a{
 color:white;
-margin-left:20px;
 text-decoration:none;
+margin-left:25px;
 font-weight:bold;
+transition:0.3s;
 }
 
-.nav a:hover{color:#00f7ff;}
-
-/* BOX */
-.container{
-max-width:400px;
-margin:40px auto;
-background:rgba(255,255,255,0.1);
-padding:25px;
-border-radius:15px;
-backdrop-filter:blur(15px);
-box-shadow:0 0 20px rgba(0,0,0,0.5);
-}
-
-h2{text-align:center;margin-bottom:20px;}
-
-input,select,button{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:none;
-font-size:14px;
-}
-
-button{
-background:#00f7ff;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{background:#00c0cc;}
-
-.link{
-text-align:center;
-margin-top:10px;
+.nav a:hover{
 color:#00f7ff;
-cursor:pointer;
 }
 
-.dashboard{
-display:none;
+/* ===== HERO SECTION ===== */
+.hero{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 padding:20px;
 }
 
-.card{
-background:rgba(255,255,255,0.1);
+.hero h1{
+font-size:42px;
+margin-bottom:20px;
+animation: glow 3s infinite alternate;
+}
+
+.hero p{
+max-width:600px;
+font-size:18px;
+opacity:0.9;
+}
+
+.hero button{
+margin-top:25px;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+background:#00f7ff;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.hero button:hover{
+background:#00c0cc;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+background:rgba(0,0,0,0.5);
+text-align:center;
 padding:15px;
-margin:15px 0;
-border-radius:10px;
+backdrop-filter:blur(10px);
 }
 
-.logout{
-background:red;
-margin-top:15px;
+@media(max-width:768px){
+
+.logo{
+font-size:20px;
 }
 
-@media(max-width:480px){
-.container{margin:20px;}
+.nav a{
+margin-left:15px;
+font-size:14px;
 }
+
+.hero h1{
+font-size:28px;
+}
+
+.hero p{
+font-size:15px;
+}
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- TOPBAR -->
+<!-- ===== TOP NAVIGATION ===== -->
 <div class="topbar">
-<div class="logo">
-<img src="image/brand.png">
-<span>AMIGOS</span>
-</div>
+<div class="logo">AMIGOS</div>
+
 <div class="nav">
-<a href="#">Home</a>
-<a href="#">Products</a>
-<a href="#">Contact</a>
+<a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="contact.html">Contact</a>
+<a href="login.html">Login</a>
 </div>
 </div>
 
-<!-- LOGIN -->
-<div class="container" id="loginBox">
-<h2>Login</h2>
+<!-- ===== HERO SECTION ===== -->
+<div class="hero">
+<h1>Welcome to AMIGOS</h1>
+<p>
+Premium Manufacturer of Toilet Cleaner, Floor Cleaner, Dishwash, Handwash, and Glass Cleaner.
+Delivering Quality & Hygiene Across Every Home.
+</p>
 
-<select id="role">
-<option value="">Select Role</option>
-<option value="admin">Admin</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
-
-<input type="text" id="mobile" placeholder="Mobile Number">
-
-<button onclick="sendOTP()">Send OTP</button>
-
-<input type="text" id="otp" placeholder="Enter OTP">
-
-<button onclick="login()">Login</button>
-
-<div class="link" onclick="showSignup()">Sign Up Free</div>
+<button onclick="location.href='products.html'">
+Explore Products
+</button>
 </div>
 
-<!-- SIGNUP -->
-<div class="container" id="signupBox" style="display:none;">
-<h2>Free Registration</h2>
-
-<select id="signupRole">
-<option value="">Select Role</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
-
-<input type="text" id="signupName" placeholder="Full Name">
-<input type="text" id="signupMobile" placeholder="Mobile Number">
-
-<button onclick="signup()">Register</button>
-
-<div class="link" onclick="showLogin()">Already Registered? Login Here</div>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+© 2026 AMIGOS | All Rights Reserved.
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard"></div>
-
-<script>
-let generatedOTP="";
-let adminNumbers=["9146466898","8600051765"];
-
-function showSignup(){
-loginBox.style.display="none";
-signupBox.style.display="block";
-}
-
-function showLogin(){
-signupBox.style.display="none";
-loginBox.style.display="block";
-}
-
-function signup(){
-let role=signupRole.value;
-let name=signupName.value;
-let mobile=signupMobile.value;
-
-if(!role||!name||!mobile){alert("Fill all fields");return;}
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-
-if(users.find(u=>u.mobile==mobile)){
-alert("Mobile already registered");
-return;
-}
-
-let status= role=="distributor"?"pending":"approved";
-users.push({role,name,mobile,status});
-localStorage.setItem("users",JSON.stringify(users));
-
-if(role=="distributor"){
-alert("Thank you! Your request is pending for admin approval.");
-}else{
-alert("Registration successful! You can login.");
-}
-
-showLogin();
-}
-
-function sendOTP(){
-if(!mobile.value){alert("Enter mobile");return;}
-generatedOTP=Math.floor(1000+Math.random()*9000);
-alert("Demo OTP: "+generatedOTP);
-}
-
-function login(){
-if(otp.value!=generatedOTP){alert("Invalid OTP");return;}
-
-let roleValue=role.value;
-let mobileValue=mobile.value;
-
-if(roleValue=="admin"){
-if(adminNumbers.includes(mobileValue)){
-showAdmin();
-}else{alert("Unauthorized admin");}
-return;
-}
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-let user=users.find(u=>u.mobile==mobileValue && u.role==roleValue);
-
-if(!user){alert("Not registered. Please sign up.");return;}
-
-if(roleValue=="distributor" && user.status!="approved"){
-alert("Not approved yet.");
-return;
-}
-
-showUser(user);
-}
-
-function showAdmin(){
-loginBox.style.display="none";
-dashboard.style.display="block";
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-let pending=users.filter(u=>u.role=="distributor" && u.status=="pending");
-
-let html="<h2>Admin Dashboard</h2>";
-
-html+="<div class='card'><b>Pending Distributor Requests</b>";
-if(pending.length==0){html+="<p>No Pending Requests</p>";}
-pending.forEach((u,i)=>{
-html+=`<p>${u.name} - ${u.mobile}
-<button onclick="approve('${u.mobile}')">Approve</button></p>`;
-});
-html+="</div>";
-
-html+="<div class='card'><b>Approved Users</b>";
-users.forEach(u=>{
-if(u.status=="approved"){
-html+=`<p>${u.name} - ${u.mobile} (${u.role})</p>`;
-}
-});
-html+="</div>";
-
-html+=`<button onclick="exportExcel()">Export Distributor Data</button>`;
-html+=`<button class="logout" onclick="logout()">Logout</button>`;
-
-dashboard.innerHTML=html;
-}
-
-function approve(mobileNum){
-let users=JSON.parse(localStorage.getItem("users"))||[];
-users.forEach(u=>{
-if(u.mobile==mobileNum){u.status="approved";}
-});
-localStorage.setItem("users",JSON.stringify(users));
-alert("Approved!");
-showAdmin();
-}
-
-function showUser(user){
-loginBox.style.display="none";
-dashboard.style.display="block";
-
-let html=`<h2>Welcome ${user.name}</h2>`;
-html+=`<div class="card">${user.role.toUpperCase()} Dashboard</div>`;
-html+=`<button class="logout" onclick="logout()">Logout</button>`;
-
-dashboard.innerHTML=html;
-}
-
-function logout(){
-dashboard.style.display="none";
-loginBox.style.display="block";
-mobile.value="";
-otp.value="";
-}
-
-function exportExcel(){
-window.location.href="AMIGOS_Distributor_Data.xlsx";
-}
-</script>
 
 </body>
 </html>
