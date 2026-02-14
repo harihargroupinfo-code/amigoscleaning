@@ -1,89 +1,255 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Dashboard</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS Portal</title>
 
 <style>
-body{
+*{
 margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#020617,#0f172a);
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+min-height:100vh;
 color:white;
-padding:20px;
+overflow-x:hidden;
 }
 
-h1{color:#38bdf8;}
-
-.table{
+/* PARTICLES */
+#particles-js{
+position:fixed;
 width:100%;
-margin-top:20px;
-border-collapse:collapse;
-background:rgba(255,255,255,0.05);
+height:100%;
+z-index:-1;
 }
 
-.table th,.table td{
-border:1px solid #444;
-padding:8px;
-text-align:center;
+/* TOPBAR */
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 20px;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:22px;
+font-weight:bold;
+animation: glow 2s infinite alternate;
+}
+
+.logo img{
+height:40px;
+}
+
+@keyframes glow{
+from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
+to{color:white;text-shadow:0 0 20px #00f7ff;}
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.nav a:hover{color:#00f7ff;}
+
+.container{
+max-width:400px;
+margin:40px auto;
+background:rgba(255,255,255,0.1);
+padding:25px;
+border-radius:15px;
+backdrop-filter:blur(15px);
+box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+input,select,button{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:none;
+font-size:14px;
 }
 
 button{
-padding:5px 10px;
-background:#38bdf8;
-border:none;
-border-radius:6px;
+background:#00f7ff;
+font-weight:bold;
 cursor:pointer;
+}
+
+button:hover{background:#00c0cc;}
+
+.logout{
+background:red;
+}
+
+.dashboard{
+display:none;
+padding:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.1);
+padding:15px;
+margin:15px 0;
+border-radius:10px;
+}
+
+.deleteBtn{
+background:#ff4d4d;
+margin-top:5px;
+}
+
+@media(max-width:480px){
+.container{margin:20px;}
 }
 </style>
 </head>
 <body>
 
-<h1>Pending Distributor Requests</h1>
-<table class="table" id="pendingTable">
-<tr><th>Name</th><th>Mobile</th><th>Action</th></tr>
-</table>
+<div id="particles-js"></div>
 
-<h1>Approved Users</h1>
-<table class="table" id="approvedTable">
-<tr><th>Name</th><th>Mobile</th><th>Role</th></tr>
-</table>
+<!-- TOPBAR -->
+<div class="topbar">
+<div class="logo">
+<img src="image/brand.png">
+<span>AMIGOS</span>
+</div>
+<div class="nav">
+<a href="index.html">Home</a>
+<a href="#">Products</a>
+<a href="#">Contact</a>
+</div>
+</div>
+
+<!-- LOGIN -->
+<div class="container" id="loginBox">
+<h2 style="text-align:center;">Login</h2>
+
+<select id="role">
+<option value="">Select Role</option>
+<option value="admin">Admin</option>
+<option value="distributor">Distributor</option>
+<option value="retailer">Retailer</option>
+</select>
+
+<input type="text" id="mobile" placeholder="Mobile Number">
+<button onclick="sendOTP()">Send OTP</button>
+
+<input type="text" id="otp" placeholder="Enter OTP">
+<button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard"></div>
+
+<!-- PARTICLE SCRIPT -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles-js", {
+particles: {
+number: { value: 60 },
+color: { value: "#00f7ff" },
+shape: { type: "circle" },
+opacity: { value: 0.5 },
+size: { value: 3 },
+line_linked: { enable: true, color: "#00f7ff" },
+move: { enable: true, speed: 2 }
+}
+});
+</script>
 
 <script>
+let generatedOTP="";
+let adminNumbers=["9146466898","8600051765"];
+
+function sendOTP(){
+generatedOTP=Math.floor(1000+Math.random()*9000);
+alert("Demo OTP: "+generatedOTP);
+}
+
+function login(){
+if(otp.value!=generatedOTP){alert("Invalid OTP");return;}
+
+if(role.value=="admin"){
+if(adminNumbers.includes(mobile.value)){
+showAdmin();
+}else{
+alert("Unauthorized Admin");
+}
+}
+}
+
+function showAdmin(){
+loginBox.style.display="none";
+dashboard.style.display="block";
 
 let users=JSON.parse(localStorage.getItem("users"))||[];
 
-let pending=document.getElementById("pendingTable");
-let approved=document.getElementById("approvedTable");
+let distributors=users.filter(u=>u.role=="distributor");
+let retailers=users.filter(u=>u.role=="retailer");
 
-users.forEach((u,index)=>{
+let html=`<div class="topbar">
+<div class="logo">
+<img src="image/brand.png">
+<span>AMIGOS</span>
+</div>
+</div>`;
 
-if(u.role==="distributor" && u.status==="pending"){
-pending.innerHTML+=`
-<tr>
-<td>${u.name}</td>
-<td>${u.mobile}</td>
-<td><button onclick="approve(${index})">Approve</button></td>
-</tr>`;
-}
+html+=`<h2>Admin Dashboard</h2>`;
 
-if(u.status==="approved"){
-approved.innerHTML+=`
-<tr>
-<td>${u.name}</td>
-<td>${u.mobile}</td>
-<td>${u.role}</td>
-</tr>`;
-}
-
+html+=`<div class="card"><b>Distributors</b>`;
+distributors.forEach(u=>{
+html+=`
+<p>${u.name} - ${u.mobile} (${u.status})
+<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
+</p>`;
 });
+html+=`</div>`;
 
-function approve(i){
-users[i].status="approved";
-localStorage.setItem("users",JSON.stringify(users));
-location.reload();
+html+=`<div class="card"><b>Retailers</b>`;
+retailers.forEach(u=>{
+html+=`
+<p>${u.name} - ${u.mobile}
+<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
+</p>`;
+});
+html+=`</div>`;
+
+html+=`<button class="logout" onclick="logout()">Logout</button>`;
+
+dashboard.innerHTML=html;
 }
 
+function deleteUser(mobile){
+if(confirm("Are you sure you want to delete?")){
+if(confirm("This action cannot be undone. Confirm delete?")){
+let users=JSON.parse(localStorage.getItem("users"))||[];
+users=users.filter(u=>u.mobile!=mobile);
+localStorage.setItem("users",JSON.stringify(users));
+alert("User Deleted");
+showAdmin();
+}
+}
+}
+
+function logout(){
+dashboard.style.display="none";
+loginBox.style.display="block";
+}
 </script>
 
 </body>
