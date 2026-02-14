@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Login</title>
+<title>AMIGOS Portal</title>
 
 <style>
 *{
@@ -17,14 +17,23 @@ body{
 background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 min-height:100vh;
 color:white;
+overflow-x:hidden;
 }
 
-/* TOP BAR */
+/* PARTICLES */
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* TOPBAR */
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:10px 20px;
+padding:12px 20px;
 background:rgba(0,0,0,0.4);
 backdrop-filter:blur(10px);
 }
@@ -33,29 +42,29 @@ backdrop-filter:blur(10px);
 display:flex;
 align-items:center;
 gap:10px;
+font-size:22px;
+font-weight:bold;
+animation: glow 2s infinite alternate;
 }
 
 .logo img{
 height:40px;
 }
 
-.logo span{
-font-size:20px;
-font-weight:bold;
+@keyframes glow{
+from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
+to{color:white;text-shadow:0 0 20px #00f7ff;}
 }
 
 .nav a{
 color:white;
-margin-left:20px;
 text-decoration:none;
+margin-left:20px;
 font-weight:bold;
 }
 
-.nav a:hover{
-color:#00f7ff;
-}
+.nav a:hover{color:#00f7ff;}
 
-/* CONTAINER */
 .container{
 max-width:400px;
 margin:40px auto;
@@ -64,17 +73,6 @@ padding:25px;
 border-radius:15px;
 backdrop-filter:blur(15px);
 box-shadow:0 0 20px rgba(0,0,0,0.5);
-}
-
-h2{
-text-align:center;
-margin-bottom:20px;
-animation: glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{text-shadow:0 0 5px #00f7ff;}
-to{text-shadow:0 0 20px #00f7ff;}
 }
 
 input,select,button{
@@ -92,15 +90,10 @@ font-weight:bold;
 cursor:pointer;
 }
 
-button:hover{
-background:#00c0cc;
-}
+button:hover{background:#00c0cc;}
 
-.link{
-text-align:center;
-margin-top:10px;
-cursor:pointer;
-color:#00f7ff;
+.logout{
+background:red;
 }
 
 .dashboard{
@@ -111,8 +104,13 @@ padding:20px;
 .card{
 background:rgba(255,255,255,0.1);
 padding:15px;
-margin:10px 0;
+margin:15px 0;
 border-radius:10px;
+}
+
+.deleteBtn{
+background:#ff4d4d;
+margin-top:5px;
 }
 
 @media(max-width:480px){
@@ -122,14 +120,16 @@ border-radius:10px;
 </head>
 <body>
 
-<!-- TOP BAR -->
+<div id="particles-js"></div>
+
+<!-- TOPBAR -->
 <div class="topbar">
 <div class="logo">
 <img src="image/brand.png">
 <span>AMIGOS</span>
 </div>
 <div class="nav">
-<a href="#">Home</a>
+<a href="index.html">Home</a>
 <a href="#">Products</a>
 <a href="#">Contact</a>
 </div>
@@ -137,7 +137,7 @@ border-radius:10px;
 
 <!-- LOGIN -->
 <div class="container" id="loginBox">
-<h2>AMIGOS Login</h2>
+<h2 style="text-align:center;">Login</h2>
 
 <select id="role">
 <option value="">Select Role</option>
@@ -146,175 +146,110 @@ border-radius:10px;
 <option value="retailer">Retailer</option>
 </select>
 
-<input type="text" id="mobile" placeholder="Enter Mobile Number">
-
+<input type="text" id="mobile" placeholder="Mobile Number">
 <button onclick="sendOTP()">Send OTP</button>
 
 <input type="text" id="otp" placeholder="Enter OTP">
-
 <button onclick="login()">Login</button>
-
-<div class="link" onclick="showSignup()">Sign Up Free</div>
-</div>
-
-<!-- SIGNUP -->
-<div class="container" id="signupBox" style="display:none;">
-<h2>Free Registration</h2>
-
-<select id="signupRole">
-<option value="">Select Role</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
-
-<input type="text" id="signupName" placeholder="Enter Name">
-<input type="text" id="signupMobile" placeholder="Enter Mobile">
-
-<button onclick="signup()">Register</button>
-
-<div class="link" onclick="showLogin()">Back to Login</div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="dashboard" id="dashboard"></div>
 
+<!-- PARTICLE SCRIPT -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
+particlesJS("particles-js", {
+particles: {
+number: { value: 60 },
+color: { value: "#00f7ff" },
+shape: { type: "circle" },
+opacity: { value: 0.5 },
+size: { value: 3 },
+line_linked: { enable: true, color: "#00f7ff" },
+move: { enable: true, speed: 2 }
+}
+});
+</script>
 
+<script>
 let generatedOTP="";
 let adminNumbers=["9146466898","8600051765"];
 
-function showSignup(){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("signupBox").style.display="block";
-}
-
-function showLogin(){
-document.getElementById("signupBox").style.display="none";
-document.getElementById("loginBox").style.display="block";
-}
-
-function signup(){
-let role=document.getElementById("signupRole").value;
-let name=document.getElementById("signupName").value;
-let mobile=document.getElementById("signupMobile").value;
-
-if(role==""||name==""||mobile==""){
-alert("Fill all fields");
-return;
-}
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-
-if(users.find(u=>u.mobile==mobile)){
-alert("Mobile already registered");
-return;
-}
-
-let status= role=="distributor"?"pending":"approved";
-
-users.push({role,name,mobile,status});
-localStorage.setItem("users",JSON.stringify(users));
-
-if(role=="distributor"){
-alert("Thank you for registration. Your request is pending for approval.");
-}else{
-alert("Registration successful. You can login now.");
-}
-
-showLogin();
-}
-
 function sendOTP(){
-let mobile=document.getElementById("mobile").value;
-if(mobile==""){alert("Enter mobile");return;}
-
 generatedOTP=Math.floor(1000+Math.random()*9000);
 alert("Demo OTP: "+generatedOTP);
 }
 
 function login(){
-let role=document.getElementById("role").value;
-let mobile=document.getElementById("mobile").value;
-let otp=document.getElementById("otp").value;
+if(otp.value!=generatedOTP){alert("Invalid OTP");return;}
 
-if(otp!=generatedOTP){
-alert("Invalid OTP");
-return;
-}
-
-if(role=="admin"){
-if(adminNumbers.includes(mobile)){
+if(role.value=="admin"){
+if(adminNumbers.includes(mobile.value)){
 showAdmin();
 }else{
-alert("Not authorized admin");
+alert("Unauthorized Admin");
 }
-return;
 }
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-let user=users.find(u=>u.mobile==mobile && u.role==role);
-
-if(!user){
-alert("You are not registered. Please register first.");
-return;
-}
-
-if(role=="distributor" && user.status!="approved"){
-alert("Your request is not approved yet.");
-return;
-}
-
-showUser(user);
 }
 
 function showAdmin(){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("dashboard").style.display="block";
+loginBox.style.display="none";
+dashboard.style.display="block";
 
 let users=JSON.parse(localStorage.getItem("users"))||[];
-let pending=users.filter(u=>u.role=="distributor" && u.status=="pending");
 
-let html="<h2>Admin Dashboard</h2>";
-html+="<div class='card'><b>Pending Distributor Requests</b>";
+let distributors=users.filter(u=>u.role=="distributor");
+let retailers=users.filter(u=>u.role=="retailer");
 
-pending.forEach((u,i)=>{
-html+=`<p>${u.name} - ${u.mobile} 
-<button onclick="approve(${i})">Approve</button></p>`;
+let html=`<div class="topbar">
+<div class="logo">
+<img src="image/brand.png">
+<span>AMIGOS</span>
+</div>
+</div>`;
+
+html+=`<h2>Admin Dashboard</h2>`;
+
+html+=`<div class="card"><b>Distributors</b>`;
+distributors.forEach(u=>{
+html+=`
+<p>${u.name} - ${u.mobile} (${u.status})
+<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
+</p>`;
 });
+html+=`</div>`;
 
-html+="</div>";
-
-html+="<div class='card'><b>All Users</b>";
-users.forEach(u=>{
-if(u.status=="approved"){
-html+=`<p>${u.name} - ${u.mobile} (${u.role})</p>`;
-}
+html+=`<div class="card"><b>Retailers</b>`;
+retailers.forEach(u=>{
+html+=`
+<p>${u.name} - ${u.mobile}
+<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
+</p>`;
 });
-html+="</div>";
+html+=`</div>`;
 
-document.getElementById("dashboard").innerHTML=html;
+html+=`<button class="logout" onclick="logout()">Logout</button>`;
+
+dashboard.innerHTML=html;
 }
 
-function approve(index){
+function deleteUser(mobile){
+if(confirm("Are you sure you want to delete?")){
+if(confirm("This action cannot be undone. Confirm delete?")){
 let users=JSON.parse(localStorage.getItem("users"))||[];
-let pending=users.filter(u=>u.role=="distributor" && u.status=="pending");
-let user=pending[index];
-user.status="approved";
+users=users.filter(u=>u.mobile!=mobile);
 localStorage.setItem("users",JSON.stringify(users));
-alert("Approved Successfully");
+alert("User Deleted");
 showAdmin();
 }
-
-function showUser(user){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("dashboard").style.display="block";
-
-let html=`<h2>Welcome ${user.name}</h2>`;
-html+=`<div class="card">${user.role.toUpperCase()} Dashboard</div>`;
-
-document.getElementById("dashboard").innerHTML=html;
+}
 }
 
+function logout(){
+dashboard.style.display="none";
+loginBox.style.display="block";
+}
 </script>
 
 </body>
