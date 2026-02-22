@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Portal</title>
+<title>AMIGOS Admin Dashboard</title>
 
 <style>
 *{
@@ -17,239 +17,210 @@ body{
 background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 min-height:100vh;
 color:white;
-overflow-x:hidden;
-}
-
-/* PARTICLES */
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-/* TOPBAR */
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 20px;
-background:rgba(0,0,0,0.4);
-backdrop-filter:blur(10px);
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:22px;
-font-weight:bold;
-animation: glow 2s infinite alternate;
-}
-
-.logo img{
-height:40px;
-}
-
-@keyframes glow{
-from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
-to{color:white;text-shadow:0 0 20px #00f7ff;}
-}
-
-.nav a{
-color:white;
-text-decoration:none;
-margin-left:20px;
-font-weight:bold;
-}
-
-.nav a:hover{color:#00f7ff;}
-
-.container{
-max-width:400px;
-margin:40px auto;
-background:rgba(255,255,255,0.1);
-padding:25px;
-border-radius:15px;
-backdrop-filter:blur(15px);
-box-shadow:0 0 20px rgba(0,0,0,0.5);
-}
-
-input,select,button{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:none;
-font-size:14px;
-}
-
-button{
-background:#00f7ff;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{background:#00c0cc;}
-
-.logout{
-background:red;
-}
-
-.dashboard{
-display:none;
 padding:20px;
 }
 
-.card{
-background:rgba(255,255,255,0.1);
-padding:15px;
-margin:15px 0;
-border-radius:10px;
+/* TOP LEFT BRANDING ONLY */
+.branding{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:30px;
+animation: glow 2s infinite alternate;
+}
+
+.branding img{
+height:50px;
+width:auto;
+object-fit:contain;
+}
+
+.branding span{
+font-size:26px;
+font-weight:bold;
+letter-spacing:2px;
+}
+
+@keyframes glow{
+from{
+color:#00f7ff;
+text-shadow:0 0 5px #00f7ff;
+}
+to{
+color:white;
+text-shadow:0 0 20px #00f7ff;
+}
+}
+
+/* GLASS TABLE CONTAINER */
+.section{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+backdrop-filter:blur(15px);
+margin-bottom:30px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+overflow-x:auto;
+}
+
+h2{
+margin-bottom:15px;
+}
+
+/* TABLE DESIGN */
+table{
+width:100%;
+border-collapse:collapse;
+min-width:600px;
+}
+
+th, td{
+padding:12px;
+text-align:left;
+border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+th{
+background:rgba(0,0,0,0.4);
+}
+
+tr:hover{
+background:rgba(255,255,255,0.05);
 }
 
 .deleteBtn{
 background:#ff4d4d;
-margin-top:5px;
+border:none;
+padding:6px 10px;
+border-radius:5px;
+color:white;
+cursor:pointer;
 }
 
-@media(max-width:480px){
-.container{margin:20px;}
+.deleteBtn:hover{
+background:#cc0000;
+}
+
+.logout{
+background:red;
+padding:10px 15px;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+margin-top:10px;
+}
+
+@media(max-width:768px){
+.branding span{
+font-size:20px;
+}
+table{
+font-size:13px;
+}
 }
 </style>
 </head>
+
 <body>
 
-<div id="particles-js"></div>
-
-<!-- TOPBAR -->
-<div class="topbar">
-<div class="logo">
-<img src="image/brand.png">
+<!-- TOP LEFT BRANDING -->
+<div class="branding">
+<img src="image/brand.png" alt="AMIGOS Logo">
 <span>AMIGOS</span>
 </div>
-<div class="nav">
-<a href="index.html">Home</a>
-<a href="#">Products</a>
-<a href="#">Contact</a>
-</div>
-</div>
 
-<!-- LOGIN -->
-<div class="container" id="loginBox">
-<h2 style="text-align:center;">Login</h2>
-
-<select id="role">
-<option value="">Select Role</option>
-<option value="admin">Admin</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
-
-<input type="text" id="mobile" placeholder="Mobile Number">
-<button onclick="sendOTP()">Send OTP</button>
-
-<input type="text" id="otp" placeholder="Enter OTP">
-<button onclick="login()">Login</button>
+<!-- DISTRIBUTOR TABLE -->
+<div class="section">
+<h2>Distributors</h2>
+<table id="distributorTable">
+<thead>
+<tr>
+<th>Name</th>
+<th>Mobile</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard"></div>
+<!-- RETAILER TABLE -->
+<div class="section">
+<h2>Retailers</h2>
+<table id="retailerTable">
+<thead>
+<tr>
+<th>Name</th>
+<th>Mobile</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
 
-<!-- PARTICLE SCRIPT -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-particles: {
-number: { value: 60 },
-color: { value: "#00f7ff" },
-shape: { type: "circle" },
-opacity: { value: 0.5 },
-size: { value: 3 },
-line_linked: { enable: true, color: "#00f7ff" },
-move: { enable: true, speed: 2 }
-}
-});
-</script>
+<button class="logout" onclick="logout()">Logout</button>
 
 <script>
-let generatedOTP="";
-let adminNumbers=["9146466898","8600051765"];
 
-function sendOTP(){
-generatedOTP=Math.floor(1000+Math.random()*9000);
-alert("Demo OTP: "+generatedOTP);
+function loadUsers(){
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+let distributorBody = document.querySelector("#distributorTable tbody");
+let retailerBody = document.querySelector("#retailerTable tbody");
+
+distributorBody.innerHTML="";
+retailerBody.innerHTML="";
+
+users.forEach(user=>{
+
+if(user.role==="distributor"){
+distributorBody.innerHTML += `
+<tr>
+<td>${user.name}</td>
+<td>${user.mobile}</td>
+<td>${user.status}</td>
+<td><button class="deleteBtn" onclick="deleteUser('${user.mobile}')">Delete</button></td>
+</tr>`;
 }
 
-function login(){
-if(otp.value!=generatedOTP){alert("Invalid OTP");return;}
-
-if(role.value=="admin"){
-if(adminNumbers.includes(mobile.value)){
-showAdmin();
-}else{
-alert("Unauthorized Admin");
-}
-}
+if(user.role==="retailer"){
+retailerBody.innerHTML += `
+<tr>
+<td>${user.name}</td>
+<td>${user.mobile}</td>
+<td><button class="deleteBtn" onclick="deleteUser('${user.mobile}')">Delete</button></td>
+</tr>`;
 }
 
-function showAdmin(){
-loginBox.style.display="none";
-dashboard.style.display="block";
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-
-let distributors=users.filter(u=>u.role=="distributor");
-let retailers=users.filter(u=>u.role=="retailer");
-
-let html=`<div class="topbar">
-<div class="logo">
-<img src="image/brand.png">
-<span>AMIGOS</span>
-</div>
-</div>`;
-
-html+=`<h2>Admin Dashboard</h2>`;
-
-html+=`<div class="card"><b>Distributors</b>`;
-distributors.forEach(u=>{
-html+=`
-<p>${u.name} - ${u.mobile} (${u.status})
-<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
-</p>`;
 });
-html+=`</div>`;
 
-html+=`<div class="card"><b>Retailers</b>`;
-retailers.forEach(u=>{
-html+=`
-<p>${u.name} - ${u.mobile}
-<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
-</p>`;
-});
-html+=`</div>`;
-
-html+=`<button class="logout" onclick="logout()">Logout</button>`;
-
-dashboard.innerHTML=html;
 }
 
 function deleteUser(mobile){
-if(confirm("Are you sure you want to delete?")){
+
+if(confirm("Are you sure you want to delete this user?")){
 if(confirm("This action cannot be undone. Confirm delete?")){
-let users=JSON.parse(localStorage.getItem("users"))||[];
-users=users.filter(u=>u.mobile!=mobile);
-localStorage.setItem("users",JSON.stringify(users));
-alert("User Deleted");
-showAdmin();
-}
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+users = users.filter(u=>u.mobile!==mobile);
+localStorage.setItem("users", JSON.stringify(users));
+
+loadUsers();
 }
 }
 
-function logout(){
-dashboard.style.display="none";
-loginBox.style.display="block";
 }
+
+function logout(){
+window.location.href="login.html";
+}
+
+loadUsers();
+
 </script>
 
 </body>
