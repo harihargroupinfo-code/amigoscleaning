@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMIGOS Business System</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+
+/* Top Branding */
+.brand-bar{
+    display:flex;
+    align-items:center;
+    padding:15px 30px;
+    font-size:28px;
+    font-weight:700;
+}
+
+.brand-bar img{
+    width:45px;
+    margin-right:12px;
+}
+
+.brand-name{
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{color:#00f2ff;}
+    to{color:#00ff88;}
+}
+
+/* Card Style */
+.card{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+    padding:20px;
+    margin:20px;
+    border-radius:15px;
+}
+
+input,select,button{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    background:#00ff88;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+/* Stats */
+.stats{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+
+.stat-box{
+    background:rgba(255,255,255,0.1);
+    padding:15px;
+    border-radius:12px;
+    width:180px;
+    text-align:center;
+    margin:10px;
+}
+</style>
+</head>
+<body>
+
+<!-- BRAND -->
+<div class="brand-bar">
+    <img src="image/brand.png">
+    <div class="brand-name">AMIGOS</div>
+</div>
+
+<!-- DASHBOARD STATS -->
+<div class="stats">
+    <div class="stat-box">
+        <h3 id="totalOrders">0</h3>
+        Orders
+    </div>
+    <div class="stat-box">
+        <h3 id="totalOutstanding">0</h3>
+        Outstanding ₹
+    </div>
+</div>
+
+<!-- ORDER PANEL -->
+<div class="card">
+<h2>Retailer Order Panel</h2>
+
+<select id="product">
+<option>Toilet Cleaner</option>
+<option>Floor Cleaner</option>
+<option>Handwash</option>
+<option>Dishwash</option>
+<option>Glass Cleaner</option>
+</select>
+
+<input type="number" id="qty" placeholder="Quantity">
+<input type="number" id="price" placeholder="Price per unit">
+
+<button onclick="placeOrder()">Place Order</button>
+</div>
+
+<!-- ORDER TABLE -->
+<div class="card">
+<h2>Order Management</h2>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Paid</th>
+<th>Outstanding</th>
+<th>Invoice</th>
+</tr>
+</thead>
+<tbody id="orderTable"></tbody>
+</table>
+</div>
+
+<script>
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+function updateDashboard(){
+    document.getElementById("totalOrders").innerText = orders.length;
+    let totalOutstanding = 0;
+    orders.forEach(o => totalOutstanding += o.outstanding);
+    document.getElementById("totalOutstanding").innerText = totalOutstanding;
+}
+
+function placeOrder(){
+    let product = document.getElementById("product").value;
+    let qty = parseInt(document.getElementById("qty").value);
+    let price = parseFloat(document.getElementById("price").value);
+
+    if(!qty || !price){
+        alert("Enter quantity & price");
+        return;
+    }
+
+    let total = qty * price;
+
+    let order = {
+        product,
+        qty,
+        total,
+        paid:0,
+        outstanding:total
+    };
+
+    orders.push(order);
+    localStorage.setItem("orders",JSON.stringify(orders));
+
+    document.getElementById("qty").value="";
+    document.getElementById("price").value="";
+
+    renderOrders();
+    sendWhatsApp(order);
+}
+
+function renderOrders(){
+    let table = document.getElementById("orderTable");
+    table.innerHTML="";
+
+    orders.forEach((o,index)=>{
+        table.innerHTML += `
+        <tr>
+            <td>${o.product}</td>
+            <td>${o.qty}</td>
+            <td>${o.total}</td>
+            <td>${o.paid}</td>
+            <td>${o.outstanding}</td>
+            <td><button onclick="generateInvoice(${index})">PDF</button></td>
+        </tr>
+        `;
+    });
+
+    updateDashboard();
+}
+
+function generateInvoice(index){
+    const { jsPDF } = window.jspdf;
+    let doc = new jsPDF();
+
+    let o = orders[index];
+
+    doc.text("AMIGOS INVOICE",20,20);
+    doc.text("Product: "+o.product,20,40);
+    doc.text("Quantity: "+o.qty,20,50);
+    doc.text("Total: ₹"+o.total,20,60);
+    doc.text("Outstanding: ₹"+o.outstanding,20,70);
+
+    doc.save("invoice.pdf");
+}
+
+function sendWhatsApp(order){
+    let message = `New Order:
+Product: ${order.product}
+Qty: ${order.qty}
+Total: ₹${order.total}`;
+
+    let url = "https://wa.me/919146466898?text=" + encodeURIComponent(message);
+    window.open(url,"_blank");
+}
+
+renderOrders();
+</script>
+
+</body>
+</html>
