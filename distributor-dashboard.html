@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distributor Panel - AMIGOS</title>
+
+<style>
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+font-family:Arial;
+padding:20px;
+}
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+}
+.brand img{height:45px;}
+.section{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+backdrop-filter:blur(10px);
+}
+input,select,button{
+padding:8px;
+margin:5px 0;
+border-radius:6px;
+border:none;
+}
+button{background:#00f7ff;font-weight:bold;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.2);}
+</style>
+</head>
+<body>
+
+<div class="brand">
+<img src="image/brand.png">
+<h2>AMIGOS Distributor Panel</h2>
+</div>
+
+<div class="section">
+<h3>Place Order</h3>
+
+<select id="productSelect"></select>
+<input type="number" id="qty" placeholder="Quantity">
+<button onclick="placeOrder()">Place Order</button>
+</div>
+
+<div class="section">
+<h3>Your Orders</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="orderTable"></tbody>
+</table>
+</div>
+
+<script>
+
+let user=JSON.parse(localStorage.getItem("loggedUser"));
+if(!user || user.role!="distributor"){
+alert("Access denied");
+window.location="login.html";
+}
+
+function loadProducts(){
+let products=JSON.parse(localStorage.getItem("products"))||[];
+let select=document.getElementById("productSelect");
+select.innerHTML="";
+products.forEach(p=>{
+select.innerHTML+=`<option value="${p.name}|${p.price}">
+${p.name} - ₹${p.price}</option>`;
+});
+}
+
+function placeOrder(){
+let data=document.getElementById("productSelect").value.split("|");
+let name=data[0];
+let price=parseInt(data[1]);
+let qty=parseInt(document.getElementById("qty").value);
+if(!qty) return;
+
+let total=price*qty;
+
+let orders=JSON.parse(localStorage.getItem("orders"))||[];
+orders.push({
+distributor:user.name,
+product:name,
+qty,
+total,
+status:"Pending",
+date:new Date().toLocaleDateString()
+});
+localStorage.setItem("orders",JSON.stringify(orders));
+
+renderOrders();
+alert("Order Placed Successfully");
+}
+
+function renderOrders(){
+let orders=JSON.parse(localStorage.getItem("orders"))||[];
+let html="";
+orders.filter(o=>o.distributor==user.name)
+.forEach(o=>{
+html+=`
+<tr>
+<td>${o.product}</td>
+<td>${o.qty}</td>
+<td>₹${o.total}</td>
+<td>${o.status}</td>
+</tr>`;
+});
+document.getElementById("orderTable").innerHTML=html;
+}
+
+loadProducts();
+renderOrders();
+
+</script>
+</body>
+</html>
