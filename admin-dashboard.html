@@ -6,158 +6,146 @@
 <title>AMIGOS Admin Dashboard</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 body{
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-min-height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
 padding:20px;
 }
 
-/* TOP LEFT BRANDING ONLY */
+/* Branding */
 .branding{
 display:flex;
 align-items:center;
 gap:12px;
-margin-bottom:30px;
-animation: glow 2s infinite alternate;
+margin-bottom:20px;
+animation:glow 2s infinite alternate;
 }
-
-.branding img{
-height:50px;
-width:auto;
-object-fit:contain;
-}
-
-.branding span{
-font-size:26px;
-font-weight:bold;
-letter-spacing:2px;
-}
-
+.branding img{height:50px;}
+.branding span{font-size:26px;font-weight:bold;}
 @keyframes glow{
-from{
-color:#00f7ff;
-text-shadow:0 0 5px #00f7ff;
-}
-to{
-color:white;
-text-shadow:0 0 20px #00f7ff;
-}
+from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
+to{color:white;text-shadow:0 0 20px #00f7ff;}
 }
 
-/* GLASS TABLE CONTAINER */
+/* Cards */
 .section{
 background:rgba(255,255,255,0.08);
 padding:20px;
 border-radius:15px;
-backdrop-filter:blur(15px);
-margin-bottom:30px;
+margin-bottom:25px;
+backdrop-filter:blur(10px);
 box-shadow:0 0 20px rgba(0,0,0,0.4);
 overflow-x:auto;
 }
 
-h2{
-margin-bottom:15px;
+/* Counters */
+.counters{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-bottom:25px;
+}
+.counter{
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:10px;
+text-align:center;
+font-size:18px;
 }
 
-/* TABLE DESIGN */
+/* Table */
 table{
 width:100%;
 border-collapse:collapse;
-min-width:600px;
+min-width:800px;
 }
-
-th, td{
-padding:12px;
-text-align:left;
+th,td{
+padding:10px;
 border-bottom:1px solid rgba(255,255,255,0.2);
 }
+th{background:rgba(0,0,0,0.4);}
+tr:hover{background:rgba(255,255,255,0.05);}
 
-th{
-background:rgba(0,0,0,0.4);
-}
-
-tr:hover{
-background:rgba(255,255,255,0.05);
-}
-
-.deleteBtn{
-background:#ff4d4d;
-border:none;
+/* Buttons */
+button{
 padding:6px 10px;
-border-radius:5px;
-color:white;
-cursor:pointer;
-}
-
-.deleteBtn:hover{
-background:#cc0000;
-}
-
-.logout{
-background:red;
-padding:10px 15px;
 border:none;
-border-radius:8px;
-color:white;
+border-radius:6px;
 cursor:pointer;
-margin-top:10px;
+}
+.delete{background:#ff4d4d;color:white;}
+.pay{background:#00c851;color:white;}
+.export{background:#00f7ff;margin-top:10px;}
+.logout{background:red;color:white;margin-top:15px;}
+
+input,select{
+padding:6px;
+border-radius:6px;
+border:none;
+margin-right:8px;
 }
 
 @media(max-width:768px){
-.branding span{
-font-size:20px;
-}
-table{
-font-size:13px;
-}
+table{font-size:12px;}
+.branding span{font-size:20px;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- TOP LEFT BRANDING -->
 <div class="branding">
-<img src="image/brand.png" alt="AMIGOS Logo">
+<img src="image/brand.png">
 <span>AMIGOS</span>
 </div>
 
-<!-- DISTRIBUTOR TABLE -->
+<!-- COUNTERS -->
+<div class="counters" id="counters"></div>
+
+<!-- SEARCH FILTER -->
 <div class="section">
-<h2>Distributors</h2>
-<table id="distributorTable">
+<h3>User Management</h3>
+<input type="text" id="search" placeholder="Search name or mobile" onkeyup="renderUsers()">
+<select id="roleFilter" onchange="renderUsers()">
+<option value="all">All</option>
+<option value="distributor">Distributor</option>
+<option value="retailer">Retailer</option>
+</select>
+
+<button class="export" onclick="exportExcel()">Export to Excel</button>
+
+<table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Mobile</th>
+<th>Role</th>
 <th>Status</th>
+<th>Outstanding</th>
 <th>Action</th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody id="userTable"></tbody>
 </table>
 </div>
 
-<!-- RETAILER TABLE -->
+<!-- PRODUCT MANAGEMENT -->
 <div class="section">
-<h2>Retailers</h2>
-<table id="retailerTable">
+<h3>Product Management</h3>
+
+<input type="text" id="productName" placeholder="Product Name">
+<input type="number" id="productPrice" placeholder="Price">
+<button onclick="addProduct()">Add Product</button>
+
+<table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Mobile</th>
+<th>Product</th>
+<th>Price</th>
 <th>Action</th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody id="productTable"></tbody>
 </table>
 </div>
 
@@ -165,62 +153,135 @@ font-size:13px;
 
 <script>
 
-function loadUsers(){
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-let distributorBody = document.querySelector("#distributorTable tbody");
-let retailerBody = document.querySelector("#retailerTable tbody");
-
-distributorBody.innerHTML="";
-retailerBody.innerHTML="";
-
-users.forEach(user=>{
-
-if(user.role==="distributor"){
-distributorBody.innerHTML += `
-<tr>
-<td>${user.name}</td>
-<td>${user.mobile}</td>
-<td>${user.status}</td>
-<td><button class="deleteBtn" onclick="deleteUser('${user.mobile}')">Delete</button></td>
-</tr>`;
+/* INITIAL LOAD */
+function init(){
+if(!localStorage.getItem("users")) localStorage.setItem("users","[]");
+if(!localStorage.getItem("products")) localStorage.setItem("products","[]");
+renderUsers();
+renderProducts();
+renderCounters();
 }
 
-if(user.role==="retailer"){
-retailerBody.innerHTML += `
-<tr>
-<td>${user.name}</td>
-<td>${user.mobile}</td>
-<td><button class="deleteBtn" onclick="deleteUser('${user.mobile}')">Delete</button></td>
-</tr>`;
+function renderCounters(){
+let users=JSON.parse(localStorage.getItem("users"));
+let totalD=users.filter(u=>u.role=="distributor").length;
+let totalR=users.filter(u=>u.role=="retailer").length;
+let pending=users.filter(u=>u.status=="pending").length;
+let approved=users.filter(u=>u.status=="approved").length;
+
+document.getElementById("counters").innerHTML=`
+<div class="counter">Distributors<br>${totalD}</div>
+<div class="counter">Retailers<br>${totalR}</div>
+<div class="counter">Pending<br>${pending}</div>
+<div class="counter">Approved<br>${approved}</div>
+`;
 }
 
+/* USER TABLE */
+function renderUsers(){
+let users=JSON.parse(localStorage.getItem("users"));
+let search=document.getElementById("search").value.toLowerCase();
+let roleFilter=document.getElementById("roleFilter").value;
+
+let html="";
+users.forEach(u=>{
+if((u.name.toLowerCase().includes(search) || u.mobile.includes(search))
+&& (roleFilter=="all" || roleFilter==u.role)){
+html+=`
+<tr>
+<td>${u.name}</td>
+<td>${u.mobile}</td>
+<td>${u.role}</td>
+<td>${u.status||"-"}</td>
+<td>₹ ${u.outstanding||0}</td>
+<td>
+<button class="pay" onclick="addOutstanding('${u.mobile}')">Add ₹</button>
+<button class="delete" onclick="deleteUser('${u.mobile}')">Delete</button>
+</td>
+</tr>`;
+}
 });
-
+document.getElementById("userTable").innerHTML=html;
 }
 
+/* DELETE */
 function deleteUser(mobile){
-
-if(confirm("Are you sure you want to delete this user?")){
-if(confirm("This action cannot be undone. Confirm delete?")){
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
-users = users.filter(u=>u.mobile!==mobile);
-localStorage.setItem("users", JSON.stringify(users));
-
-loadUsers();
+if(confirm("Delete user?")){
+if(confirm("Confirm permanent delete?")){
+let users=JSON.parse(localStorage.getItem("users"));
+users=users.filter(u=>u.mobile!=mobile);
+localStorage.setItem("users",JSON.stringify(users));
+renderUsers();
+renderCounters();
 }
 }
+}
 
+/* OUTSTANDING */
+function addOutstanding(mobile){
+let amount=prompt("Enter amount:");
+if(!amount) return;
+let users=JSON.parse(localStorage.getItem("users"));
+users.forEach(u=>{
+if(u.mobile==mobile){
+u.outstanding=(u.outstanding||0)+parseInt(amount);
+}
+});
+localStorage.setItem("users",JSON.stringify(users));
+renderUsers();
+}
+
+/* EXPORT */
+function exportExcel(){
+let users=JSON.parse(localStorage.getItem("users"));
+let csv="Name,Mobile,Role,Status,Outstanding\n";
+users.forEach(u=>{
+csv+=`${u.name},${u.mobile},${u.role},${u.status||""},${u.outstanding||0}\n`;
+});
+let blob=new Blob([csv],{type:"text/csv"});
+let link=document.createElement("a");
+link.href=URL.createObjectURL(blob);
+link.download="AMIGOS_Users.csv";
+link.click();
+}
+
+/* PRODUCT MANAGEMENT */
+function addProduct(){
+let name=document.getElementById("productName").value;
+let price=document.getElementById("productPrice").value;
+if(!name||!price) return;
+let products=JSON.parse(localStorage.getItem("products"));
+products.push({name,price});
+localStorage.setItem("products",JSON.stringify(products));
+renderProducts();
+}
+
+function renderProducts(){
+let products=JSON.parse(localStorage.getItem("products"));
+let html="";
+products.forEach((p,i)=>{
+html+=`
+<tr>
+<td>${p.name}</td>
+<td>₹ ${p.price}</td>
+<td><button class="delete" onclick="deleteProduct(${i})">Delete</button></td>
+</tr>`;
+});
+document.getElementById("productTable").innerHTML=html;
+}
+
+function deleteProduct(index){
+let products=JSON.parse(localStorage.getItem("products"));
+products.splice(index,1);
+localStorage.setItem("products",JSON.stringify(products));
+renderProducts();
 }
 
 function logout(){
 window.location.href="login.html";
 }
 
-loadUsers();
-
+init();
 </script>
 
 </body>
