@@ -1,288 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Admin Dashboard</title>
+<title>AMIGOS Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 body{
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
+font-family:Arial;
 padding:20px;
 }
-
-/* Branding */
-.branding{
+.brand{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 margin-bottom:20px;
 animation:glow 2s infinite alternate;
 }
-.branding img{height:50px;}
-.branding span{font-size:26px;font-weight:bold;}
+.brand img{height:50px;}
 @keyframes glow{
-from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
-to{color:white;text-shadow:0 0 20px #00f7ff;}
+from{color:#00f7ff;}
+to{color:white;text-shadow:0 0 15px #00f7ff;}
 }
-
-/* Cards */
 .section{
 background:rgba(255,255,255,0.08);
 padding:20px;
 border-radius:15px;
 margin-bottom:25px;
 backdrop-filter:blur(10px);
-box-shadow:0 0 20px rgba(0,0,0,0.4);
 overflow-x:auto;
 }
-
-/* Counters */
-.counters{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-margin-bottom:25px;
-}
-.counter{
-background:rgba(255,255,255,0.1);
-padding:15px;
-border-radius:10px;
-text-align:center;
-font-size:18px;
-}
-
-/* Table */
 table{
 width:100%;
 border-collapse:collapse;
-min-width:800px;
 }
 th,td{
-padding:10px;
+padding:8px;
 border-bottom:1px solid rgba(255,255,255,0.2);
 }
-th{background:rgba(0,0,0,0.4);}
-tr:hover{background:rgba(255,255,255,0.05);}
-
-/* Buttons */
 button{
-padding:6px 10px;
+padding:5px 8px;
 border:none;
-border-radius:6px;
+border-radius:5px;
 cursor:pointer;
 }
-.delete{background:#ff4d4d;color:white;}
-.pay{background:#00c851;color:white;}
-.export{background:#00f7ff;margin-top:10px;}
-.logout{background:red;color:white;margin-top:15px;}
-
-input,select{
-padding:6px;
-border-radius:6px;
-border:none;
-margin-right:8px;
-}
-
-@media(max-width:768px){
-table{font-size:12px;}
-.branding span{font-size:20px;}
-}
+.update{background:#00f7ff;}
 </style>
 </head>
 <body>
 
-<div class="branding">
+<div class="brand">
 <img src="image/brand.png">
-<span>AMIGOS</span>
+<h2>AMIGOS Admin Dashboard</h2>
 </div>
 
-<!-- COUNTERS -->
-<div class="counters" id="counters"></div>
-
-<!-- SEARCH FILTER -->
+<!-- ORDER MANAGEMENT -->
 <div class="section">
-<h3>User Management</h3>
-<input type="text" id="search" placeholder="Search name or mobile" onkeyup="renderUsers()">
-<select id="roleFilter" onchange="renderUsers()">
-<option value="all">All</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
-
-<button class="export" onclick="exportExcel()">Export to Excel</button>
-
+<h3>Order Management</h3>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Mobile</th>
-<th>Role</th>
-<th>Status</th>
-<th>Outstanding</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="userTable"></tbody>
-</table>
-</div>
-
-<!-- PRODUCT MANAGEMENT -->
-<div class="section">
-<h3>Product Management</h3>
-
-<input type="text" id="productName" placeholder="Product Name">
-<input type="number" id="productPrice" placeholder="Price">
-<button onclick="addProduct()">Add Product</button>
-
-<table>
-<thead>
-<tr>
+<th>Distributor</th>
 <th>Product</th>
-<th>Price</th>
-<th>Action</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Status</th>
+<th>Update</th>
 </tr>
 </thead>
-<tbody id="productTable"></tbody>
+<tbody id="orderTable"></tbody>
 </table>
 </div>
 
-<button class="logout" onclick="logout()">Logout</button>
+<!-- SALES CHART -->
+<div class="section">
+<h3>Sales Analytics</h3>
+<canvas id="salesChart"></canvas>
+</div>
 
 <script>
 
-/* INITIAL LOAD */
-function init(){
-if(!localStorage.getItem("users")) localStorage.setItem("users","[]");
-if(!localStorage.getItem("products")) localStorage.setItem("products","[]");
-renderUsers();
-renderProducts();
-renderCounters();
-}
-
-function renderCounters(){
-let users=JSON.parse(localStorage.getItem("users"));
-let totalD=users.filter(u=>u.role=="distributor").length;
-let totalR=users.filter(u=>u.role=="retailer").length;
-let pending=users.filter(u=>u.status=="pending").length;
-let approved=users.filter(u=>u.status=="approved").length;
-
-document.getElementById("counters").innerHTML=`
-<div class="counter">Distributors<br>${totalD}</div>
-<div class="counter">Retailers<br>${totalR}</div>
-<div class="counter">Pending<br>${pending}</div>
-<div class="counter">Approved<br>${approved}</div>
-`;
-}
-
-/* USER TABLE */
-function renderUsers(){
-let users=JSON.parse(localStorage.getItem("users"));
-let search=document.getElementById("search").value.toLowerCase();
-let roleFilter=document.getElementById("roleFilter").value;
-
+function renderOrders(){
+let orders=JSON.parse(localStorage.getItem("orders"))||[];
 let html="";
-users.forEach(u=>{
-if((u.name.toLowerCase().includes(search) || u.mobile.includes(search))
-&& (roleFilter=="all" || roleFilter==u.role)){
+orders.forEach((o,i)=>{
 html+=`
 <tr>
-<td>${u.name}</td>
-<td>${u.mobile}</td>
-<td>${u.role}</td>
-<td>${u.status||"-"}</td>
-<td>₹ ${u.outstanding||0}</td>
+<td>${o.distributor}</td>
+<td>${o.product}</td>
+<td>${o.qty}</td>
+<td>₹${o.total}</td>
+<td>${o.status}</td>
 <td>
-<button class="pay" onclick="addOutstanding('${u.mobile}')">Add ₹</button>
-<button class="delete" onclick="deleteUser('${u.mobile}')">Delete</button>
+<button class="update" onclick="updateStatus(${i})">
+Mark Delivered
+</button>
 </td>
 </tr>`;
+});
+document.getElementById("orderTable").innerHTML=html;
+renderChart();
+}
+
+function updateStatus(index){
+let orders=JSON.parse(localStorage.getItem("orders"));
+orders[index].status="Delivered";
+localStorage.setItem("orders",JSON.stringify(orders));
+renderOrders();
+}
+
+function renderChart(){
+let orders=JSON.parse(localStorage.getItem("orders"))||[];
+let salesByDistributor={};
+
+orders.forEach(o=>{
+if(o.status=="Delivered"){
+salesByDistributor[o.distributor]=(salesByDistributor[o.distributor]||0)+o.total;
 }
 });
-document.getElementById("userTable").innerHTML=html;
-}
 
-/* DELETE */
-function deleteUser(mobile){
-if(confirm("Delete user?")){
-if(confirm("Confirm permanent delete?")){
-let users=JSON.parse(localStorage.getItem("users"));
-users=users.filter(u=>u.mobile!=mobile);
-localStorage.setItem("users",JSON.stringify(users));
-renderUsers();
-renderCounters();
-}
-}
-}
-
-/* OUTSTANDING */
-function addOutstanding(mobile){
-let amount=prompt("Enter amount:");
-if(!amount) return;
-let users=JSON.parse(localStorage.getItem("users"));
-users.forEach(u=>{
-if(u.mobile==mobile){
-u.outstanding=(u.outstanding||0)+parseInt(amount);
+new Chart(document.getElementById("salesChart"),{
+type:"bar",
+data:{
+labels:Object.keys(salesByDistributor),
+datasets:[{
+label:"Sales ₹",
+data:Object.values(salesByDistributor),
+backgroundColor:"#00f7ff"
+}]
 }
 });
-localStorage.setItem("users",JSON.stringify(users));
-renderUsers();
 }
 
-/* EXPORT */
-function exportExcel(){
-let users=JSON.parse(localStorage.getItem("users"));
-let csv="Name,Mobile,Role,Status,Outstanding\n";
-users.forEach(u=>{
-csv+=`${u.name},${u.mobile},${u.role},${u.status||""},${u.outstanding||0}\n`;
-});
-let blob=new Blob([csv],{type:"text/csv"});
-let link=document.createElement("a");
-link.href=URL.createObjectURL(blob);
-link.download="AMIGOS_Users.csv";
-link.click();
-}
+renderOrders();
 
-/* PRODUCT MANAGEMENT */
-function addProduct(){
-let name=document.getElementById("productName").value;
-let price=document.getElementById("productPrice").value;
-if(!name||!price) return;
-let products=JSON.parse(localStorage.getItem("products"));
-products.push({name,price});
-localStorage.setItem("products",JSON.stringify(products));
-renderProducts();
-}
-
-function renderProducts(){
-let products=JSON.parse(localStorage.getItem("products"));
-let html="";
-products.forEach((p,i)=>{
-html+=`
-<tr>
-<td>${p.name}</td>
-<td>₹ ${p.price}</td>
-<td><button class="delete" onclick="deleteProduct(${i})">Delete</button></td>
-</tr>`;
-});
-document.getElementById("productTable").innerHTML=html;
-}
-
-function deleteProduct(index){
-let products=JSON.parse(localStorage.getItem("products"));
-products.splice(index,1);
-localStorage.setItem("products",JSON.stringify(products));
-renderProducts();
-}
-
-function logout(){
-window.location.href="login.html";
-}
-
-init();
 </script>
-
 </body>
 </html>
