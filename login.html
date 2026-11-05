@@ -15,8 +15,8 @@
 }
 
 body {
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     min-height: 100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     color: white;
     overflow-x: hidden;
 }
@@ -27,7 +27,7 @@ body {
     z-index: -1;
 }
 
-/* TOP BAR */
+/* HEADER */
 .topbar {
     display: flex;
     justify-content: flex-start;
@@ -67,7 +67,7 @@ body {
     }
 }
 
-/* LOGIN CONTAINER */
+/* LOGIN BOX */
 .container {
     width: calc(100% - 32px);
     max-width: 420px;
@@ -99,7 +99,7 @@ h2 {
     animation: glow 2s infinite alternate;
 }
 
-/* INPUT FIELDS */
+/* INPUTS */
 input, select {
     display: block;
     width: 100%;
@@ -110,7 +110,7 @@ input, select {
     border: 1px solid rgba(255,255,255,0.3);
     outline: none;
     font-size: 15px;
-    background: rgba(255,255,255,0.95);
+    background: white;
     color: #12344a;
 }
 
@@ -123,8 +123,8 @@ input:focus, select:focus {
 button {
     display: block;
     width: 100%;
-    min-height: 47px;
-    padding: 12px;
+    min-height: 45px;
+    padding: 11px;
     margin: 12px 0;
     border: none;
     border-radius: 9px;
@@ -137,7 +137,7 @@ button {
 }
 
 button:hover {
-    background: white;
+    filter: brightness(1.12);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,247,255,0.3);
 }
@@ -149,7 +149,6 @@ button:hover {
     padding-top: 18px;
     border-top: 1px solid rgba(255,255,255,0.2);
     font-size: 14px;
-    color: white;
     line-height: 1.6;
 }
 
@@ -162,23 +161,6 @@ button:hover {
     border-radius: 25px;
     font-weight: 800;
     text-decoration: none;
-    transition: 0.3s;
-}
-
-.register-link a:hover {
-    background: white;
-    transform: scale(1.04);
-}
-
-/* WELCOME */
-.welcome {
-    text-align: center;
-    margin: 20px auto;
-    padding: 15px;
-    font-size: 23px;
-    font-weight: bold;
-    color: #00f7ff;
-    text-shadow: 0 0 12px #00f7ff;
 }
 
 /* DASHBOARD */
@@ -187,11 +169,48 @@ button:hover {
     padding: 20px;
 }
 
+.welcome {
+    text-align: center;
+    margin: 20px auto;
+    padding: 15px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #00f7ff;
+    text-shadow: 0 0 12px #00f7ff;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 15px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.stat-card {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+}
+
+.stat-card h2 {
+    color: #00f7ff;
+    margin: 0 0 8px;
+}
+
+.stat-card p {
+    color: #e2e8f0;
+    font-size: 13px;
+}
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
     gap: 18px;
-    margin-top: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
 }
 
 .card {
@@ -208,17 +227,53 @@ button:hover {
 }
 
 .user-item {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid rgba(255,255,255,0.2);
-    line-height: 1.6;
+    line-height: 1.7;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.approved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.approveBtn {
+    background: #16a34a;
+    color: white;
+}
+
+.revokeBtn {
+    background: #64748b;
+    color: white;
+}
+
+.rejectBtn {
+    background: #ea580c;
+    color: white;
 }
 
 .deleteBtn {
-    background: #ff4d4d;
+    background: #dc2626;
     color: white;
-    min-height: 36px;
-    padding: 8px;
-    margin-top: 8px;
 }
 
 .logout {
@@ -231,22 +286,12 @@ button:hover {
 .empty {
     color: #cbd5e1;
     font-size: 14px;
+    padding: 10px 0;
 }
 
-/* MOBILE */
 @media(max-width:480px) {
     .topbar {
-        justify-content: flex-start;
         padding: 10px 16px;
-    }
-
-    .container {
-        margin: 25px auto;
-        padding: 22px 18px;
-    }
-
-    h2 {
-        font-size: 23px;
     }
 
     .logo {
@@ -256,6 +301,15 @@ button:hover {
     .logo img {
         height: 44px;
         width: 44px;
+    }
+
+    .container {
+        margin: 25px auto;
+        padding: 22px 18px;
+    }
+
+    h2 {
+        font-size: 23px;
     }
 
     .dashboard {
@@ -269,15 +323,15 @@ button:hover {
 
 <div id="particles-js"></div>
 
-<!-- CLICKABLE AMIGOS LOGO -->
+<!-- AMIGOS LOGO: CLICK TO GO HOME -->
 <header class="topbar">
     <a href="index.html" class="logo">
-        <img src="images/brand.png" alt="AMIGOS Brand Logo">
+        <img src="images/brand.png" alt="AMIGOS Logo">
         <span>AMIGOS</span>
     </a>
 </header>
 
-<!-- LOGIN BOX -->
+<!-- LOGIN -->
 <div class="container" id="loginBox">
 
     <h2>AMIGOS Login</h2>
@@ -298,7 +352,9 @@ button:hover {
         autocomplete="tel"
     >
 
-    <button type="button" onclick="sendOTP()">Send OTP</button>
+    <button type="button" onclick="sendOTP()">
+        Send OTP
+    </button>
 
     <input
         type="text"
@@ -309,7 +365,9 @@ button:hover {
         autocomplete="one-time-code"
     >
 
-    <button type="button" onclick="login()">Login</button>
+    <button type="button" onclick="login()">
+        Login
+    </button>
 
     <div class="register-link">
         Don't have an account?
@@ -327,6 +385,7 @@ button:hover {
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
+
 /* PARTICLES */
 if (typeof particlesJS !== "undefined") {
     particlesJS("particles-js", {
@@ -367,13 +426,19 @@ const adminNumbers = [
 /* GET USERS */
 function getUsers() {
     try {
-        return JSON.parse(localStorage.getItem("users")) || [];
+        const users = JSON.parse(localStorage.getItem("users"));
+        return Array.isArray(users) ? users : [];
     } catch (error) {
         return [];
     }
 }
 
-/* SEND OTP - DEMO VERSION */
+/* SAVE USERS */
+function saveUsers(users) {
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+/* SEND OTP - DEMO ONLY */
 function sendOTP() {
 
     const roleValue = roleInput.value;
@@ -406,20 +471,21 @@ function sendOTP() {
         );
 
         if (!user) {
-            alert("Registration required. Please sign up for free and join AMIGOS!");
-            return;
-        }
-
-        if (roleValue === "distributor" &&
-            user.status !== "approved" &&
-            user.approved !== true) {
-
-            alert("Your Distributor registration is awaiting Admin approval.");
+            alert("Registration required. Please sign up for free!");
             return;
         }
 
         if (user.status === "rejected") {
             alert("Your registration has been rejected. Please contact Admin.");
+            return;
+        }
+
+        if (
+            roleValue === "distributor" &&
+            user.status !== "approved" &&
+            user.approved !== true
+        ) {
+            alert("Your Distributor registration is awaiting Admin approval.");
             return;
         }
     }
@@ -430,8 +496,10 @@ function sendOTP() {
 
     otpExpiry = Date.now() + 5 * 60 * 1000;
 
-    alert("DEMO OTP: " + generatedOTP +
-          "\nThis is a testing OTP, not an SMS.");
+    alert(
+        "DEMO OTP: " + generatedOTP +
+        "\nThis is a testing OTP, not an SMS."
+    );
 
     otpInput.value = "";
 }
@@ -448,12 +516,17 @@ function login() {
         return;
     }
 
-    if (!generatedOTP ||
+    if (!/^[0-9]{10}$/.test(mobileValue)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (
+        !generatedOTP ||
         Date.now() > otpExpiry ||
-        enteredOTP !== generatedOTP) {
-
+        enteredOTP !== generatedOTP
+    ) {
         alert("Invalid or expired OTP. Please request a new OTP.");
-
         otpInput.value = "";
         generatedOTP = "";
         return;
@@ -472,7 +545,6 @@ function login() {
         }
 
         sessionStorage.setItem("adminLoggedIn", "true");
-
         showAdmin();
         return;
     }
@@ -490,16 +562,17 @@ function login() {
         return;
     }
 
-    if (roleValue === "distributor" &&
-        user.status !== "approved" &&
-        user.approved !== true) {
-
-        alert("Distributor approval is pending.");
+    if (user.status === "rejected") {
+        alert("Your registration has been rejected.");
         return;
     }
 
-    if (user.status === "rejected") {
-        alert("Your registration has been rejected.");
+    if (
+        roleValue === "distributor" &&
+        user.status !== "approved" &&
+        user.approved !== true
+    ) {
+        alert("Distributor approval is pending.");
         return;
     }
 
@@ -510,7 +583,7 @@ function login() {
     window.location.href = "index.html";
 }
 
-/* SAFE TEXT */
+/* SAFE HTML */
 function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, function(char) {
         return {
@@ -525,8 +598,12 @@ function escapeHTML(value) {
 
 /* ADMIN DASHBOARD */
 function showAdmin() {
-/* ADMIN DASHBOARD */
-function showAdmin() {
+
+    if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+        alert("Please login as Admin.");
+        window.location.href = "login.html";
+        return;
+    }
 
     loginBox.style.display = "none";
     dashboard.style.display = "block";
@@ -542,7 +619,17 @@ function showAdmin() {
     );
 
     const pendingCount = distributors.filter(u =>
-        u.status !== "approved" && u.approved !== true
+        u.status !== "approved" &&
+        u.approved !== true &&
+        u.status !== "rejected"
+    ).length;
+
+    const approvedCount = distributors.filter(u =>
+        u.status === "approved" || u.approved === true
+    ).length;
+
+    const rejectedCount = distributors.filter(u =>
+        u.status === "rejected"
     ).length;
 
     let html = `
@@ -550,15 +637,41 @@ function showAdmin() {
             AMIGOS Admin Dashboard
         </div>
 
+        <div class="stats">
+
+            <div class="stat-card">
+                <h2>${distributors.length}</h2>
+                <p>Total Distributors</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>${pendingCount}</h2>
+                <p>Pending Approval</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>${approvedCount}</h2>
+                <p>Approved Distributors</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>${retailers.length}</h2>
+                <p>Total Retailers</p>
+            </div>
+
+        </div>
+
         <div class="grid">
 
             <div class="card">
-                <h3>Distributor Management (${distributors.length})</h3>
-                <p>Pending Approval: <b>${pendingCount}</b></p>
+                <h3>Distributor Management</h3>
+                <p>Pending: ${pendingCount} | Approved: ${approvedCount} | Rejected: ${rejectedCount}</p>
     `;
 
     if (distributors.length === 0) {
-        html += `<p class="empty">No distributors registered.</p>`;
+        html += `
+            <p class="empty">No distributors registered yet.</p>
+        `;
     }
 
     distributors.forEach(u => {
@@ -566,39 +679,71 @@ function showAdmin() {
         const isApproved =
             u.status === "approved" || u.approved === true;
 
-        const status = isApproved ? "Approved" :
-            u.status === "rejected" ? "Rejected" : "Pending";
+        const isRejected = u.status === "rejected";
+
+        let statusText = "Pending";
+        let statusClass = "pending";
+
+        if (isApproved) {
+            statusText = "Approved";
+            statusClass = "approved";
+        } else if (isRejected) {
+            statusText = "Rejected";
+            statusClass = "rejected";
+        }
 
         html += `
             <div class="user-item">
+
                 <b>${escapeHTML(u.name)}</b><br>
+
                 Mobile: ${escapeHTML(u.mobile)}<br>
-                Status: <b>${status}</b><br>
+
+                Status:
+                <span class="status ${statusClass}">
+                    ${statusText}
+                </span>
 
                 ${
-                    !isApproved && u.status !== "rejected"
-                    ? `<button type="button"
-                         style="background:#16a34a;color:white;"
-                         onclick="approveDistributor('${escapeHTML(u.mobile)}')">
-                         ✓ Approve Distributor
-                       </button>`
-                    : ""
+                    !isApproved
+                    ? `
+                        <button
+                            type="button"
+                            class="approveBtn"
+                            onclick="approveDistributor('${escapeHTML(u.mobile)}')">
+                            ✓ Approve Distributor
+                        </button>
+                    `
+                    : `
+                        <button
+                            type="button"
+                            class="revokeBtn"
+                            onclick="revokeDistributor('${escapeHTML(u.mobile)}')">
+                            Revoke Approval
+                        </button>
+                    `
                 }
 
                 ${
-                    isApproved
-                    ? `<button type="button"
-                         style="background:#64748b;color:white;"
-                         onclick="revokeDistributor('${escapeHTML(u.mobile)}')">
-                         Revoke Approval
-                       </button>`
+                    !isRejected
+                    ? `
+                        <button
+                            type="button"
+                            class="rejectBtn"
+                            onclick="rejectDistributor('${escapeHTML(u.mobile)}')">
+                            Reject Distributor
+                        </button>
+                    `
                     : ""
                 }
 
-                <button type="button" class="deleteBtn"
+                <button
+                    type="button"
+                    class="deleteBtn"
                     onclick="deleteUser('${escapeHTML(u.mobile)}','distributor')">
-                    Delete User
+                    Delete Distributor
                 </button>
+
             </div>
         `;
     });
@@ -607,30 +752,40 @@ function showAdmin() {
             </div>
 
             <div class="card">
-                <h3>Retailers (${retailers.length})</h3>
+                <h3>Retailer Management</h3>
     `;
 
     if (retailers.length === 0) {
-        html += `<p class="empty">No retailers registered.</p>`;
+        html += `
+            <p class="empty">No retailers registered yet.</p>
+        `;
     }
 
     retailers.forEach(u => {
+
         html += `
             <div class="user-item">
+
                 <b>${escapeHTML(u.name)}</b><br>
+
                 Mobile: ${escapeHTML(u.mobile)}<br>
+
                 Status: ${escapeHTML(u.status || "Registered")}
 
-                <button class="deleteBtn"
+                <button
+                    type="button"
+                    class="deleteBtn"
                     onclick="deleteUser('${escapeHTML(u.mobile)}','retailer')">
-                    Delete User
+                    Delete Retailer
                 </button>
+
             </div>
         `;
     });
 
     html += `
             </div>
+
         </div>
 
         <button class="logout" onclick="logout()">
@@ -640,41 +795,92 @@ function showAdmin() {
 
     dashboard.innerHTML = html;
 }
-    html += `
-            </div>
 
-            <div class="card">
-                <h3>Retailers (${retailers.length})</h3>
-    `;
+/* APPROVE DISTRIBUTOR */
+function approveDistributor(mobileNum) {
 
-    if (retailers.length === 0) {
-        html += `<p class="empty">No retailers registered.</p>`;
+    if (!confirm("Are you sure you want to approve this distributor?")) {
+        return;
     }
 
-    retailers.forEach(u => {
-        html += `
-            <div class="user-item">
-                <b>${escapeHTML(u.name)}</b><br>
-                Mobile: ${escapeHTML(u.mobile)}<br>
-                Status: ${escapeHTML(u.status || "Registered")}
-                <button class="deleteBtn"
-                    onclick="deleteUser('${escapeHTML(u.mobile)}','retailer')">
-                    Delete User
-                </button>
-            </div>
-        `;
-    });
+    const users = getUsers();
 
-    html += `
-            </div>
-        </div>
+    const user = users.find(u =>
+        String(u.mobile) === String(mobileNum) &&
+        u.role === "distributor"
+    );
 
-        <button class="logout" onclick="logout()">
-            Logout
-        </button>
-    `;
+    if (!user) {
+        alert("Distributor not found.");
+        return;
+    }
 
-    dashboard.innerHTML = html;
+    user.status = "approved";
+    user.approved = true;
+
+    saveUsers(users);
+
+    alert(user.name + " has been approved successfully!");
+
+    showAdmin();
+}
+
+/* REVOKE APPROVAL */
+function revokeDistributor(mobileNum) {
+
+    if (!confirm("Do you want to revoke this distributor's approval?")) {
+        return;
+    }
+
+    const users = getUsers();
+
+    const user = users.find(u =>
+        String(u.mobile) === String(mobileNum) &&
+        u.role === "distributor"
+    );
+
+    if (!user) {
+        alert("Distributor not found.");
+        return;
+    }
+
+    user.status = "pending";
+    user.approved = false;
+
+    saveUsers(users);
+
+    alert("Distributor approval has been revoked.");
+
+    showAdmin();
+}
+
+/* REJECT DISTRIBUTOR */
+function rejectDistributor(mobileNum) {
+
+    if (!confirm("Are you sure you want to reject this distributor?")) {
+        return;
+    }
+
+    const users = getUsers();
+
+    const user = users.find(u =>
+        String(u.mobile) === String(mobileNum) &&
+        u.role === "distributor"
+    );
+
+    if (!user) {
+        alert("Distributor not found.");
+        return;
+    }
+
+    user.status = "rejected";
+    user.approved = false;
+
+    saveUsers(users);
+
+    alert("Distributor registration rejected.");
+
+    showAdmin();
 }
 
 /* DELETE USER */
@@ -695,7 +901,9 @@ function deleteUser(mobileNum, userRole) {
           u.role === userRole)
     );
 
-    localStorage.setItem("users", JSON.stringify(users));
+    saveUsers(users);
+
+    alert("User deleted successfully.");
 
     showAdmin();
 }
@@ -707,6 +915,7 @@ function logout() {
 
     window.location.href = "login.html";
 }
+
 </script>
 
 </body>
