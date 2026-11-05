@@ -525,6 +525,8 @@ function escapeHTML(value) {
 
 /* ADMIN DASHBOARD */
 function showAdmin() {
+/* ADMIN DASHBOARD */
+function showAdmin() {
 
     loginBox.style.display = "none";
     dashboard.style.display = "block";
@@ -539,6 +541,10 @@ function showAdmin() {
         u.role === "retailer"
     );
 
+    const pendingCount = distributors.filter(u =>
+        u.status !== "approved" && u.approved !== true
+    ).length;
+
     let html = `
         <div class="welcome">
             AMIGOS Admin Dashboard
@@ -547,7 +553,8 @@ function showAdmin() {
         <div class="grid">
 
             <div class="card">
-                <h3>Distributors (${distributors.length})</h3>
+                <h3>Distributor Management (${distributors.length})</h3>
+                <p>Pending Approval: <b>${pendingCount}</b></p>
     `;
 
     if (distributors.length === 0) {
@@ -555,14 +562,40 @@ function showAdmin() {
     }
 
     distributors.forEach(u => {
+
+        const isApproved =
+            u.status === "approved" || u.approved === true;
+
+        const status = isApproved ? "Approved" :
+            u.status === "rejected" ? "Rejected" : "Pending";
+
         html += `
             <div class="user-item">
                 <b>${escapeHTML(u.name)}</b><br>
                 Mobile: ${escapeHTML(u.mobile)}<br>
-                Status: ${escapeHTML(
-                    u.status || (u.approved ? "approved" : "pending")
-                )}
-                <button class="deleteBtn"
+                Status: <b>${status}</b><br>
+
+                ${
+                    !isApproved && u.status !== "rejected"
+                    ? `<button type="button"
+                         style="background:#16a34a;color:white;"
+                         onclick="approveDistributor('${escapeHTML(u.mobile)}')">
+                         ✓ Approve Distributor
+                       </button>`
+                    : ""
+                }
+
+                ${
+                    isApproved
+                    ? `<button type="button"
+                         style="background:#64748b;color:white;"
+                         onclick="revokeDistributor('${escapeHTML(u.mobile)}')">
+                         Revoke Approval
+                       </button>`
+                    : ""
+                }
+
+                <button type="button" class="deleteBtn"
                     onclick="deleteUser('${escapeHTML(u.mobile)}','distributor')">
                     Delete User
                 </button>
@@ -570,6 +603,43 @@ function showAdmin() {
         `;
     });
 
+    html += `
+            </div>
+
+            <div class="card">
+                <h3>Retailers (${retailers.length})</h3>
+    `;
+
+    if (retailers.length === 0) {
+        html += `<p class="empty">No retailers registered.</p>`;
+    }
+
+    retailers.forEach(u => {
+        html += `
+            <div class="user-item">
+                <b>${escapeHTML(u.name)}</b><br>
+                Mobile: ${escapeHTML(u.mobile)}<br>
+                Status: ${escapeHTML(u.status || "Registered")}
+
+                <button class="deleteBtn"
+                    onclick="deleteUser('${escapeHTML(u.mobile)}','retailer')">
+                    Delete User
+                </button>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+    `;
+
+    dashboard.innerHTML = html;
+}
     html += `
             </div>
 
