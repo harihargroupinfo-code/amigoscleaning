@@ -1,181 +1,371 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMIGOS | Home</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-min-height:100vh;
-display:flex;
-flex-direction:column;
-color:white;
+body {
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
 }
 
-/* ===== TOP BAR ===== */
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-background:rgba(0,0,0,0.4);
-backdrop-filter:blur(12px);
-position:sticky;
-top:0;
-z-index:1000;
+/* TOP NAVIGATION */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 25px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo{
-font-size:26px;
-font-weight:bold;
-letter-spacing:2px;
-animation: glow 2s infinite alternate;
-cursor:pointer;
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: glow 2s infinite alternate;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
 }
 
-@keyframes glow{
-from{
-color:#00f7ff;
-text-shadow:0 0 5px #00f7ff, 0 0 10px #00f7ff;
-}
-to{
-color:white;
-text-shadow:0 0 20px #00f7ff, 0 0 30px #00f7ff;
-}
+.logo:hover {
+    transform: scale(1.05);
 }
 
-.nav a{
-color:white;
-text-decoration:none;
-margin-left:25px;
-font-weight:bold;
-transition:0.3s;
+@keyframes glow {
+    from {
+        color: #00f7ff;
+        text-shadow: 0 0 5px #00f7ff, 0 0 10px #00f7ff;
+    }
+    to {
+        color: white;
+        text-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff;
+    }
 }
 
-.nav a:hover{
-color:#00f7ff;
+.nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* ===== HERO SECTION ===== */
-.hero{
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.hero h1{
-font-size:42px;
-margin-bottom:20px;
-animation: glow 3s infinite alternate;
+.nav a:hover {
+    color: #00f7ff;
 }
 
-.hero p{
-max-width:600px;
-font-size:18px;
-opacity:0.9;
+/* WELCOME MESSAGE */
+.welcome {
+    display: none;
+    text-align: center;
+    margin: 20px auto 0;
+    padding: 12px 22px;
+    width: fit-content;
+    max-width: 90%;
+    border-radius: 30px;
+    color: white;
+    background: linear-gradient(90deg,#087ee8,#00a8b5);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    font-weight: bold;
+    animation: welcomeIn 0.8s ease;
 }
 
-.hero button{
-margin-top:25px;
-padding:12px 25px;
-border:none;
-border-radius:8px;
-background:#00f7ff;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
+@keyframes welcomeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.hero button:hover{
-background:#00c0cc;
+/* HERO */
+.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 70px 20px;
 }
 
-/* ===== FOOTER ===== */
-.footer{
-background:rgba(0,0,0,0.5);
-text-align:center;
-padding:15px;
-backdrop-filter:blur(10px);
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    animation: glow 3s infinite alternate;
 }
 
-@media(max-width:768px){
-
-.logo{
-font-size:20px;
+.hero p {
+    max-width: 700px;
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: 0.9;
 }
 
-.nav a{
-margin-left:15px;
-font-size:14px;
+.hero button {
+    margin-top: 25px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #00f7ff;
+    color: #063b52;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.hero h1{
-font-size:28px;
+.hero button:hover {
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,247,255,0.3);
 }
 
-.hero p{
-font-size:15px;
+/* FOOTER */
+.footer {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg,#071b2b,#102f49,#075477);
+    text-align: center;
+    padding: 35px 15px;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.15);
 }
-}
-  
-<script>
-let loggedUser=JSON.parse(localStorage.getItem("loggedUser"));
-if(loggedUser){
-document.write(`<div class="welcome">
-Welcome ${loggedUser.name} (${loggedUser.role})
-</div>`);
-}
-          
-</script>
 
+.footer::before,
+.footer::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: 0;
+    left: -50%;
+    border-radius: 45%;
+    background: rgba(0,247,255,0.08);
+    animation: footerWave 12s linear infinite;
+    pointer-events: none;
+}
+
+.footer::after {
+    background: rgba(255,255,255,0.05);
+    animation-duration: 18s;
+    animation-direction: reverse;
+}
+
+@keyframes footerWave {
+    from { transform: translateX(0) rotate(0deg); }
+    to { transform: translateX(25%) rotate(360deg); }
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-brand {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 12px #00d9ff;
+}
+
+.footer-text {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #e4f5ff;
+}
+
+.footer-social {
+    margin-top: 12px;
+}
+
+.footer-social a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 13px;
+    margin: 4px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.footer-social a:hover {
+    background: #00bcd4;
+    color: #062b40;
+    transform: translateY(-3px);
+}
+
+/* MOBILE */
+@media(max-width:768px) {
+    .topbar {
+        padding: 13px 15px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .nav {
+        gap: 13px;
+    }
+
+    .nav a {
+        font-size: 13px;
+    }
+
+    .hero {
+        padding: 55px 18px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+}
+
+@media(max-width:420px) {
+    .topbar {
+        flex-direction: column;
+    }
+
+    .nav {
+        justify-content: center;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ===== TOP NAVIGATION ===== -->
-<div class="topbar">
-<div class="logo">AMIGOS</div>
+<!-- NAVIGATION -->
+<header class="topbar">
 
-<div class="nav">
-<a href="index.html">Home</a>
-<a href="products.html">Products</a>
-<a href="contact.html">Contact</a>
-<a href="login.html">Login</a>
-</div>
-</div>
+    <!-- Clicking AMIGOS opens homepage -->
+    <a href="index.html" class="logo">AMIGOS</a>
 
-<!-- ===== HERO SECTION ===== -->
-<div class="hero">
-<h1>Welcome to AMIGOS</h1>
-<p>
-Premium Manufacturer of Toilet Cleaner, Floor Cleaner, Dishwash, Handwash, and Glass Cleaner.
-Delivering Quality & Hygiene Across Every Home.
-</p>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login / Register</a>
+    </nav>
 
-<button onclick="location.href='products.html'">
-Explore Products
-</button>
-</div>
+</header>
 
-<!-- ===== FOOTER ===== -->
-<div class="footer">
-© 2026 AMIGOS | All Rights Reserved.
-</div>
+<!-- USER WELCOME -->
+<div id="welcomeMessage" class="welcome"></div>
+
+<!-- HERO SECTION -->
+<main class="hero">
+
+    <h1>Welcome to AMIGOS</h1>
+
+    <p>
+        Premium Manufacturer of Toilet Cleaner, Floor Cleaner,
+        Dishwash, Handwash, and Glass Cleaner.
+        Delivering Quality & Hygiene Across Every Home.
+    </p>
+
+    <button onclick="location.href='products.html'">
+        Explore Products
+    </button>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">AMIGOS</div>
+
+        <div class="footer-text">
+            A Product by Harihar Group of Industries
+            <br>
+            © <span id="footerYear"></span> All Rights Reserved
+        </div>
+
+        <div class="footer-social">
+            <a href="https://www.instagram.com/amigos_cleaning_partner/"
+               target="_blank" rel="noopener noreferrer">
+                Instagram
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=100085486467451"
+               target="_blank" rel="noopener noreferrer">
+                Facebook
+            </a>
+        </div>
+
+    </div>
+
+</footer>
+
+<script>
+/* AUTOMATIC YEAR */
+document.getElementById("footerYear").textContent =
+    new Date().getFullYear();
+
+/* WELCOME REGISTERED USER */
+try {
+    const loggedUser = JSON.parse(
+        localStorage.getItem("loggedUser") || "null"
+    );
+
+    if (loggedUser && loggedUser.name) {
+
+        const welcome = document.getElementById("welcomeMessage");
+
+        const role = loggedUser.role
+            ? loggedUser.role.charAt(0).toUpperCase() +
+              loggedUser.role.slice(1)
+            : "User";
+
+        welcome.textContent =
+            "Welcome, " + loggedUser.name + " (" + role + ")";
+
+        welcome.style.display = "block";
+    }
+} catch (error) {
+    console.error("Unable to read login details:", error);
+}
+</script>
 
 </body>
 </html>
-
+```
