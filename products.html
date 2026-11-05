@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,276 +7,498 @@
 <title>AMIGOS | Products</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI", Arial, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-body{
-  min-height:100vh;
-  background:linear-gradient(135deg,#020617,#0f172a);
-  padding-top:70px;
-  padding-bottom:70px;
-  color:#fff;
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#020617,#0f172a);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ===== NAVBAR ===== */
-.navbar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:60px;
-  background:rgba(15,23,42,0.95);
-  backdrop-filter:blur(6px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  z-index:1000;
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 60px;
+    background: rgba(15,23,42,0.96);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 25px;
+    z-index: 1000;
 }
 
-.logo{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:1.5px;
-  color:#38bdf8;
-  text-decoration:none;
-  animation:logoPulse 3s ease-in-out infinite;
-  text-shadow:0 0 10px rgba(56,189,248,0.7);
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #38bdf8;
+    text-decoration: none;
+    animation: logoPulse 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(56,189,248,0.7);
 }
 
-@keyframes logoPulse{
-  0%,100%{opacity:1;}
-  50%{opacity:0.7;}
+@keyframes logoPulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
-.nav-links a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:22px;
-  font-size:15px;
-  transition:0.3s;
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
 }
 
-.nav-links a:hover{
-  color:#38bdf8;
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
 }
 
-/* ===== PAGE TITLE ===== */
-.page-title{
-  text-align:center;
-  margin:30px 20px 10px;
+.nav-links a:hover {
+    color: #38bdf8;
 }
 
-.page-title h1{
-  font-size:36px;
-  font-weight:800;
+/* PAGE TITLE */
+.page-title {
+    text-align: center;
+    margin: 35px 20px 10px;
 }
 
-.page-title h1 span{
-  color:#38bdf8;
-  text-shadow:0 0 15px rgba(56,189,248,0.6);
+.page-title h1 {
+    font-size: 36px;
+    font-weight: 800;
 }
 
-.page-title p{
-  margin-top:10px;
-  color:#cbd5f5;
-  font-size:17px;
+.page-title h1 span {
+    color: #38bdf8;
+    text-shadow: 0 0 15px rgba(56,189,248,0.6);
 }
 
-/* ===== PRODUCTS GRID ===== */
-.products{
-  max-width:1200px;
-  margin:40px auto;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-  gap:30px;
+.page-title p {
+    margin-top: 10px;
+    color: #cbd5f5;
+    font-size: 17px;
 }
 
-/* ===== PRODUCT CARD ===== */
-.product-card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  border-radius:16px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.35);
-  transition:0.4s;
-  position:relative;
+/* PRODUCTS GRID */
+.products {
+    width: 100%;
+    max-width: 1200px;
+    margin: 35px auto 55px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 25px;
+    flex: 1;
 }
 
-.product-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 25px 55px rgba(0,0,0,0.45);
+/* PRODUCT CARD */
+.product-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    transition: 0.35s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.product-card img{
-  width:100%;
-  max-height:180px;
-  object-fit:contain;
-  margin-bottom:15px;
-  filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+.product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    border-color: rgba(56,189,248,0.5);
 }
 
-.product-card h3{
-  font-size:20px;
-  margin-bottom:8px;
+.product-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));
 }
 
-.product-card p{
-  font-size:15px;
-  color:#cbd5f5;
-  line-height:1.5;
+.product-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #fff;
 }
 
-
-/* ===== FOOTER ===== */
-.footer{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:rgba(15,23,42,0.95);
-  backdrop-filter:blur(6px);
-  padding:12px 0;
+.product-card p {
+    font-size: 15px;
+    color: #cbd5f5;
+    line-height: 1.6;
 }
 
-.footer-content{
-  color:#fff;
-  font-size:14px;
+/* PRODUCT BADGES */
+.badge {
+    display: inline-block;
+    background: #64748b;
+    color: white;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
 }
 
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-  .logo{font-size:20px;}
-  .nav-links a{margin-left:14px;font-size:14px;}
-  .page-title h1{font-size:30px;}
+.launch-badge {
+    display: inline-block;
+    background: linear-gradient(90deg,#087ee8,#00bcd4);
+    color: white;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 12px rgba(0,188,212,0.25);
+}
+
+/* FRAGRANCE OPTIONS */
+.fragrance-heading {
+    color: #7dd3fc;
+    font-size: 14px;
+    margin: 15px 0 8px;
+}
+
+.fragrance {
+    display: inline-block;
+    background: rgba(56,189,248,0.14);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: #bae6fd;
+    padding: 7px 12px;
+    margin: 4px 2px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* FOOTER */
+.footer {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg,#071b2b,#102f49,#075477);
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.footer::before,
+.footer::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: 0;
+    left: -50%;
+    border-radius: 45%;
+    background: rgba(0,247,255,0.08);
+    animation: footerWave 12s linear infinite;
+    pointer-events: none;
+}
+
+.footer::after {
+    background: rgba(255,255,255,0.05);
+    animation-duration: 18s;
+    animation-direction: reverse;
+}
+
+@keyframes footerWave {
+    from { transform: translateX(0) rotate(0deg); }
+    to { transform: translateX(25%) rotate(360deg); }
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-brand {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 12px #00d9ff;
+}
+
+.footer-text {
+    color: #e4f5ff;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer-social {
+    margin-top: 12px;
+}
+
+.footer-social a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 13px;
+    margin: 4px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.footer-social a:hover {
+    background: #00bcd4;
+    color: #062b40;
+    transform: translateY(-3px);
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+    .navbar {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .page-title h1 {
+        font-size: 30px;
+    }
+
+    .page-title p {
+        font-size: 14px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
+<!-- NAVBAR -->
 <nav class="navbar">
-  <a href="index.html" class="logo">AMIGOS</a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="contact.html">Contacts</a>
-    <a href="login.html">Login</a>
-  </div>
+
+    <!-- Clicking AMIGOS opens homepage -->
+    <a href="index.html" class="logo">AMIGOS</a>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login / Register</a>
+    </div>
+
 </nav>
 
-<!-- ===== PAGE TITLE ===== -->
+<!-- PAGE TITLE -->
 <div class="page-title">
-  <h1>Our <span>Products</span></h1>
-  <p>High-quality cleaning solutions for homes & businesses</p>
+    <h1>Our <span>Products</span></h1>
+    <p>High-quality cleaning solutions for homes & businesses</p>
 </div>
 
-<!-- ===== PRODUCTS ===== -->
+<!-- PRODUCTS -->
 <section class="products">
 
-  <div class="product-card">
-    <img src="image/floor-cleaner.png" alt="Floor Cleaner">
-    <h3>Floor Cleaner</h3>
-    <p>Removes tough stains, kills germs, and leaves long-lasting freshness.</p>
-  </div>
+    <!-- FLOOR CLEANER -->
+    <div class="product-card">
+        <img src="image/floor-cleaner.png" alt="Floor Cleaner">
+        <h3>Floor Cleaner</h3>
+        <p>
+            Removes tough stains, kills germs, and leaves
+            long-lasting freshness.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/toilet-cleaner.png" alt="Toilet Cleaner">
-    <h3>Toilet Cleaner</h3>
-    <p>Deep cleaning power for hygienic and sparkling toilets.</p>
-  </div>
+    <!-- TOILET CLEANER -->
+    <div class="product-card">
+        <img src="image/toilet-cleaner.png" alt="Toilet Cleaner">
+        <h3>Toilet Cleaner</h3>
+        <p>
+            Deep cleaning power for hygienic and sparkling toilets.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/dishwash.png" alt="Dishwash Liquid">
-    <h3>Dishwash Liquid</h3>
-    <p>Tough on grease yet gentle on hands for daily use.</p>
-  </div>
+    <!-- DISHWASH -->
+    <div class="product-card">
+        <img src="image/dishwash.png" alt="Dishwash Liquid">
+        <h3>Dishwash Liquid</h3>
+        <p>
+            Tough on grease yet gentle on hands for daily use.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/handwash.png" alt="Hand Wash">
-    <h3>Hand Wash</h3>
-    <p>Antibacterial handwash with skin-friendly formula.</p>
-  </div>
+    <!-- HANDWASH -->
+    <div class="product-card">
+        <img src="image/handwash.png" alt="Hand Wash">
+        <h3>Hand Wash</h3>
+        <p>
+            Antibacterial handwash with skin-friendly formula.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/glass-cleaner.png" alt="Glass Cleaner">
-    <h3>Glass Cleaner</h3>
-    <p>Crystal-clear shine without streaks or residue.</p>
-  </div>
+    <!-- GLASS CLEANER -->
+    <div class="product-card">
+        <img src="image/glass-cleaner.png" alt="Glass Cleaner">
+        <h3>Glass Cleaner</h3>
+        <p>
+            Crystal-clear shine without streaks or residue.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/combo-pack.png" alt="Combo Pack">
-    <h3>Combo Pack (Pack of 4)</h3>
-    <p>Best value combo including Floor, Toilet, Dishwash & Handwash.</p>
-  </div>
+    <!-- COMBO PACK -->
+    <div class="product-card">
+        <img src="image/combo-pack.png" alt="Combo Pack">
+        <h3>Combo Pack (Pack of 4)</h3>
+        <p>
+            Best value combo including Floor, Toilet,
+            Dishwash and Handwash.
+        </p>
+    </div>
 
-  <div class="product-card">
-    <img src="image/white-phenyl.png" alt="White Phenyl">
-    <h3>White Phenyl</h3>
-    <p>Classic disinfectant phenyl for homes and institutions.</p>
-  </div>
+    <!-- WHITE PHENYL - AVAILABLE -->
+    <div class="product-card">
+        <img src="image/white-phenyl.png" alt="White Phenyl">
+        <h3>White Phenyl</h3>
+        <p>
+            Classic disinfectant phenyl for homes,
+            institutions and commercial spaces.
+            <br><br>
+            <strong style="color:#4ade80;">Available Now</strong>
+        </p>
+    </div>
 
-  <div class="product-card">
-    <span class="badge">Coming Soon</span>
-    <img src="image/bathroom-cleaner.png" alt="Bathroom Cleaner">
-    <h3>Bathroom Cleaner</h3>
-    <p>Specially formulated cleaner for tiles, fittings & wash areas.</p>
-  </div>
+    <!-- PREMIUM COLOUR PHENYL -->
+    <div class="product-card">
 
-  <!-- PREMIUM COLOUR PHENYL -->
-<div class="new-product-card">
+        <span class="launch-badge">NEWLY LAUNCHED</span>
 
-    <span class="launch-badge">NEWLY LAUNCHED</span>
+        <h3>Premium Colour Phenyl</h3>
 
-    <h2>Premium Colour Phenyl</h2>
+        <p>
+            Premium cleaning solution available in
+            refreshing fragrances.
+        </p>
 
-    <p>Premium cleaning with refreshing fragrances.</p>
+        <div class="fragrance-heading">
+            AVAILABLE FRAGRANCES
+        </div>
 
-    <h4>Available Fragrances</h4>
+        <span class="fragrance">🌹 Rose</span>
+        <span class="fragrance">🌼 Mogara</span>
+        <span class="fragrance">🌿 Chandan</span>
 
-    <span class="fragrance">🌹 Rose</span>
-    <span class="fragrance">🌼 Mogara</span>
-    <span class="fragrance">🌿 Chandan</span>
+    </div>
 
-</div>
+    <!-- ROSE FLOOR CLEANER -->
+    <div class="product-card">
 
+        <span class="launch-badge">NEWLY LAUNCHED</span>
 
-<!-- FLOOR CLEANER ROSE -->
-<div class="new-product-card">
+        <img src="image/floor-cleaner.png" alt="Rose Floor Cleaner">
 
-    <span class="launch-badge">NEWLY LAUNCHED</span>
+        <h3>Floor Cleaner – Rose</h3>
 
-    <h2>Floor Cleaner – Rose</h2>
+        <p>
+            Enjoy the refreshing Rose fragrance
+            with your everyday floor cleaning.
+        </p>
 
-    <p>Enjoy the refreshing fragrance of Rose
-       with your regular floor cleaning.</p>
+        <div class="fragrance-heading">
+            AVAILABLE FRAGRANCE
+        </div>
 
-    <span class="fragrance">🌹 Rose Fragrance</span>
+        <span class="fragrance">🌹 Rose</span>
 
-</div>
+    </div>
+
+    <!-- BATHROOM CLEANER -->
+    <div class="product-card">
+
+        <span class="badge">COMING SOON</span>
+
+        <img src="image/bathroom-cleaner.png" alt="Bathroom Cleaner">
+
+        <h3>Bathroom Cleaner</h3>
+
+        <p>
+            Specially formulated cleaner for tiles,
+            fittings and wash areas.
+        </p>
+
+    </div>
 
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-content">
-    © <span id="year"></span> All Rights Reserved | AMIGOS
-  </div>
+
+    <div class="footer-content">
+
+        <div class="footer-brand">AMIGOS</div>
+
+        <div class="footer-text">
+            A Product by Harihar Group of Industries
+            <br>
+            © <span id="year"></span> All Rights Reserved
+        </div>
+
+        <div class="footer-social">
+
+            <a href="https://www.instagram.com/amigos_cleaning_partner/"
+               target="_blank" rel="noopener noreferrer">
+                Instagram
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=100085486467451"
+               target="_blank" rel="noopener noreferrer">
+                Facebook
+            </a>
+
+        </div>
+
+    </div>
+
 </footer>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 </script>
 
 </body>
 </html>
+```
