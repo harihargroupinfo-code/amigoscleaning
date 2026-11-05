@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMIGOS Firebase Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5fa;
+      padding: 30px;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px #0001;
+    }
+    h2 { color: #123d78; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>AMIGOS Firebase Connection</h2>
+    <p>Testing your Firebase configuration...</p>
+    <div id="status">Please wait...</div>
+  </div>
+
+  <script type="module">
+    import app, { auth, db } from "./firebase-config.js";
+
+    const status = document.getElementById("status");
+
+    try {
+      if (app && auth && db) {
+        status.style.color = "green";
+        status.textContent =
+          "SUCCESS! Firebase App, Authentication and Firestore initialized.";
+        console.log("Firebase project:", app.options.projectId);
+      } else {
+        throw new Error("Firebase services could not initialize.");
+      }
+    } catch (error) {
+      status.style.color = "red";
+      status.textContent = "Connection error: " + error.message;
+      console.error(error);
+    }
+  </script>
+</body>
+</html>
