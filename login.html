@@ -1,134 +1,260 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMIGOS Portal</title>
+<title>AMIGOS | Login Portal</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-min-height:100vh;
-color:white;
-overflow-x:hidden;
+body {
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
 }
 
 /* PARTICLES */
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
 }
 
 /* TOP BAR */
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 20px;
-background:rgba(0,0,0,0.4);
-backdrop-filter:blur(10px);
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 22px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:22px;
-font-weight:bold;
-animation: glow 2s infinite alternate;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: white;
+    animation: glow 2s infinite alternate;
 }
 
-.logo img{
-height:45px;
-width:auto;
-object-fit:contain;
+.logo img {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
 }
 
-@keyframes glow{
-from{color:#00f7ff;text-shadow:0 0 5px #00f7ff;}
-to{color:white;text-shadow:0 0 20px #00f7ff;}
+@keyframes glow {
+    from {
+        color: #00f7ff;
+        text-shadow: 0 0 5px #00f7ff;
+    }
+    to {
+        color: white;
+        text-shadow: 0 0 20px #00f7ff;
+    }
 }
 
-.container{
-max-width:420px;
-margin:40px auto;
-background:rgba(255,255,255,0.1);
-padding:25px;
-border-radius:15px;
-backdrop-filter:blur(15px);
-box-shadow:0 0 20px rgba(0,0,0,0.5);
+/* LOGIN CONTAINER */
+.container {
+    width: calc(100% - 32px);
+    max-width: 420px;
+    margin: 45px auto;
+    background: rgba(255,255,255,0.10);
+    padding: 28px;
+    border-radius: 18px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.15);
+    animation: appear 0.7s ease;
 }
 
-h2{
-text-align:center;
-margin-bottom:20px;
-font-size:26px;
-animation: glow 2s infinite alternate;
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-input,select,button{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:none;
-font-size:14px;
+h2 {
+    text-align: center;
+    margin-bottom: 22px;
+    font-size: 27px;
+    animation: glow 2s infinite alternate;
 }
 
-button{
-background:#00f7ff;
-font-weight:bold;
-cursor:pointer;
+/* INPUT FIELDS */
+input, select {
+    display: block;
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    margin: 12px 0;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.3);
+    outline: none;
+    font-size: 15px;
+    background: rgba(255,255,255,0.95);
+    color: #12344a;
 }
 
-button:hover{background:#00c0cc;}
-
-.dashboard{
-display:none;
-padding:20px;
+input:focus, select:focus {
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 10px rgba(0,247,255,0.3);
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-margin-top:20px;
+/* BUTTONS */
+button {
+    display: block;
+    width: 100%;
+    min-height: 47px;
+    padding: 12px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 9px;
+    background: #00f7ff;
+    color: #063b52;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.card{
-background:rgba(255,255,255,0.1);
-padding:15px;
-border-radius:10px;
+button:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,247,255,0.3);
 }
 
-.deleteBtn{
-background:#ff4d4d;
-margin-top:8px;
+/* REGISTER LINK */
+.register-link {
+    text-align: center;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 14px;
+    color: white;
+    line-height: 1.6;
 }
 
-.logout{
-background:red;
-margin-top:20px;
+.register-link a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 9px 17px;
+    color: #003b59;
+    background: #00f7ff;
+    border-radius: 25px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-.welcome{
-text-align:center;
-margin-top:20px;
-font-size:20px;
-animation: glow 2s infinite alternate;
+.register-link a:hover {
+    background: white;
+    transform: scale(1.04);
 }
 
-@media(max-width:480px){
-.container{margin:20px;}
+/* WELCOME */
+.welcome {
+    text-align: center;
+    margin: 20px auto;
+    padding: 15px;
+    font-size: 23px;
+    font-weight: bold;
+    color: #00f7ff;
+    text-shadow: 0 0 12px #00f7ff;
+}
+
+/* DASHBOARD */
+.dashboard {
+    display: none;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.10);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    overflow-wrap: anywhere;
+}
+
+.card h3 {
+    color: #00f7ff;
+    margin-bottom: 15px;
+}
+
+.user-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    line-height: 1.6;
+}
+
+.deleteBtn {
+    background: #ff4d4d;
+    color: white;
+    min-height: 36px;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.logout {
+    background: #e53935;
+    color: white;
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+.empty {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* MOBILE */
+@media(max-width:480px) {
+    .topbar {
+        justify-content: center;
+    }
+
+    .container {
+        margin: 25px auto;
+        padding: 22px 18px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .dashboard {
+        padding: 12px;
+    }
 }
 </style>
 </head>
@@ -137,216 +263,385 @@ animation: glow 2s infinite alternate;
 
 <div id="particles-js"></div>
 
-<!-- TOPBAR -->
-<div class="topbar">
-<div class="logo">
-<a href="index.html" class="brand-home">
-    <img src="images/brand.png" alt="AMIGOS Logo">
-</a>
-<span>AMIGOS</span>
-</div>
-</div>
+<!-- TOP BAR -->
+<header class="topbar">
+    <a href="index.html" class="logo">
+        <img src="images/brand.png" alt="AMIGOS Logo">
+        <span>AMIGOS</span>
+    </a>
+</header>
 
-<!-- LOGIN -->
+<!-- LOGIN BOX -->
 <div class="container" id="loginBox">
-<h2>AMIGOS Login</h2>
 
-<select id="role">
-<option value="">Select Role</option>
-<option value="admin">Admin</option>
-<option value="distributor">Distributor</option>
-<option value="retailer">Retailer</option>
-</select>
+    <h2>AMIGOS Login</h2>
 
-<input type="text" id="mobile" placeholder="Mobile Number">
+    <select id="role">
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="distributor">Distributor</option>
+        <option value="retailer">Retailer</option>
+    </select>
 
-<button onclick="sendOTP()">Send OTP</button>
+    <input
+        type="tel"
+        id="mobile"
+        placeholder="Enter Mobile Number"
+        maxlength="10"
+        inputmode="numeric"
+        autocomplete="tel"
+    >
 
-<input type="text" id="otp" placeholder="Enter OTP">
+    <button type="button" onclick="sendOTP()">
+        Send OTP
+    </button>
 
-<button onclick="login()">Login</button>
+    <input
+        type="text"
+        id="otp"
+        placeholder="Enter OTP"
+        maxlength="6"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+    >
+
+    <button type="button" onclick="login()">
+        Login
+    </button>
+
+    <!-- REGISTER OPTION -->
+    <div class="register-link">
+        Don't have an account?
+        <br>
+        Join AMIGOS today!
+        <br>
+        <a href="signup.html">
+            Create Account – Register Free
+        </a>
+    </div>
+
 </div>
 
-<!-- DASHBOARD -->
+<!-- ADMIN DASHBOARD -->
 <div class="dashboard" id="dashboard"></div>
 
-<!-- PARTICLE SCRIPT -->
+<!-- PARTICLE LIBRARY -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-particles:{
-number:{value:60},
-color:{value:"#00f7ff"},
-shape:{type:"circle"},
-opacity:{value:0.5},
-size:{value:3},
-line_linked:{enable:true,color:"#00f7ff"},
-move:{enable:true,speed:2}
-}
-});
-</script>
 
 <script>
-
-let generatedOTP="";
-let adminNumbers=["9146466898","8600051765"];
-
-/* CHECK REGISTER BEFORE OTP */
-function sendOTP(){
-
-let roleValue=role.value;
-let mobileValue=mobile.value;
-
-if(!roleValue || !mobileValue){
-alert("Select role and enter mobile");
-return;
+/* PARTICLES */
+if (typeof particlesJS !== "undefined") {
+    particlesJS("particles-js", {
+        particles: {
+            number: { value: 60 },
+            color: { value: "#00f7ff" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5 },
+            size: { value: 3 },
+            line_linked: {
+                enable: true,
+                color: "#00f7ff"
+            },
+            move: {
+                enable: true,
+                speed: 2
+            }
+        }
+    });
 }
 
-if(roleValue=="admin"){
-if(!adminNumbers.includes(mobileValue)){
-alert("Admin not registered");
-return;
-}
-}
-else{
-let users=JSON.parse(localStorage.getItem("users"))||[];
-let user=users.find(u=>u.mobile==mobileValue && u.role==roleValue);
+/* ELEMENTS */
+const loginBox = document.getElementById("loginBox");
+const dashboard = document.getElementById("dashboard");
+const roleInput = document.getElementById("role");
+const mobileInput = document.getElementById("mobile");
+const otpInput = document.getElementById("otp");
 
-if(!user){
-alert("Please register yourself for free.");
-return;
-}
-if(roleValue=="distributor" && user.status!="approved"){
-alert("Distributor not approved yet.");
-return;
-}
+/* SETTINGS */
+let generatedOTP = "";
+let otpExpiry = 0;
+
+const adminNumbers = [
+    "9146466898",
+    "8600051765"
+];
+
+/* GET USERS */
+function getUsers() {
+    try {
+        return JSON.parse(localStorage.getItem("users")) || [];
+    } catch (error) {
+        return [];
+    }
 }
 
-generatedOTP=Math.floor(1000+Math.random()*9000);
-alert("Demo OTP: "+generatedOTP);
+/* SEND OTP - DEMO VERSION */
+function sendOTP() {
+
+    const roleValue = roleInput.value;
+    const mobileValue = mobileInput.value.trim();
+
+    if (!roleValue) {
+        alert("Please select your role.");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(mobileValue)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (roleValue === "admin") {
+
+        if (!adminNumbers.includes(mobileValue)) {
+            alert("This mobile number is not an authorized Admin number.");
+            return;
+        }
+
+    } else {
+
+        const users = getUsers();
+
+        const user = users.find(u =>
+            String(u.mobile) === mobileValue &&
+            u.role === roleValue
+        );
+
+        if (!user) {
+            alert("Registration required. Please sign up for free and join AMIGOS!");
+            return;
+        }
+
+        if (roleValue === "distributor" &&
+            user.status !== "approved" &&
+            user.approved !== true) {
+
+            alert("Your Distributor registration is awaiting Admin approval.");
+            return;
+        }
+
+        if (user.status === "rejected") {
+            alert("Your registration has been rejected. Please contact Admin.");
+            return;
+        }
+    }
+
+    generatedOTP = String(
+        Math.floor(1000 + Math.random() * 9000)
+    );
+
+    otpExpiry = Date.now() + 5 * 60 * 1000;
+
+    alert("DEMO OTP: " + generatedOTP +
+          "\nThis is a testing OTP, not an SMS.");
+
+    otpInput.value = "";
 }
 
 /* LOGIN */
-function login(){
+function login() {
 
-if(otp.value!=generatedOTP){
-alert("Invalid OTP");
-otp.value="";
-return;
+    const roleValue = roleInput.value;
+    const mobileValue = mobileInput.value.trim();
+    const enteredOTP = otpInput.value.trim();
+
+    if (!roleValue || !mobileValue || !enteredOTP) {
+        alert("Please complete all login fields.");
+        return;
+    }
+
+    if (!generatedOTP ||
+        Date.now() > otpExpiry ||
+        enteredOTP !== generatedOTP) {
+
+        alert("Invalid or expired OTP. Please request a new OTP.");
+
+        otpInput.value = "";
+        generatedOTP = "";
+        return;
+    }
+
+    generatedOTP = "";
+    otpExpiry = 0;
+    otpInput.value = "";
+
+    /* ADMIN LOGIN */
+    if (roleValue === "admin") {
+
+        if (!adminNumbers.includes(mobileValue)) {
+            alert("Unauthorized Admin.");
+            return;
+        }
+
+        sessionStorage.setItem("adminLoggedIn", "true");
+
+        showAdmin();
+        return;
+    }
+
+    /* USER LOGIN */
+    const users = getUsers();
+
+    const user = users.find(u =>
+        String(u.mobile) === mobileValue &&
+        u.role === roleValue
+    );
+
+    if (!user) {
+        alert("Registration required. Please register for free.");
+        return;
+    }
+
+    if (roleValue === "distributor" &&
+        user.status !== "approved" &&
+        user.approved !== true) {
+
+        alert("Distributor approval is pending.");
+        return;
+    }
+
+    if (user.status === "rejected") {
+        alert("Your registration has been rejected.");
+        return;
+    }
+
+    localStorage.setItem("loggedUser", JSON.stringify(user));
+
+    alert("Welcome " + user.name + "!");
+
+    window.location.href = "index.html";
 }
 
-let roleValue=role.value;
-let mobileValue=mobile.value;
-
-otp.value=""; // clear OTP automatically
-
-if(roleValue=="admin"){
-showAdmin();
-return;
-}
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-let user=users.find(u=>u.mobile==mobileValue && u.role==roleValue);
-
-if(user){
-localStorage.setItem("loggedUser",JSON.stringify(user));
-window.location.href="index.html"; // redirect to home
-}
-  <div class="register-link">
-    Don't have an account?
-    <a href="signup.html">Register Now – It's Free!</a>
-</div>
+/* SAFE TEXT */
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
 }
 
 /* ADMIN DASHBOARD */
-function showAdmin(){
+function showAdmin() {
 
-loginBox.style.display="none";
-dashboard.style.display="block";
+    loginBox.style.display = "none";
+    dashboard.style.display = "block";
 
-let users=JSON.parse(localStorage.getItem("users"))||[];
+    const users = getUsers();
 
-let distributors=users.filter(u=>u.role=="distributor");
-let retailers=users.filter(u=>u.role=="retailer");
+    const distributors = users.filter(u =>
+        u.role === "distributor"
+    );
 
-let html=`<div class="topbar">
-<div class="logo">
-<img src="image/brand.png">
-<span>AMIGOS</span>
-</div>
-</div>`;
+    const retailers = users.filter(u =>
+        u.role === "retailer"
+    );
 
-html+=`<div class="welcome">Admin Dashboard</div>`;
+    let html = `
+        <div class="welcome">
+            AMIGOS Admin Dashboard
+        </div>
 
-html+=`<div class="grid">`;
+        <div class="grid">
 
-html+=`<div class="card"><h3>Distributors</h3>`;
-distributors.forEach(u=>{
-html+=`
-<p><b>${u.name}</b><br>
-${u.mobile} (${u.status})
-<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
-</p>`;
-});
-html+=`</div>`;
+            <div class="card">
+                <h3>Distributors (${distributors.length})</h3>
+    `;
 
-html+=`<div class="card"><h3>Retailers</h3>`;
-retailers.forEach(u=>{
-html+=`
-<p><b>${u.name}</b><br>
-${u.mobile}
-<button class="deleteBtn" onclick="deleteUser('${u.mobile}')">Delete</button>
-</p>`;
-});
-html+=`</div>`;
+    if (distributors.length === 0) {
+        html += `<p class="empty">No distributors registered.</p>`;
+    }
 
-html+=`</div>`;
+    distributors.forEach(u => {
+        html += `
+            <div class="user-item">
+                <b>${escapeHTML(u.name)}</b><br>
+                Mobile: ${escapeHTML(u.mobile)}<br>
+                Status: ${escapeHTML(
+                    u.status || (u.approved ? "approved" : "pending")
+                )}
+                <button class="deleteBtn"
+                    onclick="deleteUser('${escapeHTML(u.mobile)}','distributor')">
+                    Delete User
+                </button>
+            </div>
+        `;
+    });
 
-html+=`<button class="logout" onclick="logout()">Logout</button>`;
+    html += `
+            </div>
 
-dashboard.innerHTML=html;
+            <div class="card">
+                <h3>Retailers (${retailers.length})</h3>
+    `;
+
+    if (retailers.length === 0) {
+        html += `<p class="empty">No retailers registered.</p>`;
+    }
+
+    retailers.forEach(u => {
+        html += `
+            <div class="user-item">
+                <b>${escapeHTML(u.name)}</b><br>
+                Mobile: ${escapeHTML(u.mobile)}<br>
+                Status: ${escapeHTML(u.status || "Registered")}
+                <button class="deleteBtn"
+                    onclick="deleteUser('${escapeHTML(u.mobile)}','retailer')">
+                    Delete User
+                </button>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+    `;
+
+    dashboard.innerHTML = html;
 }
 
-/* DELETE WITH DOUBLE CONFIRM */
-function deleteUser(mobileNum){
+/* DELETE USER */
+function deleteUser(mobileNum, userRole) {
 
-if(confirm("Are you sure you want to delete this user?")){
-if(confirm("This action cannot be undone. Confirm delete?")){
+    if (!confirm("Are you sure you want to delete this user?")) {
+        return;
+    }
 
-let users=JSON.parse(localStorage.getItem("users"))||[];
-users=users.filter(u=>u.mobile!=mobileNum);
-localStorage.setItem("users",JSON.stringify(users));
-showAdmin();
-}
-}
+    if (!confirm("This action cannot be undone. Confirm delete?")) {
+        return;
+    }
+
+    let users = getUsers();
+
+    users = users.filter(u =>
+        !(String(u.mobile) === String(mobileNum) &&
+          u.role === userRole)
+    );
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    showAdmin();
 }
 
-function logout(){
-dashboard.style.display="none";
-loginBox.style.display="block";
+/* LOGOUT */
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
 }
 
 </script>
 
-  .register-link {
-    text-align: center;
-    margin-top: 18px;
-    font-size: 14px;
-    color: #0f4c81;
-}
-
-.register-link a {
-    display: block;
-    margin-top: 7px;
-    color: #087ee8;
-    font-weight: 800;
-    text-decoration: none;
-}
-
-.register-link a:hover {
-    color: #003c78;
-    text-decoration: underline;
-}
-
 </body>
 </html>
+```
