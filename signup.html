@@ -20,13 +20,11 @@ body {
     color: white;
 }
 
-/* TOP BAR */
 .topbar {
     width: 100%;
     min-height: 75px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     padding: 12px 25px;
     background: rgba(0,0,0,0.35);
     border-bottom: 1px solid rgba(255,255,255,0.12);
@@ -51,7 +49,6 @@ body {
     object-fit: contain;
 }
 
-/* MAIN AREA */
 .main {
     min-height: calc(100vh - 75px);
     display: flex;
@@ -60,7 +57,6 @@ body {
     padding: 35px 16px;
 }
 
-/* SIGNUP CARD */
 .card {
     width: 100%;
     max-width: 440px;
@@ -74,14 +70,8 @@ body {
 }
 
 @keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .heading {
@@ -102,7 +92,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* FORM */
 .form-group {
     margin-bottom: 17px;
 }
@@ -137,10 +126,9 @@ body {
     color: #64748b;
 }
 
-/* REGISTER BUTTON */
 .register-btn {
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     margin-top: 8px;
     border: none;
     border-radius: 9px;
@@ -158,7 +146,40 @@ body {
     box-shadow: 0 7px 18px rgba(56,189,248,0.25);
 }
 
-/* LOGIN LINK */
+.register-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    display: none;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.message.success {
+    display: block;
+    color: #bbf7d0;
+    background: rgba(22,163,74,0.16);
+    border: 1px solid rgba(74,222,128,0.35);
+}
+
+.message.error {
+    display: block;
+    color: #fecaca;
+    background: rgba(220,38,38,0.16);
+    border: 1px solid rgba(248,113,113,0.35);
+}
+
 .login-link {
     text-align: center;
     margin-top: 24px;
@@ -187,40 +208,33 @@ body {
     margin-top: 20px;
 }
 
-/* MOBILE */
+.otp-note {
+    color: #bae6fd;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+#recaptcha-container {
+    margin: 12px 0;
+    display: flex;
+    justify-content: center;
+    min-height: 0;
+}
+
 @media(max-width:480px) {
-    .topbar {
-        padding: 10px 16px;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .logo img {
-        width: 43px;
-        height: 43px;
-    }
-
-    .main {
-        padding: 25px 14px;
-    }
-
-    .card {
-        padding: 28px 21px;
-        border-radius: 16px;
-    }
-
-    .heading h1 {
-        font-size: 25px;
-    }
+    .topbar { padding: 10px 16px; }
+    .logo { font-size: 21px; }
+    .logo img { width: 43px; height: 43px; }
+    .main { padding: 25px 14px; }
+    .card { padding: 28px 21px; border-radius: 16px; }
+    .heading h1 { font-size: 25px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- AMIGOS LOGO: CLICK TO GO HOME -->
 <header class="topbar">
     <a href="index.html" class="logo">
         <img src="images/brand.png" alt="AMIGOS Brand Logo">
@@ -229,7 +243,6 @@ body {
 </header>
 
 <main class="main">
-
     <div class="card">
 
         <div class="heading">
@@ -237,7 +250,7 @@ body {
             <p>Create your free account and become a part of our growing business network.</p>
         </div>
 
-        <form id="signupForm" onsubmit="register(event)">
+        <form id="signupForm">
 
             <div class="form-group">
                 <label for="name">Full Name</label>
@@ -261,7 +274,7 @@ body {
                     placeholder="Enter 10-digit mobile number"
                     maxlength="10"
                     inputmode="numeric"
-                    autocomplete="tel"
+                    autocomplete="tel-national"
                     pattern="[0-9]{10}"
                     required
                 >
@@ -275,11 +288,43 @@ body {
                 </select>
             </div>
 
-            <button type="submit" class="register-btn">
-                Register Free
+            <div id="recaptcha-container"></div>
+
+            <button type="submit" id="sendOtpBtn" class="register-btn">
+                Send Registration OTP
             </button>
 
+            <div id="otpSection" class="hidden">
+                <div class="form-group" style="margin-top:20px;">
+                    <label for="otp">Enter OTP</label>
+                    <input
+                        type="text"
+                        id="otp"
+                        class="input-field"
+                        placeholder="Enter 6-digit OTP"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        pattern="[0-9]{6}"
+                    >
+                    <p class="otp-note">
+                        Enter the 6-digit verification code sent to your mobile number.
+                    </p>
+                </div>
+
+                <button type="button" id="verifyBtn" class="register-btn">
+                    Verify OTP & Register
+                </button>
+
+                <button type="button" id="resendBtn" class="register-btn"
+                    style="margin-top:10px;background:#e2e8f0;color:#0f2742;">
+                    Resend OTP
+                </button>
+            </div>
+
         </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
 
         <div class="login-link">
             Already registered with AMIGOS?
@@ -292,61 +337,297 @@ body {
         </div>
 
     </div>
-
 </main>
 
-<script>
-function register(event) {
+<script type="module">
+import { auth, db } from "./firebase-config.js";
 
-    event.preventDefault();
+import {
+    RecaptchaVerifier,
+    signInWithPhoneNumber,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const role = document.getElementById("role").value;
+import {
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    if (!name || !mobile) {
-        alert("Please fill all the fields.");
+const signupForm = document.getElementById("signupForm");
+const nameInput = document.getElementById("name");
+const mobileInput = document.getElementById("mobile");
+const roleInput = document.getElementById("role");
+const otpInput = document.getElementById("otp");
+
+const sendOtpBtn = document.getElementById("sendOtpBtn");
+const verifyBtn = document.getElementById("verifyBtn");
+const resendBtn = document.getElementById("resendBtn");
+const otpSection = document.getElementById("otpSection");
+const messageBox = document.getElementById("message");
+
+let confirmationResult = null;
+let recaptchaVerifier = null;
+let pendingRegistration = null;
+
+function showMessage(message, type = "error") {
+    messageBox.textContent = message;
+    messageBox.className = "message " + type;
+}
+
+function clearMessage() {
+    messageBox.textContent = "";
+    messageBox.className = "message";
+}
+
+function setBusy(button, busy, busyText, normalText) {
+    button.disabled = busy;
+    button.textContent = busy ? busyText : normalText;
+}
+
+function getPhoneNumber() {
+    return "+91" + mobileInput.value.trim();
+}
+
+function getFriendlyError(error) {
+    const code = error?.code || "";
+
+    const messages = {
+        "auth/invalid-phone-number": "Please enter a valid mobile number.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/quota-exceeded": "Firebase SMS quota has been exceeded. Please try later.",
+        "auth/captcha-check-failed": "reCAPTCHA verification failed. Please try again.",
+        "auth/invalid-verification-code": "Incorrect OTP. Please check and try again.",
+        "auth/code-expired": "OTP has expired. Please request a new OTP.",
+        "auth/network-request-failed": "Network error. Please check your internet connection.",
+        "auth/operation-not-allowed": "Phone authentication is not enabled in Firebase.",
+        "auth/billing-not-enabled": "Firebase requires the applicable billing setup for this SMS operation.",
+        "permission-denied": "Firestore permission denied. Please configure the security rules.",
+        "firestore/permission-denied": "Firestore permission denied. Please configure the security rules."
+    };
+
+    return messages[code] || error?.message || "Something went wrong. Please try again.";
+}
+
+async function setupRecaptcha() {
+    if (recaptchaVerifier) {
+        try {
+            recaptchaVerifier.clear();
+        } catch (error) {
+            console.warn("reCAPTCHA cleanup:", error);
+        }
+    }
+
+    document.getElementById("recaptcha-container").innerHTML = "";
+
+    recaptchaVerifier = new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+            size: "normal",
+            callback: () => {
+                clearMessage();
+            },
+            "expired-callback": () => {
+                showMessage("reCAPTCHA expired. Please verify again.");
+            }
+        }
+    );
+
+    await recaptchaVerifier.render();
+}
+
+async function sendRegistrationOtp() {
+    clearMessage();
+
+    const name = nameInput.value.trim();
+    const mobile = mobileInput.value.trim();
+    const role = roleInput.value;
+
+    if (name.length < 2) {
+        showMessage("Please enter your full name.");
+        nameInput.focus();
         return;
     }
 
     if (!/^[0-9]{10}$/.test(mobile)) {
-        alert("Please enter a valid 10-digit mobile number.");
+        showMessage("Please enter a valid 10-digit Indian mobile number.");
+        mobileInput.focus();
         return;
     }
 
-    let users = [];
+    if (!["distributor", "retailer"].includes(role)) {
+        showMessage("Please select a valid account type.");
+        return;
+    }
+
+    pendingRegistration = { name, mobile, role };
+
+    setBusy(sendOtpBtn, true, "Sending OTP...", "Send Registration OTP");
 
     try {
-        users = JSON.parse(localStorage.getItem("users")) || [];
+        await setupRecaptcha();
+
+        confirmationResult = await signInWithPhoneNumber(
+            auth,
+            getPhoneNumber(),
+            recaptchaVerifier
+        );
+
+        otpSection.classList.remove("hidden");
+        sendOtpBtn.classList.add("hidden");
+
+        nameInput.readOnly = true;
+        mobileInput.readOnly = true;
+        roleInput.disabled = true;
+
+        showMessage(
+            "OTP sent successfully to +91 " + mobile + ". Please verify it to complete registration.",
+            "success"
+        );
+
+        otpInput.focus();
+
     } catch (error) {
-        alert("Unable to read registration data. Please try again.");
-        return;
+        console.error("OTP sending error:", error);
+        showMessage(getFriendlyError(error));
+
+        if (recaptchaVerifier) {
+            try {
+                recaptchaVerifier.clear();
+            } catch (_) {}
+            recaptchaVerifier = null;
+        }
+
+    } finally {
+        setBusy(sendOtpBtn, false, "Sending OTP...", "Send Registration OTP");
     }
-
-    if (users.find(u => String(u.mobile) === mobile)) {
-        alert("This mobile number is already registered!");
-        return;
-    }
-
-    const status = role === "distributor" ? "pending" : "approved";
-
-    users.push({
-        name: name,
-        mobile: mobile,
-        role: role,
-        status: status
-    });
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    if (role === "distributor") {
-        alert("Thank you for registering with AMIGOS!\nYour Distributor request is pending Admin approval.");
-    } else {
-        alert("Registration successful!\nYou can now login to AMIGOS.");
-    }
-
-    window.location.href = "login.html";
 }
+
+async function verifyAndRegister() {
+    clearMessage();
+
+    const otp = otpInput.value.trim();
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        showMessage("Please enter the valid 6-digit OTP.");
+        otpInput.focus();
+        return;
+    }
+
+    if (!confirmationResult || !pendingRegistration) {
+        showMessage("Please request an OTP first.");
+        return;
+    }
+
+    setBusy(verifyBtn, true, "Verifying...", "Verify OTP & Register");
+
+    try {
+        // Verify the real Firebase SMS OTP.
+        const result = await confirmationResult.confirm(otp);
+        const firebaseUser = result.user;
+
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const existingProfile = await getDoc(userRef);
+
+        if (existingProfile.exists()) {
+            await signOut(auth);
+            showMessage(
+                "This mobile number is already registered. Please use the Login page."
+            );
+            return;
+        }
+
+        const role = pendingRegistration.role;
+
+        const profile = {
+            uid: firebaseUser.uid,
+            name: pendingRegistration.name,
+            mobile: pendingRegistration.mobile,
+            phoneNumber: firebaseUser.phoneNumber,
+            role: role,
+            status: role === "distributor" ? "pending" : "approved",
+            createdAt: serverTimestamp()
+        };
+
+        await setDoc(userRef, profile);
+
+        await signOut(auth);
+
+        if (role === "distributor") {
+            showMessage(
+                "Registration successful! Your Distributor account is pending Admin approval. You can log in after approval.",
+                "success"
+            );
+        } else {
+            showMessage(
+                "Registration successful! Your Retailer account is approved. You can now log in.",
+                "success"
+            );
+        }
+
+        signupForm.reset();
+        otpSection.classList.add("hidden");
+        sendOtpBtn.classList.remove("hidden");
+        nameInput.readOnly = false;
+        mobileInput.readOnly = false;
+        roleInput.disabled = false;
+        otpInput.value = "";
+        confirmationResult = null;
+        pendingRegistration = null;
+
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 3500);
+
+    } catch (error) {
+        console.error("Registration verification error:", error);
+        showMessage(getFriendlyError(error));
+
+    } finally {
+        setBusy(verifyBtn, false, "Verifying...", "Verify OTP & Register");
+    }
+}
+
+async function resendRegistrationOtp() {
+    clearMessage();
+
+    if (!pendingRegistration) {
+        showMessage("Please enter your registration details again.");
+        return;
+    }
+
+    setBusy(resendBtn, true, "Sending...", "Resend OTP");
+
+    try {
+        await setupRecaptcha();
+
+        confirmationResult = await signInWithPhoneNumber(
+            auth,
+            getPhoneNumber(),
+            recaptchaVerifier
+        );
+
+        otpInput.value = "";
+        showMessage("A new OTP has been sent to your mobile number.", "success");
+
+    } catch (error) {
+        console.error("Resend OTP error:", error);
+        showMessage(getFriendlyError(error));
+
+    } finally {
+        setBusy(resendBtn, false, "Sending...", "Resend OTP");
+    }
+}
+
+signupForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    sendRegistrationOtp();
+});
+
+verifyBtn.addEventListener("click", verifyAndRegister);
+resendBtn.addEventListener("click", resendRegistrationOtp);
 </script>
 
 </body>
