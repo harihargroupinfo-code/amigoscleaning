@@ -21,7 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-/* PARTICLES */
 #particles-js {
     position: fixed;
     inset: 0;
@@ -31,11 +30,12 @@ body {
 /* TOP BAR */
 .topbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 13px 22px;
     background: rgba(0,0,0,0.4);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .logo {
@@ -236,7 +236,8 @@ button:hover {
 /* MOBILE */
 @media(max-width:480px) {
     .topbar {
-        justify-content: center;
+        justify-content: flex-start;
+        padding: 10px 16px;
     }
 
     .container {
@@ -252,6 +253,11 @@ button:hover {
         font-size: 22px;
     }
 
+    .logo img {
+        height: 44px;
+        width: 44px;
+    }
+
     .dashboard {
         padding: 12px;
     }
@@ -263,10 +269,10 @@ button:hover {
 
 <div id="particles-js"></div>
 
-<!-- TOP BAR -->
+<!-- CLICKABLE AMIGOS LOGO -->
 <header class="topbar">
     <a href="index.html" class="logo">
-        <img src="images/brand.png" alt="AMIGOS Logo">
+        <img src="images/brand.png" alt="AMIGOS Brand Logo">
         <span>AMIGOS</span>
     </a>
 </header>
@@ -292,9 +298,7 @@ button:hover {
         autocomplete="tel"
     >
 
-    <button type="button" onclick="sendOTP()">
-        Send OTP
-    </button>
+    <button type="button" onclick="sendOTP()">Send OTP</button>
 
     <input
         type="text"
@@ -305,19 +309,14 @@ button:hover {
         autocomplete="one-time-code"
     >
 
-    <button type="button" onclick="login()">
-        Login
-    </button>
+    <button type="button" onclick="login()">Login</button>
 
-    <!-- REGISTER OPTION -->
     <div class="register-link">
         Don't have an account?
         <br>
         Join AMIGOS today!
         <br>
-        <a href="signup.html">
-            Create Account – Register Free
-        </a>
+        <a href="signup.html">Create Account – Register Free</a>
     </div>
 
 </div>
@@ -325,7 +324,6 @@ button:hover {
 <!-- ADMIN DASHBOARD -->
 <div class="dashboard" id="dashboard"></div>
 
-<!-- PARTICLE LIBRARY -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
@@ -639,7 +637,6 @@ function logout() {
 
     window.location.href = "login.html";
 }
-
 </script>
 
 </body>
